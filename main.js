@@ -146,14 +146,23 @@ function parseSingleNode(xNode,level){
   let res = "";
   if(!xNode || (xNode instanceof xd.Group)){
     
-    res+=typeNode+"<br>"+parseGroup(xNode,level+"--");
+    res+=typeNode+getDimension(xNode)+"<br>"+parseGroup(xNode,level+"--");
 
    return res;
    
   }else {
     
-  return typeNode+"<br>";
+  return typeNode+getDimension(xNode)+"<br>";
   }
+
+}
+function getDimension(xNode){
+  let res = "-";
+res+=" x:"+xNode.translation.x;
+res+=" y:"+xNode.translation.y;
+
+res+=" visible:"+xNode.visible;
+return res;
 
 }
 
