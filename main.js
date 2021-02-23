@@ -95,7 +95,7 @@ function show(event) { // [1]
 function update(selection) { // [1]
   
   const { Rectangle }= require("scenegraph"); // [2]
-  let allNames ="";
+  let res ="";
   //const form = document.querySelector("form"); // [3]
   //const warning = document.querySelector("#warning"); // [4]
   const instanceType = document.querySelector("#instanceType"); // [4]
@@ -103,19 +103,11 @@ function update(selection) { // [1]
   let name = firstItem.constructor.name;
   instanceType.innerHTML ="bkdsjojsdofkjgosjfdmklgjfdkl";
   //instanceType.innerHTML = name
-  if(!firstItem || (firstItem instanceof xd.Group)){
-    console.log("na7na fel if");
-    instanceType.innerHTML =name;
-    firstItem.children.forEach(element => {
-      allNames+= element.constructor.name+"<br>";
 
-    });
-    instanceType.innerHTML =allNames;
-   
-  }else {
-    console.log("na7na fel else");
-    instanceType.innerHTML =name;
-  }
+  let alltypes = "";
+  alltypes = parseSelectedItems(selection.items);
+
+  instanceType.innerHTML =alltypes;
 
 
 
@@ -138,6 +130,44 @@ function update(selection) { // [1]
     
   }
   */
+}
+function parseSelectedItems(selection){
+  let res = "";
+  selection.forEach(element=>{
+    res+=parseSingleNode(element,"");
+
+  })
+  return res;
+
+}
+
+function parseSingleNode(xNode,level){
+  let typeNode = xNode.constructor.name;
+  let res = "";
+  if(!xNode || (xNode instanceof xd.Group)){
+    
+    res+=typeNode+"<br>"+parseGroup(xNode,level+"--");
+
+   return res;
+   
+  }else {
+    
+  return typeNode+"<br>";
+  }
+
+}
+
+function parseGroup (group,level){
+  let res = "";
+  group.children.forEach(element => {
+    res+=level+ parseSingleNode(element,level);
+
+  });
+ 
+  return res;
+
+
+
 }
 module.exports = {
   panels: {
