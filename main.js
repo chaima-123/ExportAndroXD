@@ -59,6 +59,7 @@ function create() {
 </form>
 
 <p id="warning">This plugin requires you to select a rectangle in the document. Please select a rectangle.</p>
+<p id="instanceType">.</p>
 `;
 
   function increaseRectangleSize() { // [2]
@@ -83,6 +84,7 @@ function create() {
       console.log("width ",selectedRectangle.width);
       console.log("height ",selectedRectangle.height);
       console.log("visible ",selectedRectangle.visible);
+      console.log(selectedRectangle.constructor.name);
      
 
      // console.log(selectedRectangle.width);
@@ -106,13 +108,24 @@ function update(selection) { // [1]
 
   const form = document.querySelector("form"); // [3]
   const warning = document.querySelector("#warning"); // [4]
-
+  const instanceType = document.querySelector("#instanceType"); // [4]
+  let name = selection.items[0].constructor.name;
+  console.log("this the name ",name)
   if (!selection || !(selection.items[0] instanceof Rectangle)) { // [5]
     form.className = "hide";
     warning.className = "show";
+   // instanceType.className=  "hide";
+    instanceType.innerHTML = name
+    
   } else {
     form.className = "show";
     warning.className = "hide";
+ //   instanceType.className=  "show";
+   // instanceType.value = selection.items[0].constructor.name()
+    instanceType.innerHTML = name
+  
+
+    
   }
 }
 module.exports = {

@@ -1,0 +1,656 @@
+<div><div id="ekpanel_container"></div></div>
+<style>
+
+.row{
+  margin-bottom:10px;
+}
+
+.row > * {
+  width:100%;
+}
+
+.row.no-margin{
+  margin-bottom:0;
+}
+
+.row:first-child:nth-last-child(1) {
+    width: 100%;
+}
+
+.row:first-child:nth-last-child(2),
+.row:first-child:nth-last-child(2) ~ .row {
+    width: 50%;
+}
+
+.row:first-child:nth-last-child(3),
+.row:first-child:nth-last-child(3) ~ .row {
+    width: 33.3333%;
+}
+
+.row:first-child:nth-last-child(4),
+.row:first-child:nth-last-child(4) ~ .row {
+    width: 25%;
+}
+
+.row .col-l{ width:50%; }
+.row .col-xl{ width:66%; }
+.row .col-s{ width:33%; }
+.row .col-xs{ width:25%; }
+
+</style>
+<style>
+
+.hide{
+  display:none;
+}
+
+.show{
+  display:block;
+}
+
+.fix{
+  clear:both;
+  height:30px;
+  width:30px;
+}
+
+.clear-fix{
+  clear:both;
+  height:1px;
+  width:1px;
+}
+
+.clear{
+  clear:both;
+  height:14px;
+  width:14px;
+}
+
+.border{
+  border-top:1px solid #ccc;
+  margin-bottom:10px;
+}
+
+p{
+  padding-top:0.4em;
+  font-size:0.9em!important;
+}
+
+textarea{
+  overflow-y:scroll;
+}
+
+</style>
+<style>
+
+#ekpanel_container{
+  width:100%;
+  height:100%;
+  padding-right:5px;
+  display:table;
+}
+
+</style>
+<style>
+
+.toggle-content{
+  width:100%;
+}
+
+.option{
+  position:relative;
+  min-height:25px;
+  width:100%;
+  padding:5px;
+}
+
+.option > *{
+  position:absolute;
+  width:100%;
+}
+
+.option > .box{
+  width:auto;
+  min-width:24px;
+  padding-top:5px;
+}
+
+.option > .title{
+  width:75%;
+  left:24px;
+  padding-top:0.62em;
+  padding-left:5px;
+  font-size:1em!important;
+}
+
+input[type=text],
+input[type=password],
+input[type=email]{ 
+  width:95%; 
+  min-height:30px;
+}
+
+select,
+textarea
+,button{
+  width:95%!important; 
+  min-height:30px;
+}
+
+button{
+  
+}
+
+select{
+  border:2px solid #ddd;
+  border-radius: 5px;
+}
+
+select:hover{
+  border:1px solid #444;
+  border-right:2px solid #444;
+}
+
+.toggle-box{
+  width:35px;
+  height:12px;
+  position:relative;
+}
+
+.toggle-box .toggle{
+  border-radius:10px;
+  border:2px solid #333;
+  background-color:#eee;
+  position:absolute;
+  left:1px;
+  top:1px;
+  width:12px;
+  height:12px;
+}
+
+.toggle-box .background{
+  width:24px;
+  height:14px;
+  border-radius:7px;
+  background-color:#ccc;
+  position:absolute;
+}
+
+.toggle-box.on .background{
+  background-color:#333;
+}
+
+.toggle-box.on .toggle{
+  margin-left:10px;
+  border:none;
+  width:10px;
+  height:10px;
+  top:2px;
+  left:2px;
+}
+
+.button .selected{
+  background-color:#000!important;
+  font-color:#eee!important;
+}
+
+.sub-title{
+  font-size:10px;
+  margin-left:6px;
+  font-color:#ddd;
+}
+
+</style>
+<div>
+  <div class="row no-margin">
+    <h2 class="locale" locale="layers">LAYERS</h2>
+    <div class="toggle-box on" id="ekpanel_layers">
+      <div class="background"></div>
+      <div class="toggle"></div>
+    </div>
+  </div>
+  <div class="clear-fix"></div>
+  
+  <div class="toggle-content  ekpanel_layers-content">
+    
+    <div class="row" style="padding-bottom:10px;">
+      <div class="option">
+        <select id="ekpanel_layers_type" opt="OUTPUT_LAYERS_TYPE" data="LAYER_TYPES">
+          <option selected="" id="HTML5">HTML5</option>
+        </select>
+      </div>
+      <div class="option" style="margin-top:5px;">
+        <div class="box"><input type="checkbox" opt="LAYERS_REFRESH" checked="" id="ekpanel_layers_refresh"></div>
+        <div class="title"><span class="locale" locale="refresh"></span></div>
+      </div>
+    </div>
+  
+  </div>
+  
+  <div class="toggle-content  ekpanel_layers-content">
+    
+    <div class="row">
+      <div id="ekpanel_layers_code_view">Lightning Storm CC</div>
+    </div>
+  
+  </div>
+  
+  <div class="toggle-content  ekpanel_layers-content">
+    
+    <div class="toggle-content layers-content">
+      <div class="sub-title locale" locale="save_current_layer"></div>
+      <div class="row">
+        <div class="option">
+          <button class="ekpanel_layers_save_img" id="ekpanel_layers_image_png">PNG</button>
+        </div>
+        <div class="option">
+          <button class="ekpanel_layers_save_img" id="ekpanel_layers_image_jpg">JPG</button>
+        </div>
+        <div class="option">
+          <button class="ekpanel_layers_save_img" id="ekpanel_layers_image_svg">SVG</button>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  <div class="clear"></div><div class="border"></div></div>
+<style>
+
+#ekpanel_layers_code_view{
+  height:200px;
+  max-height:200px;
+  font-size:12px;
+  width:100%;
+  margin-top: 10px;
+  margin-left: 7px;
+}
+
+.Syntax {
+    color           : #100;
+    background-color: #f9f9f9;
+    border          : 1px solid silver;
+    margin          : 0 0 1.5em 0;
+    overflow        : auto;
+    height          : 100%;
+    position        : relative;
+    white-space          : pre !important;
+}
+
+.Syntax {
+    overflow-x    : auto;
+    padding-bottom: expression(this.scrollWidth > this.offsetWidth ? 15 : 0);
+    width         : 99%;
+}
+
+.Syntax .table {
+    border         : none !important;
+    border-collapse: collapse !important;
+    margin         : 0 !important;
+    padding        : 0 !important;
+    width          : 100% !important
+}
+
+.Syntax .caption {
+    margin          : 0 !important;
+    padding         : 2px !important;
+    width           : 100% !important;
+    background-color: #def !important;
+    text-align      : left !important;
+    font-family     : sans-serif !important;
+    font-size       : 12px !important;
+    line-height     : 1.2em !important;
+}
+
+.Syntax .caption a {
+    color          : #1982d1 !important;
+    text-align     : left !important;
+    font-family    : sans-serif !important;
+    font-size      : 12px !important;
+    line-height    : 16px !important;
+    text-decoration: none !important;
+}
+
+.Syntax .caption a:hover {
+    color          : #1982d1 !important;
+    text-decoration: underline !important;
+}
+
+.Syntax div, .Syntax .td {
+    border        : none !important;
+    text-align    : left !important;
+    padding       : 0 !important;
+    vertical-align: top !important;
+}
+
+.Syntax .td .code{
+    background-color: #EEE;
+    background-image: -webkit-linear-gradient( transparent 50%, rgba(255, 255, 255, .9) 50% );
+    background-image: -moz-linear-gradient( transparent 50%, rgba(255, 255, 255, .9) 50% );
+    background-image: -ms-linear-gradient( transparent 50%, rgba(255, 255, 255, .9) 50% );
+    background-image: -o-linear-gradient( transparent 50%, rgba(255, 255, 255, .9) 50% );
+    background-image: linear-gradient( transparent 50%, rgba(255, 255, 255, .9) 50% );
+    background-size : 1px 32px;
+    line-height     : normal !important;
+    white-space     : normal !important;
+    width           : 100% !important;
+}
+
+.Syntax .pre {
+    background           : transparent !important;
+    border               : none !important;
+    margin               : 0 !important;
+    padding              : 0 !important;
+    width                : auto !important;
+    float                : none !important;
+    clear                : none !important;
+    overflow             : visible !important;
+    font-family          : monospace !important;
+    font-size            : 12px !important;
+    line-height          : 16px !important;
+    padding              : 0 4px !important;
+    white-space          : pre !important;
+    -moz-box-shadow      : 0px 0px 0px rgba(0, 0, 0, 0) !important; /* FF3.5+ */
+    -webkit-box-shadow   : 0px 0px 0px rgba(0, 0, 0, 0) !important; /* Saf3.0+, Chrome */
+    box-shadow           : 0px 0px 0px rgba(0, 0, 0, 0) !important; /* Opera 10.5, IE 9.0 */
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius   : 0 !important;
+    border-radius        : 0 !important;
+}
+
+.Syntax .td{
+  display: table;
+  position: absolute;
+  top: 0;
+}
+
+.Syntax .td > div{
+  position: relative;
+}
+
+.Syntax .td .line_numbers .pre {
+  background-color: #def !important;
+  color           : gray !important;
+  text-align      : right !important;
+  width           : inherit;
+}
+
+.Syntax .td:first-child{
+  width             : 25px;
+  background-color  : #def;
+}
+
+.Syntax .td:last-child{
+  margin-left        : 30px;
+  line-height        : 16px !important;
+}
+
+div.pre{
+  position: relative;
+}
+
+div.pre > div.span{
+  width: 100%;
+  height: 20px;
+  position: relative;
+}
+
+div.span > div.span{
+  position: absolute;
+  top: 0;
+}
+
+
+
+</style>
+<div>
+  <div class="row no-margin">
+    <h2 class="locale" locale="images">IMAGES</h2>
+    <div class="toggle-box " id="ekpanel_images">
+      <div class="background"></div>
+      <div class="toggle"></div>
+    </div>
+  </div>
+  <div class="clear-fix"></div>
+  
+  <div class="toggle-content hide ekpanel_images-content">
+    
+    <div class="sub-title locale" locale="save_watermark"></div>
+    <div class="row">
+        <div class="option">
+            <select opt="SNAP_SHOT_SIZE">
+                <option id="" value="400">400%</option>
+                <option id="" value="300">300%</option>
+                <option id="" value="200">200%</option>
+                <option selected="" id="" value="100">100%</option>
+                <option id="" value="75">75%</option>
+                <option id="" value="50">50%</option>
+                <option id="" value="25">25%</option>
+            </select>
+        </div>
+        <div class="option">
+            <input type="text" id="watermark_text" opt="WATERMARK_TEXT" placeholder="Watermark text...">
+        </div>
+        <div class="option">
+            <button id="ekpanel_images_snap" class="locale" locale="snap"></button>
+        </div>
+    </div>
+    <div class="clear"></div>
+  
+  </div>
+  
+  <div class="toggle-content hide ekpanel_images-content">
+    
+    <div class="sub-title locale" locale="smart_resize"></div>
+    <div class="row">
+        <div class="option">
+            <select id="ekpanel_images_icon_sets" opt="ICON_SIZES" data="ICON_SETS">
+                <option selected="" id="icon_default" value="32,64,96,128">Default</option>
+            </select>
+        </div>
+        <div class="option">
+            <input id="ekpanel_images_icon_sizes" type="text" opt="ICON_SIZES" placeholder="" value="32,64,96,128">
+        </div>
+        <div class="option">
+            <button id="ekpanel_images_icons" class="locale" locale="icons"></button>
+        </div>
+    </div>
+    <div class="clear"></div>
+  
+  </div>
+  <div class="clear"></div><div class="border"></div></div>
+<div>
+  <div class="row no-margin">
+    <h2 class="locale" locale="customize">CUSTOMIZE</h2>
+    <div class="toggle-box " id="ekpanel_customize">
+      <div class="background"></div>
+      <div class="toggle"></div>
+    </div>
+  </div>
+  <div class="clear-fix"></div>
+  
+  <div class="toggle-content hide ekpanel_customize-content">
+    
+    <div class="row">
+      <div class="option">
+        <p style="text-align:right;width:95%;" class="locale" locale="language">: </p>
+      </div>
+      <div class="option">
+        <select id="ekpanel_language" data="LANGUAGE"> </select>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="sub-title locale" locale="layer_options"></div>
+    <div class="row no-margin">
+      <div class="option">
+        <div class="box"><input type="checkbox" opt="VALIDATION_AUTO_VALIDATE" id="" checked=""></div>
+        <div class="title"><span class="locale" locale="validate"></span></div>
+      </div>
+      <div class="option">
+        <div class="box"><input type="checkbox" opt="OUTPUT_HIDDEN_LAYERS" id=""></div>
+        <div class="title"><span class="locale" locale="hidden"></span></div>
+      </div>
+    </div>
+    <div class="row no-margin">
+      <div class="option">
+        <div class="box"><input type="checkbox" opt="OUTPUT_WEB_FONTS" id="" checked=""></div>
+        <div class="title"><span class="locale" locale="web_fonts"></span></div>
+      </div>
+      <div class="option">
+        <div class="box"><input type="checkbox" opt="OUTPUT_SVG_SHAPES" id=""></div>
+        <div class="title"><span>SVG</span></div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  
+  </div>
+  
+  <div class="toggle-content hide ekpanel_customize-content">
+    
+    <div class="clear"></div>
+    <div class="sub-title locale" locale="image_output_options"></div>
+    <div class="row">
+      <div class="option">
+        <div class="box"><input type="checkbox" id="" opt="OUTPUT_HTML_BG_IMAGE"></div>
+        <div class="title"><span>CSS</span></div>
+      </div>
+      <div class="option">
+        <div class="box"><input type="checkbox" id="" opt="ALLOW_SCREEN_IMAGES"></div>
+        <div class="title"><span class="locale" locale="responsive"></span></div>
+      </div>
+    </div>
+    <div class="clear"></div>
+  
+  </div>
+  
+  <div class="toggle-content hide ekpanel_customize-content">
+    
+    <div class="sub-title locale" locale="output_options"></div>
+    <div class="row no-margin">
+      <div class="option">
+        <div class="box"><input type="checkbox" id="" opt="OUTPUT_INLINE_CONTENT"></div>
+        <div class="title"><span class="locale" locale="inline"></span></div>
+      </div>
+      <div class="option">
+        <div class="box"><input type="checkbox" id="" opt="OUTPUT_OVERFLOW" checked=""></div>
+        <div class="title"><span class="locale" locale="overflow"></span></div>
+      </div>
+    </div>
+    <div class="row no-margin">
+      <div class="option">
+        <div class="box"><input type="checkbox" opt="OUTPUT_DYNAMIC_HEIGHT" id=""></div>
+        <div class="title"><span class="" locale="dynamic_height">Dynamic</span></div>
+      </div>
+      <div class="option">
+        <div class="box"><input type="checkbox" id="" opt="OUTPUT_HYBRID"></div>
+        <div class="title"><span class="locale" locale="hybrid">Hybrid</span></div>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="row">
+      <div class="option">
+        <p style="text-align:right;width:95%;" class="locale" locale="align">: </p>
+      </div>
+      <div class="option">
+        <select opt="OUTPUT_ALIGN">
+          <option id="">Left</option>
+          <option selected="" id="">Center</option>
+          <option id="">Right</option>
+        </select>
+      </div>
+    </div>
+    <div class="clear"></div>
+  
+  </div>
+  <div class="clear"></div><div class="border"></div></div>
+<div>
+    <div class="row no-margin">
+      <h2 class="locale" locale="exports"></h2>
+    </div>
+  <div class="toggle-content  ekpanel_exports-content">
+    
+    <div class="clear-fix"></div>
+    <div class="row" id="">
+      <div class="option">
+        <select id="ekpanel_export_type" uxp-variant="cta" opt="OUTPUT_TYPE" data="EXPORT_TYPES">
+          <option selected="" id="HTML5">HTML5</option>
+        </select>
+      </div>
+      <div class="option">
+        <button id="ekpanel_export_now" type="submit" uxp-variant="cta" class="locale" locale="export"></button>
+      </div>
+    </div>
+    <div class="clear"></div>
+    <div class="fix"></div>
+  
+  </div>
+  </div>
+<div><div id="ekpanel_popup" class="popup"></div></div>
+<style>
+
+.popup{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff;
+  display: none;
+}
+
+.popup .bg{
+  background-color: #f7f7f7;
+  opacity: .9;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.popup .body{
+  background-color: #333;
+  width: 80%;
+  font-size: 12px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.popup .title{
+  background-color: #aaa;
+  font-weight: bold;
+  padding: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.popup .content{
+  margin-bottom: 20px; 
+  padding: 20px;
+  padding-bottom: 50px;
+}
+
+.popup .footer{
+  position: absolute;
+  padding: 10px;
+  padding-right: 15px;
+  bottom: 0;
+  right: 0;
+}
+
+.popup .log{
+  height: 200px;
+  width: 100%;
+  background-color: #fff;
+  color: #000;
+  white-space: pre;
+  overflow: scroll;
+}
+
+</style>
+Rectangle ('Rectangle 1') {
+  width: 200, height: 200
+  global X,Y: 156, 139
+  parent: Artboard ('iPhone X, XS, 11 Pro – 1')
+  stroke: ff707070
+  fill: ffffffff
+}
