@@ -45,19 +45,7 @@ function create() {
     }
 </style>
 
-<form method="dialog" id="main">
-    <div class="row break">
-        <label class="row">
-            <span>↕︎</span>
-            <input type="number" uxp-quiet="true" id="txtV" value="10" placeholder="Height" />
-        </label>
-        <label class="row">
-            <span>↔︎</span>
-            <input type="number" uxp-quiet="true" id="txtH" value="10" placeholder="Width" />
-        </label>
-    </div>
-    <footer><button id="ok" type="submit" uxp-variant="cta">Apply</button></footer>
-</form>
+
 
 
 <p id="instanceType">class name</p>
@@ -95,7 +83,7 @@ function create() {
 
   panel = document.createElement("div"); // [9]
   panel.innerHTML = html; // [10]
-  panel.querySelector("form").addEventListener("submit", increaseRectangleSize); // [11]
+  //panel.querySelector("form").addEventListener("submit", increaseRectangleSize); // [11]
 
   return panel; // [12]
 }
@@ -105,11 +93,11 @@ function show(event) { // [1]
 }
 
 function update(selection) { // [1]
-  const xd = require("scenegraph"); 
-  const { Rectangle } = require("scenegraph"); // [2]
+  
+  const { Rectangle }= require("scenegraph"); // [2]
   let allNames ="";
-  const form = document.querySelector("form"); // [3]
-  const warning = document.querySelector("#warning"); // [4]
+  //const form = document.querySelector("form"); // [3]
+  //const warning = document.querySelector("#warning"); // [4]
   const instanceType = document.querySelector("#instanceType"); // [4]
   const firstItem = selection.items[0];
   let name = firstItem.constructor.name;
