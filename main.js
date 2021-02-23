@@ -158,9 +158,13 @@ function parseSingleNode(xNode,level){
 }
 function getDimension(xNode){
   let res = "-";
-res+=" x:"+xNode.translation.x;
-res+=" y:"+xNode.translation.y;
-
+res+="<br>"+" x:"+xNode.translation.x+"<br>";
+res+=" y:"+xNode.translation.y+"<br>";
+res+=" x1:"+xNode.globalDrawBounds.x+"<br>";
+res+=" y1:"+xNode.globalDrawBounds.y+"<br>";
+res+=" x2:"+xNode.localBounds.x+"<br>";
+res+=" y2:"+xNode.localBounds.y+"<br>";
+res+=" rot:"+xNode.rotation+"<br>";
 res+=" visible:"+xNode.visible;
 return res;
 
