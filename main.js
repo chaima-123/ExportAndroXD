@@ -1,4 +1,5 @@
 const {Rectangle, Color} = require("scenegraph"); 
+const xd = require("scenegraph"); 
 
 
 function rectangleHandlerFunction(selection) { 
@@ -58,8 +59,8 @@ function create() {
     <footer><button id="ok" type="submit" uxp-variant="cta">Apply</button></footer>
 </form>
 
-<p id="warning">This plugin requires you to select a rectangle in the document. Please select a rectangle.</p>
-<p id="instanceType">.</p>
+
+<p id="instanceType">class name</p>
 `;
 
   function increaseRectangleSize() { // [2]
@@ -104,18 +105,39 @@ function show(event) { // [1]
 }
 
 function update(selection) { // [1]
+  const xd = require("scenegraph"); 
   const { Rectangle } = require("scenegraph"); // [2]
-
+  let allNames ="";
   const form = document.querySelector("form"); // [3]
   const warning = document.querySelector("#warning"); // [4]
   const instanceType = document.querySelector("#instanceType"); // [4]
-  let name = selection.items[0].constructor.name;
-  console.log("this the name ",name)
+  const firstItem = selection.items[0];
+  let name = firstItem.constructor.name;
+  instanceType.innerHTML ="bkdsjojsdofkjgosjfdmklgjfdkl";
+  //instanceType.innerHTML = name
+  if(!firstItem || (firstItem instanceof xd.Group)){
+    console.log("na7na fel if");
+    instanceType.innerHTML =name;
+    firstItem.children.forEach(element => {
+      allNames+= element.constructor.name+"<br>";
+
+    });
+    instanceType.innerHTML =allNames;
+   
+  }else {
+    console.log("na7na fel else");
+    instanceType.innerHTML =name;
+  }
+
+
+
+
+  /*
   if (!selection || !(selection.items[0] instanceof Rectangle)) { // [5]
     form.className = "hide";
     warning.className = "show";
    // instanceType.className=  "hide";
-    instanceType.innerHTML = name
+ instanceType.innerHTML = name
     
   } else {
     form.className = "show";
@@ -127,6 +149,7 @@ function update(selection) { // [1]
 
     
   }
+  */
 }
 module.exports = {
   panels: {
