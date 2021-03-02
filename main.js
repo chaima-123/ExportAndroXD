@@ -1,19 +1,5 @@
 const {Rectangle, Color} = require("scenegraph"); 
 const xd = require("scenegraph"); 
-//const xmlhttp = require("XMLHttpRequest"); 
-
-
-function rectangleHandlerFunction(selection) { 
-
-  const newElement = new Rectangle(); 
-  newElement.width = 100;
-  newElement.height = 50;
-  newElement.fill = new Color("Purple");
-
-  selection.insertionParent.addChild(newElement);
-  newElement.moveInParentCoordinates(100, 100);
-
-}
 
 let panel;
 function create() {
@@ -92,9 +78,9 @@ function create() {
     <footer><button id="ok" type="submit" uxp-variant="cta">Apply</button></footer>
   
 </form>
-
-<p id="warning">This plugin requires you to select the type and the id in the document. Please select a rectangle.</p>
-<p id="instanceType">class name</p>
+<button id="export" type="submit" uxp-variant="cta">Export Artboard</button>
+<p id="warning"> Please select an Artboard to Export Or a Single element.</p>
+<p id="instanceType">Init class name</p>
 `;
 
 
@@ -104,31 +90,14 @@ function create() {
     const { editDocument } = require("application"); // [3]
     const idTxt =String(document.querySelector("#idTxt").value); // [4]
     var sel = document.getElementById('myList');
- var selectedBox = String(sel.value);
+    var selectedBox = String(sel.value);
     //const width = Number(document.querySelector("#txtH").value); // [5]
   
     // [6]
     editDocument({ editLabel: "Increase rectangle size" }, function(selection) {
       const selectedRectangle = selection.items[0]; // [7]
-      const test = new Rectangle(); 
-     console.log(idTxt,"testtttttttt");
-     console.log(sel.value,"this is the typeeee");
-
-     // console.log(test.globalX);
-     // console.log(test.x);
-     // console.log(test.X);
-     
-    // selectedRectangle.width += width; // [8]
-      //selectedRectangle.height += height;
-      
-      /*console.log("x ",selectedRectangle.translation.x);
-      console.log("y ",selectedRectangle.translation.y);
-      console.log("width ",selectedRectangle.width);
-      console.log("height ",selectedRectangle.height);
-      console.log("visible ",selectedRectangle.visible);
-      console.log(selectedRectangle.constructor.name);*/
-     // console.log(selectedRectangle.width);
-     
+      selectedRectangle.name="test";
+    
   sendRequest(idTxt,selectedBox);
     });
   }
@@ -156,18 +125,51 @@ function show(event) { // [1]
 
 function update(selection) { // [1]
   
-  const { Rectangle }= require("scenegraph"); // [2]
-  let res ="";
-  //const form = document.querySelector("form"); // [3]
-  //const warning = document.querySelector("#warning"); // [4]
+
+  const form = document.querySelector("form"); // [3]
+  
+  const warning = document.querySelector("#warning");
+  const buttonExport = document.querySelector("#export");
   const instanceType = document.querySelector("#instanceType"); // [4]
   const firstItem = selection.items[0];
-  let name = firstItem.constructor.name;
-  instanceType.innerHTML ="bkdsjojsdofkjgosjfdmklgjfdkl";
-  //instanceType.innerHTML = name
+  instanceType.innerHTML ="SomeThing Went Wrong Sofiene err ";
 
   let alltypes = "";
+
+
+if(selection.items.length>1){
+  warning.className = "show" ;
+  form.className = "hide" ;
+  buttonExport.className = "hide" ; 
   alltypes = parseSelectedItems(selection.items);
+  
+
+}else if(selection.items[0] instanceof xd.Artboard){
+  alltypes= parseSelectedItems(selection.items[0].children);
+
+
+
+  warning.className = "hide" ;
+  form.className = "hide" ;
+  buttonExport.className = "show" ; 
+}else if(selection.items.length==1) {
+  warning.className = "hide" ;
+  form.className = "show" ;
+  buttonExport.className = "hide" ;
+ 
+  alltypes += parseSelectedItems(selection.items);
+
+
+}else {
+
+  warning.className = "hide" ;
+  form.className = "hide" ;
+  buttonExport.className = "hide" ; 
+
+}
+
+
+ 
 
   instanceType.innerHTML =alltypes;
 
@@ -175,8 +177,7 @@ function update(selection) { // [1]
 
   /*
   if (!selection || !(selection.items[0] instanceof Rectangle)) { // [5]
-    form.className = "hide";
-    warning.className = "show";
+  
    // instanceType.className=  "hide";
  instanceType.innerHTML = name
     
@@ -207,14 +208,14 @@ function parseSingleNode(xNode,level){
   let res = "";
   if(!xNode || (xNode instanceof xd.Group)){
     
-    res+=typeNode+"<br>"+"name "+xNode.name+"<br>"+parseGroup(xNode,level+"--");
+    res+=typeNode+"<br>"+parseGroup(xNode,level+"--");
    // res+=typeNode+getDimension(xNode)+"<br>"+parseGroup(xNode,level+"--");
 
    return res;
    
   }else {
-    
-  return typeNode+"<br>"+xNode.name+"<br>";
+    return typeNode+"<br>";
+  //return typeNode+"<br>"+xNode.name+"<br>";
  // return typeNode+getDimension(xNode)+"<br>";
   }
 
@@ -277,9 +278,7 @@ module.exports = {
       show,
       update
     }
-  }, 
-  commands: {
-    firstAction: rectangleHandlerFunction
-}
+  }
+ 
 }
 ;
