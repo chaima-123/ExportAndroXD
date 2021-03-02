@@ -1,0 +1,75 @@
+<style>
+    .break {
+        flex-wrap: wrap;
+    }
+    label.row > span {
+        color: #8E8E8E;
+        width: 70px;
+        text-align: left;
+        font-size: 10px;
+    }
+    label.row input {
+        flex: 1 1 auto;
+        width:50%;
+    }
+
+
+    label.row > fieldset {
+      width:50%;
+      padding: 12px 20px;
+      margin: 10px 0;
+      box-sizing: border-box;      
+ 
+  }
+    
+    input[type=text] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+
+    form {
+        width:90%;
+        margin: -20px;
+        padding: 0px;
+    }
+    .show {
+        display: block;
+    }
+    .hide {
+        display: none;
+    }
+</style>
+
+<form method="dialog" id="main">
+
+<div class="row break">
+<label class="row">
+    <span>↕︎</span>
+    <label for="ElementType">Element Type:</label>
+    <fieldset>
+       <select id = "myList">
+         <option value = "EditText">EditText</option>
+         <option value = "Button">Button</option>
+         <option value = "CheckBox">CheckBox</option>
+         <option value = "TextView">TextView</option>
+       </select>
+ </fieldset>
+</label> 
+</div>
+    <div class="row break">
+        <label class="row">
+            <span>↕︎</span>
+            <label for="idTxt">Element id :</label>
+            <input type="text" uxp-quiet="true" id="idTxt"  placeholder="Write the id here" required>
+        </label>      
+    </div>
+
+
+    <footer><button id="ok" type="submit" uxp-variant="cta">Apply</button></footer>
+  
+</form>
+
+<p id="warning">This plugin requires you to select the type and the id in the document. Please select a rectangle.</p>
+<p id="instanceType">class name</p>

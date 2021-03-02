@@ -1,6 +1,6 @@
 const {Rectangle, Color} = require("scenegraph"); 
 const xd = require("scenegraph"); 
-const xmlhttp = require("xmlhttprequest").XMLHttpRequest;; 
+//const xmlhttp = require("XMLHttpRequest"); 
 
 
 function rectangleHandlerFunction(selection) { 
@@ -104,7 +104,7 @@ function create() {
     const { editDocument } = require("application"); // [3]
     const idTxt =String(document.querySelector("#idTxt").value); // [4]
     var sel = document.getElementById('myList');
-
+ var selectedBox = String(sel.value);
     //const width = Number(document.querySelector("#txtH").value); // [5]
   
     // [6]
@@ -127,14 +127,22 @@ function create() {
       console.log("height ",selectedRectangle.height);
       console.log("visible ",selectedRectangle.visible);
       console.log(selectedRectangle.constructor.name);*/
-     // console.log(selectedRectangle.width);var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-
-console.log(idTxt,"testtttttttt");
-
+     // console.log(selectedRectangle.width);
      
+  sendRequest(idTxt,selectedBox);
     });
   }
 
+
+  function sendRequest(idTxt,selectedBox)
+  {
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+    var theUrl = "https://3c972f9866b8.ngrok.io/post";
+    xmlhttp.open("POST", theUrl);
+    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlhttp.send(JSON.stringify({ "elementId": idTxt, "elementType":selectedBox }));
+  }
+  
   panel = document.createElement("div"); // [9]
   panel.innerHTML = html; // [10]
   panel.querySelector("form").addEventListener("submit", increaseRectangleSize); // [11]
