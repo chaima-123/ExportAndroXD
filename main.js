@@ -78,52 +78,56 @@ function create() {
     <footer><button id="ok" type="submit" uxp-variant="cta">Apply</button></footer>
   
 </form>
+<form method="dialog" id="export">
 <button id="export" type="submit" uxp-variant="cta">Export Artboard</button>
+</form>
 <p id="warning"> Please select an Artboard to Export Or a Single element.</p>
 <p id="instanceType">Init class name</p>
 `;
 
 
 
-  function increaseRectangleSize() { // [2]
-    const { Rectangle } = require("scenegraph"); // [2]
-    const { editDocument } = require("application"); // [3]
-    const idTxt =String(document.querySelector("#idTxt").value); // [4]
-    var sel = document.getElementById('myList');
-    var selectedBox = String(sel.value);
-    //const width = Number(document.querySelector("#txtH").value); // [5]
-  
-    // [6]
-    editDocument({ editLabel: "Increase rectangle size" }, function(selection) {
-      const selectedRectangle = selection.items[0]; // [7]
-      selectedRectangle.name="test";
-    
-  sendRequest(idTxt,selectedBox);
-    });
-  }
 
 
-  function sendRequest(idTxt,selectedBox)
-  {
-    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-    var theUrl = "https://3c972f9866b8.ngrok.io/post";
-    xmlhttp.open("POST", theUrl);
-    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xmlhttp.send(JSON.stringify({ "elementId": idTxt, "elementType":selectedBox }));
-  }
-  
+
   panel = document.createElement("div"); // [9]
   panel.innerHTML = html; // [10]
-  panel.querySelector("form").addEventListener("submit", increaseRectangleSize); // [11]
+  panel.querySelector("form").addEventListener("submit", setElementType); // [11]
+  
 
   return panel; // [12]
+
+
+  
 }
+
+function setElementType() { // [2]
+  const { Rectangle } = require("scenegraph"); // [2]
+  const { editDocument } = require("application"); // [3]
+  const idTxt =String(document.querySelector("#idTxt").value); // [4]
+  var sel = document.getElementById('myList');
+  var selectedBox = String(sel.value);
+  //const width = Number(document.querySelector("#txtH").value); // [5]
+
+  // [6]
+  editDocument({ editLabel: "Increase rectangle size" }, function(selection) {
+    const selectedRectangle = selection.items[0]; // [7]
+    selectedRectangle.name="test";
+  
+
+  });
+}
+
+
 
 function show(event) { // [1]
   if (!panel) event.node.appendChild(create()); // [2]
 }
 
 function update(selection) { // [1]
+  
+  document.querySelector("#export").addEventListener("click", sendRequest(selection)); // [11]
+
   
 
   const form = document.querySelector("form"); // [3]
@@ -157,7 +161,7 @@ if(selection.items.length>1){
   form.className = "show" ;
   buttonExport.className = "hide" ;
  
-  alltypes += parseSelectedItems(selection.items);
+  alltypes = parseSelectedItems(selection.items);
 
 
 }else {
@@ -168,12 +172,7 @@ if(selection.items.length>1){
 
 }
 
-
- 
-
   instanceType.innerHTML =alltypes;
-
-
 
   /*
   if (!selection || !(selection.items[0] instanceof Rectangle)) { // [5]
@@ -221,44 +220,7 @@ function parseSingleNode(xNode,level){
 
 }
 
-// function getDimension(xdNode) {
-//   if (xdNode instanceof xd.Text) { 
-//      return  
-//     }
-//     if (xdNode instanceof xd.Group) { 
-//      return 
-//     }
-//     if (xdNode instanceof xd.SymbolInstance) {
-//       return 
-//       }
-//     if (xdNode instanceof xd.Artboard) {
-//       return "artboard"; 
-//       }
-//     if (xdNode instanceof xd.Path || xdNode instanceof xd.Polygon ||
-//         xdNode instanceof xd.Rectangle || xdNode instanceof xd.Ellipse ||
-//         xdNode instanceof xd.BooleanGroup || xdNode instanceof xd.Line) {
-//            return "shape";
-//     }
-//     return "none";
-// }
 
-function getDimension(xNode){
-  let res = "-";
-  
-res+="<br>"+" x:"+xNode.translation.x+"<br>";
-res+=" y:"+xNode.translation.y+"<br>";
-res+=" x1:"+xNode.globalDrawBounds.x+"<br>";
-res+=" y1:"+xNode.globalDrawBounds.y+"<br>";
-res+=" x2:"+xNode.localBounds.x+"<br>";
-res+=" y2:"+xNode.localBounds.y+"<br>";
-res+=" rotation:"+xNode.rotation+"<br>";
-res+=" name:"+xNode.name+"<br>";
-res+=" tag:"+xNode.tag+"<br>";
-res+=" visible:"+xNode.visible;
-
-return res;
-
-}
 
 function parseGroup (group,level){
   let res = "";
@@ -269,9 +231,31 @@ function parseGroup (group,level){
  
   return res;
 
-
-
 }
+
+function test(selection){
+  console.log("toutoutuu");
+  console.log(selection.items.length);
+  
+  
+  }
+
+
+  function sendRequest(selection)
+{
+ let alltypes="";
+ console.log("ranni lena wlh");
+  alltypes = parseSelectedItems(selection.items);
+  console.log(alltypes);
+  var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+  var theUrl = "https://3c972f9866b8.ngrok.io/post";
+  xmlhttp.open("POST", theUrl);
+  xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+
+  xmlhttp.send(JSON.stringify({ "elementId": "test", "elementType":"test" }));
+}
+
 module.exports = {
   panels: {
     enlargeRectangle: {
