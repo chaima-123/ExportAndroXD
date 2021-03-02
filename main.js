@@ -1,5 +1,6 @@
 const {Rectangle, Color} = require("scenegraph"); 
 const xd = require("scenegraph"); 
+const xmlhttp = require("xmlhttprequest").XMLHttpRequest;; 
 
 
 function rectangleHandlerFunction(selection) { 
@@ -25,13 +26,31 @@ function create() {
     }
     label.row > span {
         color: #8E8E8E;
-        width: 20px;
-        text-align: right;
-        font-size: 9px;
+        width: 70px;
+        text-align: left;
+        font-size: 10px;
     }
     label.row input {
         flex: 1 1 auto;
+        width:50%;
     }
+
+
+    label.row > fieldset {
+      width:50%;
+      padding: 12px 20px;
+      margin: 10px 0;
+      box-sizing: border-box;      
+ 
+  }
+    
+    input[type=text] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+
     form {
         width:90%;
         margin: -20px;
@@ -45,45 +64,80 @@ function create() {
     }
 </style>
 
+<form method="dialog" id="main">
+
+<div class="row break">
+<label class="row">
+    <span>↕︎</span>
+    <label for="ElementType">Element Type:</label>
+    <fieldset>
+       <select id = "myList">
+         <option value = "EditText">EditText</option>
+         <option value = "Button">Button</option>
+         <option value = "CheckBox">CheckBox</option>
+         <option value = "TextView">TextView</option>
+       </select>
+ </fieldset>
+</label> 
+</div>
+    <div class="row break">
+        <label class="row">
+            <span>↕︎</span>
+            <label for="idTxt">Element id :</label>
+            <input type="text" uxp-quiet="true" id="idTxt"  placeholder="Write the id here" required>
+        </label>      
+    </div>
 
 
+    <footer><button id="ok" type="submit" uxp-variant="cta">Apply</button></footer>
+  
+</form>
 
+<p id="warning">This plugin requires you to select the type and the id in the document. Please select a rectangle.</p>
 <p id="instanceType">class name</p>
 `;
+
+
 
   function increaseRectangleSize() { // [2]
     const { Rectangle } = require("scenegraph"); // [2]
     const { editDocument } = require("application"); // [3]
-    const height = Number(document.querySelector("#txtV").value); // [4]
-    const width = Number(document.querySelector("#txtH").value); // [5]
+    const idTxt =String(document.querySelector("#idTxt").value); // [4]
+    var sel = document.getElementById('myList');
+
+    //const width = Number(document.querySelector("#txtH").value); // [5]
   
     // [6]
     editDocument({ editLabel: "Increase rectangle size" }, function(selection) {
       const selectedRectangle = selection.items[0]; // [7]
       const test = new Rectangle(); 
-     // console.log(test.X);
+     console.log(idTxt,"testtttttttt");
+     console.log(sel.value,"this is the typeeee");
+
      // console.log(test.globalX);
      // console.log(test.x);
      // console.log(test.X);
-      selectedRectangle.width += width; // [8]
-      selectedRectangle.height += height;
+     
+    // selectedRectangle.width += width; // [8]
+      //selectedRectangle.height += height;
       
-      console.log("x ",selectedRectangle.translation.x);
+      /*console.log("x ",selectedRectangle.translation.x);
       console.log("y ",selectedRectangle.translation.y);
       console.log("width ",selectedRectangle.width);
       console.log("height ",selectedRectangle.height);
       console.log("visible ",selectedRectangle.visible);
-      console.log(selectedRectangle.constructor.name);
-     
+      console.log(selectedRectangle.constructor.name);*/
+     // console.log(selectedRectangle.width);var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
 
-     // console.log(selectedRectangle.width);
+console.log(idTxt,"testtttttttt");
+
      
     });
   }
 
   panel = document.createElement("div"); // [9]
   panel.innerHTML = html; // [10]
-  //panel.querySelector("form").addEventListener("submit", increaseRectangleSize); // [11]
+  panel.querySelector("form").addEventListener("submit", increaseRectangleSize); // [11]
 
   return panel; // [12]
 }
@@ -108,7 +162,6 @@ function update(selection) { // [1]
   alltypes = parseSelectedItems(selection.items);
 
   instanceType.innerHTML =alltypes;
-
 
 
 
@@ -146,13 +199,13 @@ function parseSingleNode(xNode,level){
   let res = "";
   if(!xNode || (xNode instanceof xd.Group)){
     
-    res+=typeNode+getDimension(xNode)+"<br>"+parseGroup(xNode,level+"--");
+    res+=typeNode+"<br>"+parseGroup(xNode,level+"--");
 
    return res;
    
   }else {
     
-  return typeNode+getDimension(xNode)+"<br>";
+  return typeNode+"<br>";
   }
 
 }
