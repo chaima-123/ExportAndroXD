@@ -146,26 +146,54 @@ function parseSingleNode(xNode,level){
   let res = "";
   if(!xNode || (xNode instanceof xd.Group)){
     
-    res+=typeNode+getDimension(xNode)+"<br>"+parseGroup(xNode,level+"--");
+    res+=typeNode+"<br>"+"name "+xNode.name+"<br>"+parseGroup(xNode,level+"--");
+   // res+=typeNode+getDimension(xNode)+"<br>"+parseGroup(xNode,level+"--");
 
    return res;
    
   }else {
     
-  return typeNode+getDimension(xNode)+"<br>";
+  return typeNode+"<br>"+xNode.name+"<br>";
+ // return typeNode+getDimension(xNode)+"<br>";
   }
 
 }
+
+// function getDimension(xdNode) {
+//   if (xdNode instanceof xd.Text) { 
+//      return  
+//     }
+//     if (xdNode instanceof xd.Group) { 
+//      return 
+//     }
+//     if (xdNode instanceof xd.SymbolInstance) {
+//       return 
+//       }
+//     if (xdNode instanceof xd.Artboard) {
+//       return "artboard"; 
+//       }
+//     if (xdNode instanceof xd.Path || xdNode instanceof xd.Polygon ||
+//         xdNode instanceof xd.Rectangle || xdNode instanceof xd.Ellipse ||
+//         xdNode instanceof xd.BooleanGroup || xdNode instanceof xd.Line) {
+//            return "shape";
+//     }
+//     return "none";
+// }
+
 function getDimension(xNode){
   let res = "-";
+  
 res+="<br>"+" x:"+xNode.translation.x+"<br>";
 res+=" y:"+xNode.translation.y+"<br>";
 res+=" x1:"+xNode.globalDrawBounds.x+"<br>";
 res+=" y1:"+xNode.globalDrawBounds.y+"<br>";
 res+=" x2:"+xNode.localBounds.x+"<br>";
 res+=" y2:"+xNode.localBounds.y+"<br>";
-res+=" rot:"+xNode.rotation+"<br>";
+res+=" rotation:"+xNode.rotation+"<br>";
+res+=" name:"+xNode.name+"<br>";
+res+=" tag:"+xNode.tag+"<br>";
 res+=" visible:"+xNode.visible;
+
 return res;
 
 }
