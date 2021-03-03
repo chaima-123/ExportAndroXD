@@ -82,7 +82,7 @@ function create() {
     <footer><button id="ok" type="submit" uxp-variant="cta">Apply</button></footer>
   
 </form>
-<form method="dialog" id="export">
+<form  method="dialog" id="main">
 <button id="export" type="submit" uxp-variant="cta">Export Artboard</button>
 </form>
 <p id="warning"> Please select an Artboard to Export Or a Single element.</p>
@@ -96,7 +96,7 @@ function create() {
 
   panel = document.createElement("div"); // [9]
   panel.innerHTML = html; // [10]
-  panel.querySelector("form").addEventListener("submit", setElementType); // [11]
+  panel.querySelectorAll("form")[0].addEventListener("submit", setElementType); // [11]
   
 
   return panel; // [12]
@@ -133,8 +133,7 @@ function show(event) { // [1]
 
 function update(selection) { // [1]
   
-  document.querySelector("#export").addEventListener("click", sendRequest(selection)); // [11]
-
+  panel.querySelectorAll("form")[1].addEventListener("submit", sendRequest(selection)); // [11]
   
 
   const form = document.querySelector("form"); // [3]
@@ -232,7 +231,7 @@ function parseGroup (group,level){
   
   var Group=new G("1");
   //Rectangle.helloworld(); 
-  console.log(Group.helloworld());
+  
 
   let allElements= selection.items[0].children;
 
@@ -242,7 +241,7 @@ function parseGroup (group,level){
   });
 
 console.log(elementJson);
-
+console.log(JSON.stringify(elementJson));
 
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
   var theUrl = "https://3c972f9866b8.ngrok.io/post";
