@@ -1,5 +1,9 @@
-const {Rectangle, Color} = require("scenegraph"); 
+
 const xd = require("scenegraph"); 
+
+const { G } = require("./nodes/Group");
+
+
 
 let panel;
 function create() {
@@ -102,7 +106,7 @@ function create() {
 }
 
 function setElementType() { // [2]
-  const { Rectangle } = require("scenegraph"); // [2]
+
   const { editDocument } = require("application"); // [3]
   const idTxt =String(document.querySelector("#idTxt").value); // [4]
   var sel = document.getElementById('myList');
@@ -110,11 +114,14 @@ function setElementType() { // [2]
   //const width = Number(document.querySelector("#txtH").value); // [5]
 
   // [6]
-  editDocument({ editLabel: "Increase rectangle size" }, function(selection) {
-    const selectedRectangle = selection.items[0]; // [7]
-    selectedRectangle.name="test";
-  
 
+  editDocument({ editLabel: "Increase rectangle size" }, function(selection) {
+    const selectedItem = selection.items[0]; // [7]
+  //  let res ="*Button*id";
+
+    let res ="";
+    res= "*"+selectedBox+"*"+idTxt;
+    selectedItem.name=res;
   });
 }
 
@@ -174,23 +181,7 @@ if(selection.items.length>1){
 
   instanceType.innerHTML =alltypes;
 
-  /*
-  if (!selection || !(selection.items[0] instanceof Rectangle)) { // [5]
-  
-   // instanceType.className=  "hide";
- instanceType.innerHTML = name
-    
-  } else {
-    form.className = "show";
-    warning.className = "hide";
- //   instanceType.className=  "show";
-   // instanceType.value = selection.items[0].constructor.name()
-    instanceType.innerHTML = name
-  
-
-    
-  }
-  */
+ 
 }
 function parseSelectedItems(selection){
   let res = "";
@@ -233,27 +224,32 @@ function parseGroup (group,level){
 
 }
 
-function test(selection){
-  console.log("toutoutuu");
-  console.log(selection.items.length);
-  
-  
-  }
+
 
 
   function sendRequest(selection)
 {
- let alltypes="";
- console.log("ranni lena wlh");
-  alltypes = parseSelectedItems(selection.items);
-  console.log(alltypes);
+  
+  var Group=new G("1");
+  //Rectangle.helloworld(); 
+  console.log(Group.helloworld());
+
+  let allElements= selection.items[0].children;
+
+  let elementJson =[];
+  allElements.forEach(element => {
+    elementJson.push(Group.parseNodeToJson(element));
+  });
+
+console.log(elementJson);
+
+
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
   var theUrl = "https://3c972f9866b8.ngrok.io/post";
   xmlhttp.open("POST", theUrl);
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-
-  xmlhttp.send(JSON.stringify({ "elementId": "test", "elementType":"test" }));
+  xmlhttp.send(JSON.stringify(elementJson));
 }
 
 module.exports = {
