@@ -1,7 +1,7 @@
 
 const { Button } = require("../androidWidget/Button");
 const { EditText } = require("../androidWidget/EditText");
-const { TextField } = require("../androidWidget/TextField");
+const { TextView } = require("../androidWidget/TextView");
 const { CheckBox } = require("../androidWidget/CheckBox");
 
 
@@ -41,12 +41,15 @@ static ParseByAndroidClass(xdNode,typeWidget) {
     if(typeWidget=="Button"){
         return Button.parseButtonToJson(xdNode);
     }else if (typeWidget=="EditText"){
+      return EditText.parseEditTextToJson(xdNode);
+    }else if(typeWidget=="TextView"){ 
+      return TextView.parseTextViewToJson(xdNode);
+    }else{
 
-
-    }else {
-            let data={};
-                data["NOTYPE"]="NOTYPE";
-            return data;
+      return {};
+            // let data={};
+            //     data["NOTYPE"]="NOTYPE";
+            // return data;
           }
     }
   

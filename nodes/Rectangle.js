@@ -6,26 +6,15 @@ class Rectangle {
 
 		jsonObj["width"]=rectangle.width;
 		jsonObj["height"]=rectangle.height;
-
-
-
+		jsonObj["backGround"]=rectangle.fill.value ;
+		jsonObj["x"]=rectangle.translation.x;
+		jsonObj["y"]=rectangle.translation.y;
+		jsonObj["cornerRadius"]=rectangle.cornerRadii;
 
 
 		return jsonObj;
 	   
    }
-
-	//  parseNodeToJson(node) {
-	// 	 let data= {
-	// 		"width":"match_parent",
-	// 		"height":"wrap_content"
-
-		
-
-	// 	 }
-		
-	// }
-
 
 
 }

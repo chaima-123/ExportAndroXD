@@ -7,11 +7,12 @@ class Text {
 		jsonObj["fontFamily"]=text.fontFamily ;
 		jsonObj["fontStyle"]=text.fontStyle ;
 		jsonObj["fontSize"]=text.fontSize ;
-		jsonObj["fill"]=text.fill ;
+		jsonObj["textColor"]=text.fill.value ;
 		jsonObj["charSpacing"]=text.charSpacing ;
 		jsonObj["textAlign"]=text.textAlign ;
 		jsonObj["lineSpacing"]=text.fontFlineSpacingamily ;
-		
+		jsonObj["text-x"]=text.translation.x;
+		jsonObj["text-y"]=text.translation.y;
 		return jsonObj;
 
 

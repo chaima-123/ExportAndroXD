@@ -1,6 +1,7 @@
 const { Utils } = require("../utils/Utils");
 const { Group } = require("../nodes/Group");
 const { Rectangle } = require("../nodes/Rectangle");
+const { Text } = require("../nodes/Text");
 const xd = require("scenegraph"); 
 class Button {
 
@@ -8,9 +9,13 @@ class Button {
      var jsonButton = {};
      var jsonGroup= {};
      var jsonRectangle= {};
+     var jsonText= {};
      jsonButton[".class"]="Button";
      jsonButton[".adobeClass"]=button.constructor.name;
-     jsonButton[".id"]=button.name;
+    //  console.log(Utils.getype(button.name));
+     jsonButton[".id"]=button.name.substring(
+        button.name.lastIndexOf("*") + 1, 
+    );
      if(button instanceof xd.Group)
      {  
      jsonGroup=  Group.parseGroupFromButtonToJson(button);
@@ -23,6 +28,10 @@ class Button {
 
       jsonButton = {...jsonButton,...jsonRectangle};
 
+     }else if(button instanceof xd.Text){
+
+        jsonText= Text.parseTextToJson(button);
+        jsonButton = {...jsonButton,...jsonText};
      }
 
   
