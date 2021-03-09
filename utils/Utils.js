@@ -38,15 +38,18 @@ static getId(fullNameNode){
 }
 
 static ParseByAndroidClass(xdNode,typeWidget) {
-    if(typeWidget="Button"){
+    if(typeWidget=="Button"){
         return Button.parseButtonToJson(xdNode);
+    }else if (typeWidget=="EditText"){
+
+
     }else {
             let data={};
-                data["test"]="test";
+                data["NOTYPE"]="NOTYPE";
             return data;
-
+          }
     }
-  }
+  
 
 
 

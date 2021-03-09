@@ -10,9 +10,9 @@ static parseArtBoardToJson (artboard){
 	let Jsonitem = {}
 	let jsonChildren = [];
 	Jsonitem["name"]= artboard.name;
-
 		artboard.children.forEach(element => {
 			jsonChildren.push(Utils.ParseByAndroidClass(element,Utils.getype(element.name)));
+			
 	  });
 
 	  Jsonitem["children"]= jsonChildren;

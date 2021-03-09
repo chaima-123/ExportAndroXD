@@ -10,6 +10,7 @@ class Button {
      var jsonRectangle= {};
      jsonButton[".class"]="Button";
      jsonButton[".adobeClass"]=button.constructor.name;
+     jsonButton[".id"]=button.name;
      if(button instanceof xd.Group)
      {  
      jsonGroup=  Group.parseGroupFromButtonToJson(button);
