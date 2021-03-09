@@ -1,43 +1,30 @@
 class Rectangle {
 
+	
+	static parseRectangleToJson(rectangle) {
+		let jsonObj={};
 
-	constructor(xdNode) {
-		this.data= null;
-	}
-	getype(fullNameNode){
+		jsonObj["width"]=rectangle.width;
+		jsonObj["height"]=rectangle.height;
 
-		var myType = fullNameNode.substring(
-			fullNameNode.firstIndexOf("*") + 1, 
-			fullNameNode.lastIndexOf("*")
-		);
 
-		return myType;
 
-	}
 
-	getId(fullNameNode){
 
-		var myId = fullNameNode.substring(
-			fullNameNode.lastIndexOf("*") + 1, 
-			
-		);
+		return jsonObj;
+	   
+   }
 
-		return myId;
-
-	}
-
-	 parseNodeToJson(node) {
-		 let data= {
-			"type":this.getype(node),
-			"id": this.getId(node),
-			"width":"match_parent",
-			"height":"wrap_content"
+	//  parseNodeToJson(node) {
+	// 	 let data= {
+	// 		"width":"match_parent",
+	// 		"height":"wrap_content"
 
 		
 
-		 }
+	// 	 }
 		
-	}
+	// }
 
 
 

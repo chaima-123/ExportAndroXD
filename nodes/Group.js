@@ -1,4 +1,6 @@
 const xd = require("scenegraph"); 
+const { Rectangle } = require("./Rectangle");
+const { Text } = require("./Text");
 class Group {
   
   static parseGroupToJson(xdNode){
@@ -23,32 +25,41 @@ class Group {
     
   }
 
+  static parseGroupFromButtonToJson(button){
+
+    var  jsonText={};
+    var  jsonRectangle={};
+    let Texts = button.children.filter(groupChild => {
+      return groupChild instanceof xd.Text;
+  });
+  let Rectangles = button.children.filter(groupChild => {
+      return groupChild instanceof xd.Rectangle;
+  });
+
+  if(Texts.length>0){
+
+    jsonText= Text.parseTextToJson(Texts[0]);
+
+  }
+
+  if(Rectangles.length>0){
+
+    jsonRectangle= Rectangle.parseRectangleToJson(Rectangles[0]);
+
+
+  }
+
+  return {...jsonText,...jsonRectangle}
 
 
 
 
 
-    getype( fullNameNode){
 
-		var myType = fullNameNode.substring(
-			fullNameNode.indexOf("*") + 1, 
-			fullNameNode.lastIndexOf("*")
-		);
+  }
 
-		return myType;
 
-	}
 
-	getId(fullNameNode){
-
-		var myId = fullNameNode.substring(
-			fullNameNode.lastIndexOf("*") + 1, 
-			
-		);
-
-		return myId;
-
-	}
 
       parseNodeToJson(node) {
     

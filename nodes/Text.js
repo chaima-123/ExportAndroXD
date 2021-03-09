@@ -1,6 +1,13 @@
 class Text {
 
-	static parseTextToJson(element){
+	static parseTextToJson(text){
+		let jsonObj={};
+
+		jsonObj["text"]=text.text;
+		jsonObj["fontFamily "]=text.fontFamily ;
+
+
+		return jsonObj;
 
 
 	}

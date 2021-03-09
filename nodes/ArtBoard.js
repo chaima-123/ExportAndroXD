@@ -3,11 +3,6 @@ const { Utils } = require("../utils/Utils");
 const { Button } = require("../androidWidget/Button");
 class ArtBoard {
 
-static helloworld(){
-
-	console.log("hello you ");
-}
-
 
 static parseArtBoardToJson (artboard){
 	
