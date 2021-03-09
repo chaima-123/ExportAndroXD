@@ -1,7 +1,13 @@
 
 const xd = require("scenegraph"); 
 
+const { RootNode }=require("./nodes/RootNode")
+
+
 const { G } = require("./nodes/Group");
+
+const { ArtBoard } = require("./nodes/ArtBoard");
+
 
 
 
@@ -131,10 +137,11 @@ function show(event) { // [1]
   if (!panel) event.node.appendChild(create()); // [2]
 }
 
-function update(selection) { // [1]
+function update(selection,root) { // [1]
   
   panel.querySelectorAll("form")[1].addEventListener("submit", sendRequest(selection)); // [11]
   
+  RootNode.ExportAll(root)
 
   const form = document.querySelector("form"); // [3]
   
@@ -142,7 +149,7 @@ function update(selection) { // [1]
   const buttonExport = document.querySelector("#export");
   const instanceType = document.querySelector("#instanceType"); // [4]
   const firstItem = selection.items[0];
-  instanceType.innerHTML ="SomeThing Went Wrong Sofiene err ";
+  instanceType.innerHTML ="SomeThing Went Wrong  err ";
 
   let alltypes = "";
 
@@ -228,27 +235,27 @@ function parseGroup (group,level){
 
   function sendRequest(selection)
 {
+ 
+//   var Group=new G("1");
+//   //Rectangle.helloworld(); 
   
-  var Group=new G("1");
-  //Rectangle.helloworld(); 
-  
 
-  let allElements= selection.items[0].children;
+//   let allElements= selection.items[0].children;
 
-  let elementJson =[];
-  allElements.forEach(element => {
-    elementJson.push(Group.parseNodeToJson(element));
-  });
+//   let elementJson =[];
+//   allElements.forEach(element => {
+//     elementJson.push(Group.parseNodeToJson(element));
+//   });
 
-console.log(elementJson);
-console.log(JSON.stringify(elementJson));
+// console.log(elementJson);
+// console.log(JSON.stringify(elementJson));
 
-  var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-  var theUrl = "https://3c972f9866b8.ngrok.io/post";
-  xmlhttp.open("POST", theUrl);
-  xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+//   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+//   var theUrl = "https://3c972f9866b8.ngrok.io/post";
+//   xmlhttp.open("POST", theUrl);
+//   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-  xmlhttp.send(JSON.stringify(elementJson));
+//   xmlhttp.send(JSON.stringify(elementJson));
 }
 
 module.exports = {
