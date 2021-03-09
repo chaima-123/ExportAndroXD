@@ -1,9 +1,33 @@
 const xd = require("scenegraph"); 
-class G {
+class Group {
   
-    constructor(xdNode) {
-		this.data= null;
-	}
+  static parseGroupToJson(xdNode){
+
+    let text= "";
+    node.children.forEach(element => {
+       
+    
+      });
+
+    let data= {
+       "type":this.getype(node.name),
+       "id": this.getId(node.name),
+       "width":"match_parent",
+       "height":"wrap_content",
+       "text":text,
+
+
+    }
+
+    return data;
+    
+  }
+
+
+
+
+
+
     getype( fullNameNode){
 
 		var myType = fullNameNode.substring(
@@ -50,13 +74,9 @@ class G {
         return data;
        
    }
-   helloworld() {
-
-
-    console.log("he");
-   }
+  
 
 }
 
 
-exports.G = G;
+exports.Group = Group;

@@ -1,11 +1,11 @@
 class Text {
 
+	static parseTextToJson(element){
 
-	constructor(xdNode) {
-		
+
 	}
 
 
 }
 
-global.Text = Text;
+exports.Text = Text;

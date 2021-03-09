@@ -1,5 +1,17 @@
 
 const { Button } = require("../androidWidget/Button");
+const { EditText } = require("../androidWidget/EditText");
+const { TextField } = require("../androidWidget/TextField");
+const { CheckBox } = require("../androidWidget/CheckBox");
+
+
+const { Text } = require("../nodes/Text");
+const { Group } = require("../nodes/Group");
+const { Rectangle } = require("../nodes/Rectangle");
+
+
+
+
 class Utils {
 
 
@@ -34,6 +46,38 @@ static ParseByAndroidClass(xdNode,typeWidget) {
             return data;
 
     }
+  }
+
+
+
+
+
+
+
+
+ static ParseByAdobeClass(xdNode) {
+    if (xdNode instanceof xd.Text) { 
+       return  Text.parseTextToJson(xdNode);
+      }
+      if (xdNode instanceof xd.Group) { 
+        return  Group.parseGroupToJson(xdNode);
+      }
+      if (xdNode instanceof xd.Rectangle) { 
+        return  Rectangle.parseRectangleToJson(xdNode);
+      }
+     
+      if (xdNode instanceof xd.Path || xdNode instanceof xd.Polygon ||
+         xdNode instanceof xd.Ellipse ||
+          xdNode instanceof xd.BooleanGroup || xdNode instanceof xd.Line) {
+            return  Text.parseTextToJson(xdNode);
+      }
+      if (xdNode instanceof xd.SymbolInstance) {
+        return "none"
+        }
+      if (xdNode instanceof xd.Artboard) {
+        return "artboard"; 
+        }
+      return "none";
   }
 
 }

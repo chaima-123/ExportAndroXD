@@ -30,26 +30,7 @@ static parseArtBoardToJson (artboard){
 
 
 
- ParseByAdobeClass(xdNode) {
-	  if (xdNode instanceof xd.Text) { 
-	     return  
-	    }
-	    if (xdNode instanceof xd.Group) { 
-	     return 
-	    }
-	    if (xdNode instanceof xd.SymbolInstance) {
-	      return 
-	      }
-	    if (xdNode instanceof xd.Artboard) {
-	      return "artboard"; 
-	      }
-	    if (xdNode instanceof xd.Path || xdNode instanceof xd.Polygon ||
-	        xdNode instanceof xd.Rectangle || xdNode instanceof xd.Ellipse ||
-	        xdNode instanceof xd.BooleanGroup || xdNode instanceof xd.Line) {
-	           return "shape";
-	    }
-	    return "none";
-	}
+
  
 
 

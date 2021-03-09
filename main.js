@@ -4,7 +4,7 @@ const xd = require("scenegraph");
 const { RootNode }=require("./nodes/RootNode")
 
 
-const { G } = require("./nodes/Group");
+const { Group } = require("./nodes/Group");
 
 const { ArtBoard } = require("./nodes/ArtBoard");
 
@@ -236,7 +236,7 @@ function parseGroup (group,level){
   function sendRequest(selection)
 {
  
-//   var Group=new G("1");
+//   var Group=new Group("1");
 //   //Rectangle.helloworld(); 
   
 
