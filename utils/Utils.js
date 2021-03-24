@@ -18,8 +18,8 @@ class Utils {
 static getype(fullNameNode){
 
     var myType = fullNameNode.substring(
-        fullNameNode.indexOf("*") + 1, 
-        fullNameNode.lastIndexOf("*")
+        fullNameNode.indexOf("_") + 1, 
+        fullNameNode.lastIndexOf("_")
     );
 
     return myType;
@@ -29,7 +29,7 @@ static getype(fullNameNode){
 static getId(fullNameNode){
 
     var myId = fullNameNode.substring(
-        fullNameNode.lastIndexOf("*") + 1, 
+        fullNameNode.lastIndexOf("_") + 1, 
         
     );
 
