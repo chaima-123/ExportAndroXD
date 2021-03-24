@@ -126,7 +126,7 @@ function setElementType() { // [2]
   //  let res ="*Button*id";
 
     let res ="";
-    res= "_"+selectedBox+"_"+idTxt;
+    res= "*"+selectedBox+"*"+idTxt;
     selectedItem.name=res;
   });
 }
@@ -139,9 +139,9 @@ function show(event) { // [1]
 
 function update(selection,root) { // [1]
   
-  panel.querySelectorAll("form")[1].addEventListener("submit", sendRequest(root)); // [11]
+  panel.querySelectorAll("form")[1].addEventListener("submit", sendRequest(selection)); // [11]
   
-  RootNode.ExportAll(root);
+  RootNode.ExportAll(root)
 
   const form = document.querySelector("form"); // [3]
   
@@ -233,10 +233,9 @@ function parseGroup (group,level){
 
 
 
-  function sendRequest(root)
+  function sendRequest(selection)
 {
  
-  RootNode.ExportAll(root);
 //   var Group=new Group("1");
 //   //Rectangle.helloworld(); 
   

@@ -22,24 +22,9 @@ static ExportAll(root){
 
 
     //console.log(rootNode);
-    var res =JSON.stringify(rootNode);
-    console.log(res);
+console.log(JSON.stringify(rootNode));
+       
 
-//     var all = JSON.parse(res);
-//         all.ArtBoard.forEach(artboard=>{
-//          artboard.children.forEach(element=>{
-//         console.log("helo0",element[".class"]);
-        
-//     })
-
-
-// })
-    //     all.ArtBoard.children.forEach(element=>{
-    //         console.log("helo0",element);
-    // });
-   
-
-return res;
 }
 
 }
