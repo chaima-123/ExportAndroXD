@@ -11,10 +11,12 @@ class TextView {
         jsonTextView[".adobeClass"]=TextView.constructor.name;
        //  console.log(Utils.getype(button.name));
        jsonTextView[".id"]=TextView.name.substring(
-        TextView.name.lastIndexOf("*") + 1, 
+        TextView.name.lastIndexOf("_") + 1, 
        );
 
         jsonText = Text.parseTextToJson(TextView);
+        jsonText["x"]=TextView.translation.x;
+        jsonText["y"]=TextView.translation.y;
         jsonTextView ={...jsonTextView,...jsonText};
         return jsonTextView ; 
 

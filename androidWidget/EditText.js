@@ -11,7 +11,7 @@ class EditText {
         var jsonRectangle= {};
         jsonEditText[".class"]="EditText";
         jsonEditText[".adobeClass"]=editText.constructor.name;
-        jsonEditText[".id"]=editText.name.substring( editText.name.lastIndexOf("*") + 1,  );
+        jsonEditText[".id"]=editText.name.substring( editText.name.lastIndexOf("_") + 1,  );
            
         if(editText instanceof xd.Group)
         {  
