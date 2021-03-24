@@ -21,29 +21,6 @@ static parseArtBoardToJson (artboard){
 
 }
 
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 static parseSelectedItems(selection){
 	let res = "";
 	selection.forEach(element=>{

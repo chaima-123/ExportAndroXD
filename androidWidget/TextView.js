@@ -13,7 +13,6 @@ class TextView {
        jsonTextView[".id"]=TextView.name.substring(
         TextView.name.lastIndexOf("*") + 1, 
        );
-
         jsonText = Text.parseTextToJson(TextView);
         jsonTextView ={...jsonTextView,...jsonText};
         return jsonTextView ; 

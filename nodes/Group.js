@@ -17,12 +17,8 @@ class Group {
        "width":"match_parent",
        "height":"wrap_content",
        "text":text,
-
-
     }
-
     return data;
-    
   }
 
   static parseGroupFromButtonToJson(button){
