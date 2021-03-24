@@ -70,7 +70,16 @@ static  parseGroup (group,level){
   
   }
   
+  static  parseGroups (group,level){
+	let res = "";
+	group.children.forEach(element => {
+	  res+=level+ parseSingleNode(element,level);
   
+	});
+   
+	return res;
+  
+  }
   
 
 }
