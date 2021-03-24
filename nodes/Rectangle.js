@@ -1,3 +1,5 @@
+const { Color } = require("../utils/Color");
+
 class Rectangle {
 
 	
@@ -6,7 +8,7 @@ class Rectangle {
 
 		jsonObj["width"]=rectangle.width;
 		jsonObj["height"]=rectangle.height;
-		jsonObj["backGround"]=rectangle.fill.value ;
+		jsonObj["background"]=rectangle.fill.value ;
 		jsonObj["x"]=rectangle.translation.x;
 		jsonObj["y"]=rectangle.translation.y;
 		jsonObj["cornerRadius"]=rectangle.cornerRadii;

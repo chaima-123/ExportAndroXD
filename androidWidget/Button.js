@@ -14,7 +14,7 @@ class Button {
      jsonButton[".adobeClass"]=button.constructor.name;
     //  console.log(Utils.getype(button.name));
      jsonButton[".id"]=button.name.substring(
-        button.name.lastIndexOf("*") + 1, 
+        button.name.lastIndexOf("_") + 1, 
     );
      if(button instanceof xd.Group)
      {  
