@@ -141,7 +141,7 @@ function update(selection,root) { // [1]
   
   panel.querySelectorAll("form")[1].addEventListener("submit", sendRequest(root)); // [11]
   
-  RootNode.ExportAll(root);
+  //RootNode.ExportAll(root);
 
   const form = document.querySelector("form"); // [3]
   
@@ -231,32 +231,17 @@ function parseGroup (group,level){
 }
 
 
-
-
   function sendRequest(root)
 {
- 
-  RootNode.ExportAll(root);
-//   var Group=new Group("1");
-//   //Rectangle.helloworld(); 
-  
+  var res = RootNode.ExportAll(root);
 
-//   let allElements= selection.items[0].children;
+  var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+  var theUrl = "https://62b33e7f6d7a.ngrok.io/ExportToXml";
+  xmlhttp.open("POST", theUrl);
+  xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xmlhttp.send(res);
 
-//   let elementJson =[];
-//   allElements.forEach(element => {
-//     elementJson.push(Group.parseNodeToJson(element));
-//   });
 
-// console.log(elementJson);
-// console.log(JSON.stringify(elementJson));
-
-//   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-//   var theUrl = "https://3c972f9866b8.ngrok.io/post";
-//   xmlhttp.open("POST", theUrl);
-//   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-
-//   xmlhttp.send(JSON.stringify(elementJson));
 }
 
 module.exports = {

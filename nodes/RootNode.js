@@ -24,6 +24,10 @@ static ExportAll(root){
     //console.log(rootNode);
     var res =JSON.stringify(rootNode);
     console.log(res);
+    console.log("--------");
+
+
+   
 
 //     var all = JSON.parse(res);
 //         all.ArtBoard.forEach(artboard=>{
@@ -41,6 +45,15 @@ static ExportAll(root){
 
 return res;
 }
+
+ static sendRequest(res)
+  {
+    var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+    var theUrl = "https://d0f8a1c9b087.ngrok.io/ExportToXml";
+    xmlhttp.open("POST", theUrl);
+    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlhttp.send(res);
+  }
 
 }
 
