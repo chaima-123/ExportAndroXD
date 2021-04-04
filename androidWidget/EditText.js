@@ -15,7 +15,6 @@ class EditText {
            
         if(editText instanceof xd.Group)
         {  
-        // @ts-ignore
         jsonGroup=  Group.parseGroupFromButtonToJson(editText);
         jsonGroup["hint"]= jsonGroup["text"];
         jsonGroup["text"]= undefined;

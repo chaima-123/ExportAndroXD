@@ -1,21 +1,15 @@
 
 const { Utils } = require("../utils/Utils");
 const { Button } = require("../androidWidget/Button");
-const xd = require("scenegraph"); 
 class ArtBoard {
 
-/**
- * 
- * @param {import('scenegraph').Artboard} artboard
- */
+
 static parseArtBoardToJson (artboard){
 	
 	
 	let Jsonitem = {}
 	let jsonChildren = [];
 	Jsonitem["name"]= artboard.name;
-	//const hexColor = xNode.fill.toHex(true).replace("#", "").toUpperCase();
-	Jsonitem["fill"]= artboard.fill;
 		artboard.children.forEach(element => {
 			jsonChildren.push(Utils.ParseByAndroidClass(element,Utils.getype(element.name)));
 			
@@ -30,7 +24,7 @@ static parseArtBoardToJson (artboard){
 static parseSelectedItems(selection){
 	let res = "";
 	selection.forEach(element=>{
-	  res+=ArtBoard.parseSingleNode(element,"");
+	  res+=parseSingleNode(element,"");
   
 	})
 	return res;
@@ -40,7 +34,7 @@ static parseSelectedItems(selection){
   static parseAllNodesToJson(selection){
 	let res = "";
 	selection.forEach(element=>{
-	  res+=ArtBoard.parseSingleNode(element,"");
+	  res+=parseSingleNode(element,"");
   
 	})
 	return res;
@@ -52,7 +46,7 @@ static parseSingleNode(xNode,level){
 	let res = "";
 	if(!xNode || (xNode instanceof xd.Group)){
 	  
-	  res+=typeNode+"<br>"+ArtBoard.parseGroup(xNode,level+"--");
+	  res+=typeNode+"<br>"+parseGroup(xNode,level+"--");
 	 // res+=typeNode+getDimension(xNode)+"<br>"+parseGroup(xNode,level+"--");
   
 	 return res;
@@ -68,7 +62,7 @@ static parseSingleNode(xNode,level){
 static  parseGroup (group,level){
 	let res = "";
 	group.children.forEach(element => {
-	  res+=level+ ArtBoard.parseSingleNode(element,level);
+	  res+=level+ parseSingleNode(element,level);
   
 	});
    
