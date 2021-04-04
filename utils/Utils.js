@@ -4,7 +4,7 @@ const { EditText } = require("../androidWidget/EditText");
 const { TextView } = require("../androidWidget/TextView");
 const { CheckBox } = require("../androidWidget/CheckBox");
 
-
+const xd = require("scenegraph"); 
 const { Text } = require("../nodes/Text");
 const { Group } = require("../nodes/Group");
 const { Rectangle } = require("../nodes/Rectangle");

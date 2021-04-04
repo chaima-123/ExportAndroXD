@@ -114,14 +114,18 @@ function create() {
 function setElementType() { // [2]
 
   const { editDocument } = require("application"); // [3]
+  // @ts-ignore
   const idTxt =String(document.querySelector("#idTxt").value); // [4]
   var sel = document.getElementById('myList');
+  // @ts-ignore
   var selectedBox = String(sel.value);
+ 
   //const width = Number(document.querySelector("#txtH").value); // [5]
 
   // [6]
 
   editDocument({ editLabel: "Increase rectangle size" }, function(selection) {
+    // @ts-ignore
     const selectedItem = selection.items[0]; // [7]
   //  let res ="*Button*id";
 
@@ -136,7 +140,10 @@ function setElementType() { // [2]
 function show(event) { // [1]
   if (!panel) event.node.appendChild(create()); // [2]
 }
-
+/**
+ * @param {XDSelection} selection
+ * @param {import('scenegraph').RootNode} root
+ */
 function update(selection,root) { // [1]
   
   panel.querySelectorAll("form")[1].addEventListener("submit", sendRequest(root)); // [11]
@@ -162,6 +169,8 @@ if(selection.items.length>1){
   
 
 }else if(selection.items[0] instanceof xd.Artboard){
+
+  console.log("test"+Object.values(selection.items[0].name));  
   alltypes= parseSelectedItems(selection.items[0].children);
 
 
@@ -191,6 +200,7 @@ if(selection.items.length>1){
 }
 function parseSelectedItems(selection){
   let res = "";
+  
   selection.forEach(element=>{
     res+=parseSingleNode(element,"");
 
@@ -202,15 +212,23 @@ function parseSelectedItems(selection){
 function parseSingleNode(xNode,level){
   let typeNode = xNode.constructor.name;
   let res = "";
+
+
+
+
   if(!xNode || (xNode instanceof xd.Group)){
-    
-    res+=typeNode+"<br>"+parseGroup(xNode,level+"--");
+   
+    res+=" .fill "+ +" " +typeNode+"<br>"+parseGroup(xNode,level+"--");
    // res+=typeNode+getDimension(xNode)+"<br>"+parseGroup(xNode,level+"--");
 
    return res;
    
   }else {
-    return typeNode+"<br>";
+   // Object.values(xNode.fill).toHex(true).replace("#", "").toUpperCase();
+
+   return typeNode+"<br>";
+    const hexColor = xNode.fill.toHex(true).replace("#", "").toUpperCase();
+    return " .fill "+ hexColor +" " + typeNode+"<br>";
   //return typeNode+"<br>"+xNode.name+"<br>";
  // return typeNode+getDimension(xNode)+"<br>";
   }
