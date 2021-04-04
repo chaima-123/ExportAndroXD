@@ -5,10 +5,10 @@ const { RootNode }=require("./nodes/RootNode")
 
 
 const { Group } = require("./nodes/Group");
+const { UploadImage } = require("./utils/UploadImage");
 
-const { ArtBoard } = require("./nodes/ArtBoard");
 
-
+UploadImage
 
 
 let panel;
@@ -210,7 +210,15 @@ function parseSingleNode(xNode,level){
    return res;
    
   }else {
-    return typeNode+"<br>";
+    if (!xNode.fill && !(xNode.fill instanceof xd.ImageFill)) {
+      return typeNode+"<br>";
+    }else {
+     // return "fill is "+xNode.fill +"<br>";
+     return "MimeType is "+xNode.fill.mimeType +"   Name = "+UploadImage.getImageName(xNode)+"<br>";
+
+    }
+
+
   //return typeNode+"<br>"+xNode.name+"<br>";
  // return typeNode+getDimension(xNode)+"<br>";
   }
