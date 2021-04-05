@@ -1,7 +1,7 @@
 
-const xd = require("scenegraph"); 
+const xd = require("scenegraph");
 
-const { RootNode }=require("./nodes/RootNode")
+const { RootNode } = require("./nodes/RootNode")
 
 
 const { Group } = require("./nodes/Group");
@@ -13,7 +13,7 @@ UploadImage
 
 let panel;
 function create() {
- 
+
   // [1]
   const html = `
 <style>
@@ -103,31 +103,31 @@ function create() {
   panel = document.createElement("div"); // [9]
   panel.innerHTML = html; // [10]
   panel.querySelectorAll("form")[0].addEventListener("submit", setElementType); // [11]
-  
+
 
   return panel; // [12]
 
 
-  
+
 }
 
 function setElementType() { // [2]
 
   const { editDocument } = require("application"); // [3]
-  const idTxt =String(document.querySelector("#idTxt").value); // [4]
+  const idTxt = String(document.querySelector("#idTxt").value); // [4]
   var sel = document.getElementById('myList');
   var selectedBox = String(sel.value);
   //const width = Number(document.querySelector("#txtH").value); // [5]
 
   // [6]
 
-  editDocument({ editLabel: "Increase rectangle size" }, function(selection) {
+  editDocument({ editLabel: "Increase rectangle size" }, function (selection) {
     const selectedItem = selection.items[0]; // [7]
-  //  let res ="*Button*id";
+    //  let res ="*Button*id";
 
-    let res ="";
-    res= "_"+selectedBox+"_"+idTxt;
-    selectedItem.name=res;
+    let res = "";
+    res = "_" + selectedBox + "_" + idTxt;
+    selectedItem.name = res;
   });
 }
 
@@ -137,110 +137,118 @@ function show(event) { // [1]
   if (!panel) event.node.appendChild(create()); // [2]
 }
 
-function update(selection,root) { // [1]
-  
+function update(selection, root) { // [1]
+
   panel.querySelectorAll("form")[1].addEventListener("submit", sendRequest(root)); // [11]
-  
+
   //RootNode.ExportAll(root);
 
   const form = document.querySelector("form"); // [3]
-  
+
   const warning = document.querySelector("#warning");
   const buttonExport = document.querySelector("#export");
   const instanceType = document.querySelector("#instanceType"); // [4]
   const firstItem = selection.items[0];
-  instanceType.innerHTML ="SomeThing Went Wrong  err ";
+  instanceType.innerHTML = "SomeThing Went Wrong  err ";
 
   let alltypes = "";
 
 
-if(selection.items.length>1){
-  warning.className = "show" ;
-  form.className = "hide" ;
-  buttonExport.className = "hide" ; 
-  alltypes = parseSelectedItems(selection.items);
-  
-
-}else if(selection.items[0] instanceof xd.Artboard){
-  alltypes= parseSelectedItems(selection.items[0].children);
+  if (selection.items.length > 1) {
+    warning.className = "show";
+    form.className = "hide";
+    buttonExport.className = "hide";
+    alltypes = parseSelectedItems(selection.items);
 
 
-
-  warning.className = "hide" ;
-  form.className = "hide" ;
-  buttonExport.className = "show" ; 
-}else if(selection.items.length==1) {
-  warning.className = "hide" ;
-  form.className = "show" ;
-  buttonExport.className = "hide" ;
- 
-  alltypes = parseSelectedItems(selection.items);
+  } else if (selection.items[0] instanceof xd.Artboard) {
+    alltypes = parseSelectedItems(selection.items[0].children);
 
 
-}else {
 
-  warning.className = "hide" ;
-  form.className = "hide" ;
-  buttonExport.className = "hide" ; 
+    warning.className = "hide";
+    form.className = "hide";
+    buttonExport.className = "show";
+  } else if (selection.items.length == 1) {
+    warning.className = "hide";
+    form.className = "show";
+    buttonExport.className = "hide";
+
+    alltypes = parseSelectedItems(selection.items);
+
+
+  } else {
+
+    warning.className = "hide";
+    form.className = "hide";
+    buttonExport.className = "hide";
+
+  }
+
+  instanceType.innerHTML = alltypes;
+
 
 }
-
-  instanceType.innerHTML =alltypes;
-
- 
-}
-function parseSelectedItems(selection){
+function parseSelectedItems(selection) {
   let res = "";
-  selection.forEach(element=>{
-    res+=parseSingleNode(element,"");
+  selection.forEach(element => {
+    res += parseSingleNode(element, "");
 
   })
   return res;
 
 }
 
-function parseSingleNode(xNode,level){
+function parseSingleNode(xNode, level) {
   let typeNode = xNode.constructor.name;
   let res = "";
-  if(!xNode || (xNode instanceof xd.Group)){
-    
-    res+=typeNode+"<br>"+parseGroup(xNode,level+"--");
-   // res+=typeNode+getDimension(xNode)+"<br>"+parseGroup(xNode,level+"--");
+  if (!xNode || (xNode instanceof xd.Group)) {
 
-   return res;
-   
-  }else {
-    if (!xNode.fill && !(xNode.fill instanceof xd.ImageFill)) {
-      return typeNode+"<br>";
-    }else {
-     // return "fill is "+xNode.fill +"<br>";
-     return "MimeType is "+xNode.fill.mimeType +"   Name = "+UploadImage._getImageFillName(xNode.fill)+"<br>";
+    res += typeNode + "<br>" + parseGroup(xNode, level + "--");
+    // res+=typeNode+getDimension(xNode)+"<br>"+parseGroup(xNode,level+"--");
+
+    return res;
+
+  } else if ( !(xNode.fill instanceof xd.ImageFill)) {
+ 
+      return "<br>" + " Please select an image";
+    } 
+    else if (checkImage(xNode))  
+    {
+      // return "fill is "+xNode.fill +"<br>";
+      return "<br>" + "MimeType is " + xNode.fill.mimeType + "   Name = " + UploadImage._getImageFillName(xNode.fill) + "<br>";
 
     }
-
-
-  //return typeNode+"<br>"+xNode.name+"<br>";
- // return typeNode+getDimension(xNode)+"<br>";
+    else {
+      return  typeNode + "<br>";
+    }
+ 
   }
 
+
+
+
+function checkImage(xNode) {
+  let res = "";
+  if (!xNode.fill && !(xNode.fill instanceof xd.ImageFill)) 
+  {return false;}
+    return  true;
+  
 }
 
-
-
-function parseGroup (group,level){
+function parseGroup(group, level) {
   let res = "";
   group.children.forEach(element => {
-    res+=level+ parseSingleNode(element,level);
+    res += level + parseSingleNode(element, level);
 
   });
- 
+
   return res;
 
 }
 
 
-  function sendRequest(root)
-{
+function sendRequest(root) {
   var res = RootNode.ExportAll(root);
 
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
@@ -259,6 +267,6 @@ module.exports = {
       update
     }
   }
- 
+
 }
-;
+  ;
