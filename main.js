@@ -214,7 +214,7 @@ function parseSingleNode(xNode,level){
       return typeNode+"<br>";
     }else {
      // return "fill is "+xNode.fill +"<br>";
-     return "MimeType is "+xNode.fill.mimeType +"   Name = "+UploadImage.getImageName(xNode)+"<br>";
+     return "MimeType is "+xNode.fill.mimeType +"   Name = "+UploadImage._getImageFillName(xNode.fill)+"<br>";
 
     }
 

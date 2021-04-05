@@ -1,4 +1,4 @@
-const application = require("application");
+const app = require("application");
 const fs = require("uxp").storage.localFileSystem;
 const xd = require("scenegraph"); 
 class UploadImage {
@@ -20,7 +20,7 @@ static getImageExtension(xdNode) {
 }
 
 static getImageFileName(xdNode) {
-	let ext = this._getImageExtension(xdNode), name = this.getImageName(xdNode);
+	let ext = this.getImageExtension(xdNode), name = this.getImageName(xdNode);
 	return ext && name ? `${name}.${ext}` : null;
 }
 
@@ -45,14 +45,17 @@ static _getImageFillName(fill) {
 }
 
 static getImageName(xdNode) {
-	if (!xdNode.fill) { return "touotu"; }
+	if (!xdNode.fill) { return null; }
+    const str=xdNode.fill
+    console.log(Object.values(str));
+    console.log(xdNode.fill);
 	let name, hash = this.getImageHash(xdNode), id = this.getImageId(xdNode);
 	let o = xd.root.pluginData, map = o && o.imageMap;
 	if (id) { name = map && map[id]; }
     if (!name && hash) { // for backwards compatibility.
 		name = map && map[hash];
     }
-    return name || this.getProp(xdNode,"imageFillName") || "nouonu";
+    return name || this.getProp(xdNode,"imageFillName") || null;
 }
 
 static getProp(xdNode, prop) {
