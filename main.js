@@ -138,8 +138,11 @@ function show(event) { // [1]
 }
 
 function update(selection, root) { // [1]
+  const button = document.querySelector('#export');
 
-  panel.querySelectorAll("form")[1].addEventListener("submit", sendRequest(root)); // [11]
+  button.addEventListener('click', event => {
+    sendRequest(root);
+});
 
   //RootNode.ExportAll(root);
 
