@@ -1,0 +1,308 @@
+{
+    "ArtBoard": [
+        {
+            "name": "signup.xml",
+            "children": [
+                {
+                    ".class": "EditText",
+                    ".adobeClass": "Group",
+                    ".id": "fname",
+                    "fontFamily": "Helvetica Neue",
+                    "fontStyle": "Regular",
+                    "fontSize": 22,
+                    "textColor": 4287799207,
+                    "charSpacing": 0,
+                    "textAlign": "left",
+                    "text-x": 168,
+                    "text-y": 115,
+                    "width": 224,
+                    "height": 44,
+                    "background": 4294967295,
+                    "x": 112,
+                    "y": 86,
+                    "cornerRadius": {
+                        "topLeft": 0,
+                        "topRight": 0,
+                        "bottomRight": 0,
+                        "bottomLeft": 0
+                    },
+                    "hint": "first name"
+                },
+                {
+                    ".class": "EditText",
+                    ".adobeClass": "Group",
+                    ".id": "lName",
+                    "fontFamily": "Helvetica Neue",
+                    "fontStyle": "Regular",
+                    "fontSize": 22,
+                    "textColor": 4287799207,
+                    "charSpacing": 0,
+                    "textAlign": "left",
+                    "text-x": 168,
+                    "text-y": 207,
+                    "width": 224,
+                    "height": 44,
+                    "background": 4294967295,
+                    "x": 112,
+                    "y": 178,
+                    "cornerRadius": {
+                        "topLeft": 0,
+                        "topRight": 0,
+                        "bottomRight": 0,
+                        "bottomLeft": 0
+                    },
+                    "hint": "last name"
+                },
+                {
+                    ".class": "EditText",
+                    ".adobeClass": "Group",
+                    ".id": "email",
+                    "fontFamily": "Helvetica Neue",
+                    "fontStyle": "Regular",
+                    "fontSize": 22,
+                    "textColor": 4287799207,
+                    "charSpacing": 0,
+                    "textAlign": "left",
+                    "text-x": 166,
+                    "text-y": 300,
+                    "width": 224,
+                    "height": 44,
+                    "background": 4294967295,
+                    "x": 112,
+                    "y": 270,
+                    "cornerRadius": {
+                        "topLeft": 0,
+                        "topRight": 0,
+                        "bottomRight": 0,
+                        "bottomLeft": 0
+                    },
+                    "hint": "email"
+                },
+                {
+                    ".class": "EditText",
+                    ".adobeClass": "Group",
+                    ".id": "phone",
+                    "fontFamily": "Helvetica Neue",
+                    "fontStyle": "Regular",
+                    "fontSize": 22,
+                    "textColor": 4287799207,
+                    "charSpacing": 0,
+                    "textAlign": "left",
+                    "text-x": 176,
+                    "text-y": 378,
+                    "width": 224,
+                    "height": 44,
+                    "background": 4294967295,
+                    "x": 112,
+                    "y": 348,
+                    "cornerRadius": {
+                        "topLeft": 0,
+                        "topRight": 0,
+                        "bottomRight": 0,
+                        "bottomLeft": 0
+                    },
+                    "hint": "phone"
+                },
+                {
+                    ".class": "EditText",
+                    ".adobeClass": "Group",
+                    ".id": "password",
+                    "fontFamily": "Helvetica Neue",
+                    "fontStyle": "Regular",
+                    "fontSize": 22,
+                    "textColor": 4287799207,
+                    "charSpacing": 0,
+                    "textAlign": "left",
+                    "text-x": 176,
+                    "text-y": 447,
+                    "width": 224,
+                    "height": 44,
+                    "background": 4294967295,
+                    "x": 112,
+                    "y": 419,
+                    "cornerRadius": {
+                        "topLeft": 0,
+                        "topRight": 0,
+                        "bottomRight": 0,
+                        "bottomLeft": 0
+                    },
+                    "hint": "password"
+                },
+                {
+                    ".class": "Button",
+                    ".adobeClass": "Group",
+                    ".id": "btnSingup",
+                    "text": "sing up",
+                    "fontFamily": "Helvetica Neue",
+                    "fontStyle": "Regular",
+                    "fontSize": 22,
+                    "textColor": 4294835709,
+                    "charSpacing": 0,
+                    "textAlign": "left",
+                    "text-x": 163,
+                    "text-y": 558.8062744140625,
+                    "width": 224,
+                    "height": 44,
+                    "background": 4293607758,
+                    "x": 90,
+                    "y": 530.8062744140625,
+                    "cornerRadius": {
+                        "topLeft": 0,
+                        "topRight": 0,
+                        "bottomRight": 0,
+                        "bottomLeft": 0
+                    }
+                }
+            ]
+        },
+        {
+            "name": "login2.xml",
+            "children": [
+                {},
+                {
+                    ".class": "ImageView",
+                    ".adobeClass": "Rectangle",
+                    ".id": "Image",
+                    "width": 239,
+                    "height": 238.5
+                },
+                {
+                    ".class": "EditText",
+                    ".adobeClass": "Group",
+                    ".id": "email",
+                    "fontFamily": "Helvetica Neue",
+                    "fontStyle": "Regular",
+                    "fontSize": 20,
+                    "textColor": 4285558896,
+                    "charSpacing": 0,
+                    "textAlign": "left",
+                    "text-x": 186,
+                    "text-y": 228.41580200195312,
+                    "width": 249,
+                    "height": 43,
+                    "background": 4294967295,
+                    "x": 85,
+                    "y": 199.41578674316406,
+                    "cornerRadius": {
+                        "topLeft": 0,
+                        "topRight": 0,
+                        "bottomRight": 0,
+                        "bottomLeft": 0
+                    },
+                    "hint": "email"
+                },
+                {
+                    ".class": "EditText",
+                    ".adobeClass": "Group",
+                    ".id": "password",
+                    "fontFamily": "Helvetica Neue",
+                    "fontStyle": "Regular",
+                    "fontSize": 20,
+                    "textColor": 4279319123,
+                    "charSpacing": 0,
+                    "textAlign": "left",
+                    "text-x": 157,
+                    "text-y": 352.1945495605469,
+                    "width": 246,
+                    "height": 45,
+                    "background": 4294967295,
+                    "x": 77,
+                    "y": 327.1945495605469,
+                    "cornerRadius": {
+                        "topLeft": 0,
+                        "topRight": 0,
+                        "bottomRight": 0,
+                        "bottomLeft": 0
+                    },
+                    "hint": "password"
+                },
+                {
+                    ".class": "Button",
+                    ".adobeClass": "Group",
+                    ".id": "btnlogin",
+                    "text": "login\n",
+                    "fontFamily": "Helvetica Neue",
+                    "fontStyle": "Regular",
+                    "fontSize": 18,
+                    "textColor": 4294835709,
+                    "charSpacing": 0,
+                    "textAlign": "left",
+                    "text-x": 197,
+                    "text-y": 470,
+                    "width": 244,
+                    "height": 48,
+                    "background": 4288624354,
+                    "x": 97,
+                    "y": 439,
+                    "cornerRadius": {
+                        "topLeft": 0,
+                        "topRight": 0,
+                        "bottomRight": 0,
+                        "bottomLeft": 0
+                    }
+                }
+            ]
+        },
+        {
+            "name": "login3.xml",
+            "children": [
+                {
+                    ".class": "EditText",
+                    ".adobeClass": "RepeatGrid",
+                    ".id": "edit2"
+                },
+                {
+                    ".class": "EditText",
+                    ".adobeClass": "Group",
+                    ".id": "edit3",
+                    "fontFamily": "Helvetica Neue",
+                    "fontStyle": "Regular",
+                    "fontSize": 20,
+                    "textColor": 4285558896,
+                    "charSpacing": 0,
+                    "textAlign": "left",
+                    "text-x": 184,
+                    "text-y": 259,
+                    "width": 235,
+                    "height": 73,
+                    "background": 4294967295,
+                    "x": 85,
+                    "y": 199,
+                    "cornerRadius": {
+                        "topLeft": 0,
+                        "topRight": 0,
+                        "bottomRight": 0,
+                        "bottomLeft": 0
+                    },
+                    "hint": "hint"
+                },
+                {
+                    ".class": "Button",
+                    ".adobeClass": "Group",
+                    ".id": "btn2",
+                    "text": "button\n",
+                    "fontFamily": "Helvetica Neue",
+                    "fontStyle": "Regular",
+                    "fontSize": 20,
+                    "textColor": 4285558896,
+                    "charSpacing": 0,
+                    "textAlign": "left",
+                    "text-x": 184,
+                    "text-y": 371,
+                    "width": 243,
+                    "height": 62,
+                    "background": 4294967295,
+                    "x": 77,
+                    "y": 327,
+                    "cornerRadius": {
+                        "topLeft": 0,
+                        "topRight": 0,
+                        "bottomRight": 0,
+                        "bottomLeft": 0
+                    }
+                },
+                {}
+            ]
+        }
+    ]
+}

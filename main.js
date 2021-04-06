@@ -1,14 +1,17 @@
 
 const xd = require("scenegraph");
 
+
 const { RootNode } = require("./nodes/RootNode")
 
+const fs = require("uxp").storage.localFileSystem;
 
 const { Group } = require("./nodes/Group");
 const { UploadImage } = require("./utils/UploadImage");
+const export_image  = require("./utils/image_export");
 
 
-UploadImage
+
 
 
 let panel;
@@ -94,13 +97,12 @@ function create() {
 </form>
 <form  method="dialog" id="main">
 <button id="export" type="submit" uxp-variant="cta">Export Artboard</button>
+<button id="exportImage" type="submit" uxp-variant="cta">Export Image</button>
+
 </form>
 <p id="warning"> Please select an Artboard to Export Or a Single element.</p>
 <p id="instanceType">Init class name</p>
 `;
-
-
-
 
 
 
@@ -143,10 +145,17 @@ function show(event) { // [1]
 
 function update(selection, root) { // [1]
   const button = document.querySelector('#export');
+  const buttonExportImage = document.querySelector('#exportImage');
+
 
   button.addEventListener('click', event => {
     sendRequest(root);
-});
+  });
+
+  buttonExportImage.addEventListener('click', event => {
+
+     export_image.exportImage(selection);
+  });
 
   //RootNode.ExportAll(root);
 
@@ -216,31 +225,29 @@ function parseSingleNode(xNode, level) {
 
     return res;
 
-  } else if ( !(xNode.fill instanceof xd.ImageFill)) {
- 
-      return "<br>" + " Please select an image";
-    } 
-    else if (checkImage(xNode))  
-    {
-      // return "fill is "+xNode.fill +"<br>";
-      return "<br>" + "MimeType is " + xNode.fill.mimeType + "   Name = " + UploadImage._getImageFillName(xNode.fill) + "<br>";
+  } else if (!(xNode.fill instanceof xd.ImageFill)) {
 
-    }
-    else {
-      return  typeNode + "<br>";
-    }
- 
+    return "<br>" + " Please select an image"+"<br>";
   }
+  else if (checkImage(xNode)) {
+    // return "fill is "+xNode.fill +"<br>";
+    return "<br>" + "MimeType is " + xNode.fill.mimeType + "   Name = " + UploadImage._getImageFillName(xNode.fill) + "<br>";
+
+  }
+  else {
+    return typeNode + "<br>";
+  }
+
+}
 
 
 
 
 function checkImage(xNode) {
   let res = "";
-  if (!xNode.fill && !(xNode.fill instanceof xd.ImageFill)) 
-  {return false;}
-    return  true;
-  
+  if (!xNode.fill && !(xNode.fill instanceof xd.ImageFill)) { return false; }
+  return true;
+
 }
 
 function parseGroup(group, level) {
