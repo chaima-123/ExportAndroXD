@@ -72,6 +72,10 @@ function create() {
          <option value = "Button">Button</option>
          <option value = "CheckBox">CheckBox</option>
          <option value = "TextView">TextView</option>
+         <option value = "ImageView">ImageView</option>
+
+         
+
        </select>
  </fieldset>
 </label> 
