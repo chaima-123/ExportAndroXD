@@ -16,7 +16,7 @@ static parseArtBoardToJson (artboard){
 		Jsonitem["background"]= artboard.fill.value
 	
 	}else{
-		Jsonitem["background"]=2281701375;
+		Jsonitem["background"]=4294967295;
 	}
 		artboard.children.forEach(element => {
 			let res= Utils.parseElement(element);
