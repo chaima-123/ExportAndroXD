@@ -2,6 +2,9 @@
 const { Button } = require("../androidWidget/Button");
 const { EditText } = require("../androidWidget/EditText");
 const { TextView } = require("../androidWidget/TextView");
+const { ImageView  } = require("../androidWidget/ImageView");
+const xd = require("scenegraph");
+
 const { CheckBox } = require("../androidWidget/CheckBox");
 
 
@@ -44,6 +47,9 @@ static ParseByAndroidClass(xdNode,typeWidget) {
       return EditText.parseEditTextToJson(xdNode);
     }else if(typeWidget=="TextView"){ 
       return TextView.parseTextViewToJson(xdNode);
+    }else if (xdNode.fill instanceof xd.ImageFill){
+      return ImageView.parseImageViewToJson(xdNode);
+      
     }else{
 
       return {};
