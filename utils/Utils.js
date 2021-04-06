@@ -6,7 +6,7 @@ const { ImageView  } = require("../androidWidget/ImageView");
 const xd = require("scenegraph");
 
 const { CheckBox } = require("../androidWidget/CheckBox");
-const xd = require("scenegraph"); 
+ 
 
 const { Text } = require("../nodes/Text");
 const { Group } = require("../nodes/Group");
@@ -52,6 +52,9 @@ static ParseByAndroidClass(xdNode,typeWidget) {
       return EditText.parseEditTextToJson(xdNode);
     }else if(typeWidget=="TextView"){ 
       return TextView.parseTextViewToJson(xdNode);
+    }else if (typeWidget=="ImageView"){
+      return ImageView.parseImageViewToJson(xdNode);
+      
     }else if (xdNode.fill instanceof xd.ImageFill){
       return ImageView.parseImageViewToJson(xdNode);
       
@@ -66,21 +69,32 @@ static ParseByAndroidClass(xdNode,typeWidget) {
   
 
     static parseElement(xdNode){
-      
+      let res=Array();
      let  typeWidget= this.getype(xdNode.name);
      console.log(xdNode.name+"  "+typeWidget);
       if(typeWidget!=""){
-          return this.ParseByAndroidClass(xdNode,typeWidget);
-
+        this.parseIfArray(this.ParseByAndroidClass(xdNode,typeWidget),res);
+        
       }else {
-
-        return this.ParseByAdobeClass(xdNode)
-
-
+        this.parseIfArray(this.ParseByAdobeClass(xdNode),res);
 
       }
+      return res;
 
 
+
+    }
+
+    static parseIfArray(xdNode,result){
+      if(xdNode instanceof Array){
+        xdNode.forEach(element=>{
+          this.parseIfArray(element,result);
+
+        })
+
+      }else{
+        result.push(xdNode);
+      }
 
     }
 
@@ -92,13 +106,19 @@ static ParseByAndroidClass(xdNode,typeWidget) {
 
  static ParseByAdobeClass(xdNode) {
     if (xdNode instanceof xd.Group) { 
-      let arr=Array();
+      let arr=[]
+   
      xdNode.children.forEach(element => {
-      arr.push( this.parseElement(element));
- 
+       arr.push(this.parseElement(element));
+     // arr.push( this.parseElement(element));
+      
     
+
+
+
       });
-      return arr;
+    //  console.log(Object.values(arr[0]));
+        return arr;
   
       }
       if (xdNode instanceof xd.Text) { 

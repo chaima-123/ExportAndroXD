@@ -1,6 +1,7 @@
 
 const { Utils } = require("../utils/Utils");
 const { Button } = require("../androidWidget/Button");
+const xd = require("scenegraph");
 class ArtBoard {
 
 
@@ -10,8 +11,31 @@ static parseArtBoardToJson (artboard){
 	let Jsonitem = {}
 	let jsonChildren = [];
 	Jsonitem["name"]= artboard.name;
+	if(artboard.fill instanceof xd.Color){
+		console.log(artboard.fill.value);
+		Jsonitem["background"]= artboard.fill.value
+	
+	}else{
+		Jsonitem["background"]=2281701375;
+	}
 		artboard.children.forEach(element => {
-			jsonChildren.push(Utils.parseElement(element));
+			let res= Utils.parseElement(element);
+			if(!(res instanceof Array)){
+				jsonChildren.push(res);
+
+			}else{
+				let x=0;
+				res.forEach(resElem=>{
+					jsonChildren.push(resElem);
+
+			
+				})
+
+
+
+			}
+	
+		
 			
 	  });
 
