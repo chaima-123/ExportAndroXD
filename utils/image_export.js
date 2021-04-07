@@ -3,7 +3,7 @@ const application = require("application");
 const fs = require("uxp").storage.localFileSystem;
 
 
-async function  exportImage(selection) {
+async function  exportImage(selection,folder) {
   console.log("imm clalled ");
   // Exit if there's no selection
   // For production plugins, providing feedback to the user is expected
@@ -12,21 +12,21 @@ async function  exportImage(selection) {
 
   // Get a folder by showing the user the system folder picker
 
-  const folder = await fs.getFolder();
+  //const folder = await fs.getFolder();
 
   //const folder = global.folder
   // Exit if user doesn't select a folder
   if (!folder) return console.log("User canceled folder picker.");
-
+  
   // Create a file that will store the rendition
-  const file = await folder.createFile("renditionnn.png", { overwrite: true });
+  const file = await folder.createFile(selection.name.substring( selection.name.lastIndexOf("_") + 1,  )+".png", { overwrite: true });
 
   // Create options for rendering a PNG.
   // Other file formats have different required options.
   // See `application#createRenditions` docs for details.
   const renditionOptions = [
     {
-      node: selection.items[0],
+      node: selection,
       outputFile: file,
       type: application.RenditionType.PNG,
       scale: 2

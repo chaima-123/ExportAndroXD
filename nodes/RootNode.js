@@ -4,13 +4,13 @@ const { ArtBoard } = require("./ArtBoard");
 
 class RootNode {
 
-static ExportAll(root){
+static ExportAll(root,folder){
     var rootNode = {};
     var JsonArtBoards=[];
    
     root.children.forEach(element=>{
         var item = {};
-        item = ArtBoard.parseArtBoardToJson(element);
+        item = ArtBoard.parseArtBoardToJson(element,folder);
 
            // item={"test":"test"};
         // item ["title"] = id;

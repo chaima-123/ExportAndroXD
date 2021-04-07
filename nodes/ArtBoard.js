@@ -5,7 +5,7 @@ const xd = require("scenegraph");
 class ArtBoard {
 
 
-static parseArtBoardToJson (artboard){
+static parseArtBoardToJson (artboard,folder){
 	
 	
 	let Jsonitem = {}
@@ -19,7 +19,7 @@ static parseArtBoardToJson (artboard){
 		Jsonitem["background"]=4294967295;
 	}
 		artboard.children.forEach(element => {
-			let res= Utils.parseElement(element);
+			let res= Utils.parseElement(element,folder);
 			if(!(res instanceof Array)){
 				jsonChildren.push(res);
 

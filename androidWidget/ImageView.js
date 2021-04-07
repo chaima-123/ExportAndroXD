@@ -7,9 +7,9 @@ const xd = require("scenegraph");
 
 class ImageView {
 
-    static parseImageViewToJson(imageView){
+    static parseImageViewToJson(imageView,folder){
 
-        export_image.exportImage(imageView);
+        export_image.exportImage(imageView,folder);
         var jsonEditText = {};
         var jsonGroup= {};
         var jsonRectangle= {};

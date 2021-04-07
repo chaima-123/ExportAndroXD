@@ -18,10 +18,15 @@
       {
     "type" : "panel",
 
-    "label": "Enlarge a Rectangle",
+    "label": "UI Panel",
     "panelId": "enlargeRectangle"
 
-  } 
+  } , 
+  {
+    "type": "menu",
+    "label": "Export All ArtBoard",
+    "commandId": "test"
+  }
 ],
   "version" : "0.0.1"
 }

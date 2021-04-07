@@ -98,7 +98,7 @@ function create() {
 <form  method="dialog" id="main">
 <button id="export" type="submit" uxp-variant="cta">Export Artboard</button>
 <button id="exportImage" type="submit" uxp-variant="cta">Export Image</button>
-
+<button id="lastTry" type="submit" uxp-variant="cta">lastTry</button>
 </form>
 <p id="warning"> Please select an Artboard to Export Or a Single element.</p>
 <p id="instanceType">Init class name</p>
@@ -146,8 +146,11 @@ function show(event) { // [1]
 function update(selection, root) { // [1]
   const button = document.querySelector('#export');
   const buttonExportImage = document.querySelector('#exportImage');
+  const testBtn = document.querySelector('#lastTry');
 
-
+  testBtn.addEventListener('click', event => {
+    test();
+  });
   button.addEventListener('click', event => {
     sendRequest(root);
   });
@@ -262,12 +265,12 @@ function parseGroup(group, level) {
 }
 
 
-async function sendRequest(root) {
+async function sendRequest(root,folder) {
   //   const folder = await fs.getFolder();
   //   console.log(folder);
 
   // global.folder=folder;
-  var res = RootNode.ExportAll(root);
+  var res = RootNode.ExportAll(root,folder);
 
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
   var theUrl = "https://62b33e7f6d7a.ngrok.io/ExportToXml";
@@ -278,13 +281,29 @@ async function sendRequest(root) {
 
 }
 
+async function test() {
+  console.log("im hererererer")
+  const { editDocument } = require("application"); // [
+  editDocument({ editLabel: "Export all widgets" }, async (selected, root) => {
+    const folder = await fs.getFolder();
+    console.log(folder);
+
+   global.folder=folder;
+    sendRequest(root,folder);
+     
+});
+
+}
+
 module.exports = {
   panels: {
     enlargeRectangle: {
       show,
       update
     }
+  },
+  commands: {
+    test
   }
 
 }
-  ;
