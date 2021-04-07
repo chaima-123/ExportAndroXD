@@ -2,12 +2,14 @@ const { Utils } = require("../utils/Utils");
 const { Group } = require("../nodes/Group");
 const { Rectangle } = require("../nodes/Rectangle");
 const { Image } = require("../nodes/Image");
-
+const export_image  = require("../utils/image_export");
 const xd = require("scenegraph"); 
 
 class ImageView {
 
     static parseImageViewToJson(imageView){
+
+        export_image.exportImage(imageView);
         var jsonEditText = {};
         var jsonGroup= {};
         var jsonRectangle= {};

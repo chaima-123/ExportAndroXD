@@ -262,7 +262,11 @@ function parseGroup(group, level) {
 }
 
 
-function sendRequest(root) {
+async function sendRequest(root) {
+  //   const folder = await fs.getFolder();
+  //   console.log(folder);
+
+  // global.folder=folder;
   var res = RootNode.ExportAll(root);
 
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 

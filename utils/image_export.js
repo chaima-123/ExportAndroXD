@@ -4,13 +4,17 @@ const fs = require("uxp").storage.localFileSystem;
 
 
 async function  exportImage(selection) {
+  console.log("imm clalled ");
   // Exit if there's no selection
   // For production plugins, providing feedback to the user is expected
-  if (selection.items.length === 0)
-    return console.log("No selection. Guide the user on what to do.");
+    // if (selection.items.length === 0)
+    //   return console.log("No selection. Guide the user on what to do.");
 
   // Get a folder by showing the user the system folder picker
+
   const folder = await fs.getFolder();
+
+  //const folder = global.folder
   // Exit if user doesn't select a folder
   if (!folder) return console.log("User canceled folder picker.");
 
