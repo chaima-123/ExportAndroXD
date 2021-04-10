@@ -14,8 +14,8 @@ class TextView {
         TextView.name.lastIndexOf("_") + 1, 
        );
         jsonText = Text.parseTextToJson(TextView);
-        jsonText["x"]=TextView.translation.x;
-        jsonText["y"]=TextView.translation.y;
+        // jsonText["x"]=TextView.translation.x;
+        // jsonText["y"]=TextView.translation.y;
         jsonTextView ={...jsonTextView,...jsonText};
         return jsonTextView ; 
 

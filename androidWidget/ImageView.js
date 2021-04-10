@@ -10,18 +10,19 @@ class ImageView {
     static parseImageViewToJson(imageView,folder){
 
         export_image.exportImage(imageView,folder);
-        var jsonEditText = {};
+        var jsonImageView = {};
         var jsonGroup= {};
         var jsonRectangle= {};
-        jsonEditText[".class"]="ImageView";
-        jsonEditText[".adobeClass"]=imageView.constructor.name;
-        jsonEditText[".id"]=imageView.name.substring( imageView.name.lastIndexOf("_") + 1,  );
+        jsonImageView[".class"]="ImageView";
+        jsonImageView[".adobeClass"]=imageView.constructor.name;
+        jsonImageView[".id"]=imageView.name.substring( imageView.name.lastIndexOf("_") + 1,);
+         // we expect that all images are rectangles here 
            
-        jsonRectangle=Image.parseImageViewToJson(imageView);
+        jsonRectangle=Rectangle.parseRectangleToJson(imageView);
    
-        jsonEditText = {...jsonEditText,...jsonRectangle};
+        jsonImageView = {...jsonImageView,...jsonRectangle};
       
-           return jsonEditText;
+           return jsonImageView;
         
 
 

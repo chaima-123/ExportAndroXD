@@ -4,7 +4,7 @@ const fs = require("uxp").storage.localFileSystem;
 
 
 async function  exportImage(selection,folder) {
-  console.log("imm clalled ");
+  console.log("imm clalledddddddddddddddddddddddddddddddddddddddddddddddddddddd ");
   // Exit if there's no selection
   // For production plugins, providing feedback to the user is expected
     // if (selection.items.length === 0)
@@ -19,12 +19,12 @@ async function  exportImage(selection,folder) {
   if (!folder) return console.log("User canceled folder picker.");
   
   // Create a file that will store the rendition
-  const file = await folder.createFile(selection.name.substring( selection.name.lastIndexOf("_") + 1,  )+".png", { overwrite: true });
+  let file = await folder.createFile(selection.name.substring( selection.name.lastIndexOf("_") + 1,  )+".png", { overwrite: true });
 
   // Create options for rendering a PNG.
   // Other file formats have different required options.
   // See `application#createRenditions` docs for details.
-  const renditionOptions = [
+  let renditionOptions = [
     {
       node: selection,
       outputFile: file,
@@ -35,10 +35,10 @@ async function  exportImage(selection,folder) {
 
   try {
     // Create the rendition(s)
-    const results = await application.createRenditions(renditionOptions);
+    let results = await application.createRenditions(renditionOptions);
 
     // Create and show a modal dialog displaying info about the results
-    const dialog = createDialog(results[0].outputFile.nativePath);
+    let dialog = createDialog(results[0].outputFile.nativePath);
     return dialog.showModal();
   } catch (err) {
     // Exit if there's an error rendering.
@@ -73,7 +73,7 @@ exports.exportImage = exportImage;
   // Note that this isn't your only option for DOM cleanup.
   // You can also leave the dialog in the DOM and reuse it.
   // See the `ui-html` sample for an example.
-  const dialog = document.querySelector("#dialog");
+  let dialog = document.querySelector("#dialog");
   dialog.addEventListener("close", e => dialog.remove());
 
   return dialog;

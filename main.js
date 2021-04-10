@@ -273,7 +273,7 @@ async function sendRequest(root,folder) {
   var res = RootNode.ExportAll(root,folder);
 
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-  var theUrl = "https://62b33e7f6d7a.ngrok.io/ExportToXml";
+  var theUrl = "https://a08dcc5cc885.ngrok.io/ExportToXml";
   xmlhttp.open("POST", theUrl);
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xmlhttp.send(res);
