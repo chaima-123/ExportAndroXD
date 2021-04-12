@@ -9,7 +9,7 @@ class ImageView {
 
     static parseImageViewToJson(imageView,folder){
 
-        export_image.exportImage(imageView,folder);
+       // export_image.exportImage(imageView,folder);
         var jsonImageView = {};
         var jsonGroup= {};
         var jsonRectangle= {};

@@ -17,14 +17,14 @@ class Text {
 		jsonObj["y"]=text.globalBounds.y ;
 		
 
-		console.log("globalBounds",text.globalBounds);
-		console.log("localBounds",text.localBounds );
-		console.log("boundsInParent",text.boundsInParent);
-		console.log("topLeftInParent",text.topLeftInParent);
+		// console.log("globalBounds",text.globalBounds);
+		// console.log("localBounds",text.localBounds );
+		// console.log("boundsInParent",text.boundsInParent);
+		// console.log("topLeftInParent",text.topLeftInParent);
 
-		console.log("localCenterPoint",text.localCenterPoint);
+		// console.log("localCenterPoint",text.localCenterPoint);
 
-		console.log("globalDrawBounds",text.globalDrawBounds);
+		// console.log("globalDrawBounds",text.globalDrawBounds);
 		return jsonObj;
 
 

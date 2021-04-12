@@ -5,10 +5,14 @@ const xd = require("scenegraph");
 const { RootNode } = require("./nodes/RootNode")
 
 const fs = require("uxp").storage.localFileSystem;
+const { Utils } = require("./utils/Utils")
 
 const { Group } = require("./nodes/Group");
 const { UploadImage } = require("./utils/UploadImage");
 const export_image  = require("./utils/image_export");
+
+
+
 
 
 
@@ -272,6 +276,7 @@ async function sendRequest(root,folder) {
   // global.folder=folder;
   var res = RootNode.ExportAll(root,folder);
 
+
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
   var theUrl = "https://a08dcc5cc885.ngrok.io/ExportToXml";
   xmlhttp.open("POST", theUrl);
@@ -285,15 +290,85 @@ async function test() {
   console.log("im hererererer")
   const { editDocument } = require("application"); // [
   editDocument({ editLabel: "Export all widgets" }, async (selected, root) => {
-    const folder = await fs.getFolder();
-    console.log(folder);
 
-   global.folder=folder;
-    sendRequest(root,folder);
+    await exportAllImages(root,folder);
+    //sendRequest(root,folder);
+
+  
+
+
+
+
      
 });
 
 }
+
+
+async function exportAllImages(root,folder) {
+
+
+// await Promise.all(root.children.map(async (artboard) => {  
+
+
+ 
+
+//   //     console.log("1-im in ");
+//   //     setTimeout(async() => {
+//   // let ress= await export_image.exportImage(element,folder);
+//   // console.log("5-"+ress);
+//   //   }, 3000);
+//   await Promise.all(artboard.children.map(async (element) => {
+//     console.log(element.name);
+//     if(Utils.getype(element.name)=="ImageView"){
+
+//       const ress= await export_image.exportImage(element,folder);
+//       console.log("5-"+ress);
+  
+//       }
+//   }));
+
+//   // for (let test in artboard.children) {
+//   //   console.log("name"+test.name);
+//   //   if(Utils.getype(test.name)=="ImageView"){
+
+//   //   const ress= await export_image.exportImage(test,folder);
+//   //   console.log("5-"+ress);
+
+//   //   } 
+//   // }
+
+
+
+
+//   }));
+
+let allImages=Array();
+root.children.forEach((artboard)=>{
+
+artboard.children.forEach((element)=>{
+  
+  if(Utils.getype(element.name)=="ImageView"){
+    allImages.push(element);
+  }
+
+
+})
+
+
+
+});
+
+if(allImages.length>0){
+  export_image.exportRendition(allImages,folder);
+}
+
+
+
+}
+
+  
+
 
 module.exports = {
   panels: {

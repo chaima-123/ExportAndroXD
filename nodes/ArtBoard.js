@@ -24,11 +24,10 @@ static parseArtBoardToJson (artboard,folder){
 				jsonChildren.push(res);
 
 			}else{
-				let x=0;
+			
 				res.forEach(resElem=>{
 					jsonChildren.push(resElem);
-
-			
+	
 				})
 
 
