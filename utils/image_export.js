@@ -73,7 +73,7 @@ exports.exportImage = exportImage;
 
 async function exportRendition(selection,folder) {
   console.log("im inside exportRen");
-  //const folder= await fs.getFolder();
+  //const folder = await fs.getFolder();
     const arr = await selection.map(async item => {	
       console.log(item.name)	;
 	  let file = await folder.createFile(item.name.substring( item.name.lastIndexOf("_") + 1,  )+".png", { overwrite: true });

@@ -290,7 +290,10 @@ async function test() {
   console.log("im hererererer")
   const { editDocument } = require("application"); // [
   editDocument({ editLabel: "Export all widgets" }, async (selected, root) => {
+    const folder = await fs.getFolder();
+    console.log(folder);
 
+     global.folder=folder;
     await exportAllImages(root,folder);
     //sendRequest(root,folder);
 
@@ -358,9 +361,10 @@ artboard.children.forEach((element)=>{
 
 
 });
-
+console.log(allImages);
 if(allImages.length>0){
   export_image.exportRendition(allImages,folder);
+
 }
 
 
