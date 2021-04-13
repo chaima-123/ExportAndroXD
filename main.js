@@ -15,7 +15,7 @@ const export_image  = require("./utils/image_export");
 
 
 
-const ngroxBase="https://3228bc889147.ngrok.io/";
+const ngroxBase="https://100821e9a20b.ngrok.io/";
 
 
 let panel;
@@ -298,6 +298,7 @@ async function sendRequest(root,folder) {
   var theUrl = ngroxBase+"ExportToXml";
   xmlhttp.open("POST", theUrl);
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xmlhttp.setRequestHeader("X-API-KEY", "12345"); 
   xmlhttp.send(res);
 
 
@@ -333,6 +334,8 @@ async function sendRequestAll(url,methode,withAction) {
 
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
   var fileUrl;
+  
+
   if(withAction){
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -346,6 +349,7 @@ async function sendRequestAll(url,methode,withAction) {
 }
   xmlhttp.open(methode, url);
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xmlhttp.setRequestHeader("X-API-KEY", "12345");
   xmlhttp.send();
 
 }
@@ -371,6 +375,7 @@ async function downloadZip(url) {
 function xhrBinary(url) {
   return new Promise((resolve, reject) => {
       const req = new XMLHttpRequest();
+   
       req.onload = () => {
           if (req.status === 200) {
               try {
@@ -386,6 +391,7 @@ function xhrBinary(url) {
       req.onerror = reject;
       req.onabort = reject;
       req.open('GET', url, true);
+      req.setRequestHeader("X-API-KEY", "12345");
       req.responseType = "arraybuffer";
       req.send();
   });
