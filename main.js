@@ -3,7 +3,7 @@ const xd = require("scenegraph");
 
 
 const { RootNode } = require("./nodes/RootNode")
-
+const uxp = require("uxp");
 const fs = require("uxp").storage.localFileSystem;
 const { Utils } = require("./utils/Utils")
 
@@ -15,7 +15,7 @@ const export_image  = require("./utils/image_export");
 
 
 
-
+const ngroxBase="https://3228bc889147.ngrok.io/";
 
 
 let panel;
@@ -100,9 +100,21 @@ function create() {
   
 </form>
 <form  method="dialog" id="main">
+
+<button id="emptyProject" type="submit" uxp-variant="cta">emptyProject</button>
+<br>
+
 <button id="export" type="submit" uxp-variant="cta">Export Artboard</button>
-<button id="exportImage" type="submit" uxp-variant="cta">Export Image</button>
-<button id="lastTry" type="submit" uxp-variant="cta">lastTry</button>
+<br>
+<button id="saveProject" type="submit" uxp-variant="cta">saveProject</button>
+<br> 
+
+<button id="downloadProject" type="submit" uxp-variant="cta">downloadProject  </button>
+
+
+
+
+
 </form>
 <p id="warning"> Please select an Artboard to Export Or a Single element.</p>
 <p id="instanceType">Init class name</p>
@@ -148,21 +160,26 @@ function show(event) { // [1]
 }
 
 function update(selection, root) { // [1]
-  const button = document.querySelector('#export');
-  const buttonExportImage = document.querySelector('#exportImage');
-  const testBtn = document.querySelector('#lastTry');
+  const emptyProject = document.querySelector('#emptyProject');
+  const exportArboards= document.querySelector('#export');
+  const saveProject = document.querySelector('#saveProject');
+  const downloadProject = document.querySelector('#downloadProject');
 
-  testBtn.addEventListener('click', event => {
+
+  emptyProject.addEventListener('click', event => {
+    sendRequestAll(ngroxBase+"GenerateProject","GET",false);
+  });
+  exportArboards.addEventListener('click', event => {
     exportAllWidget();
   });
-  button.addEventListener('click', event => {
-    sendRequest(root);
+  saveProject.addEventListener('click', event => {
+    sendRequestAll(ngroxBase+"GetProject","GET",false);
+  });
+  downloadProject.addEventListener('click', event => {
+      sendRequestAll(ngroxBase+"download","GET",true);
   });
 
-  buttonExportImage.addEventListener('click', event => {
 
-     export_image.exportImage(selection);
-  });
 
   //RootNode.ExportAll(root);
 
@@ -278,7 +295,7 @@ async function sendRequest(root,folder) {
 
 
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-  var theUrl = "https://3228bc889147.ngrok.io/ExportToXml";
+  var theUrl = ngroxBase+"ExportToXml";
   xmlhttp.open("POST", theUrl);
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xmlhttp.send(res);
@@ -300,6 +317,79 @@ async function exportAllWidget() {
 
 }
 
+
+// 1- Generate empty project 
+// localhost:3000/GenerateProject
+// [POST] 2- Export to xml
+// localhost:3000/ExportToXml
+// 3- Save Project to the cloud
+// localhost:3000/GetProject
+// 4- Download project ( client )
+// localhost:3000/download
+
+
+
+async function sendRequestAll(url,methode,withAction) {
+
+  var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
+  var fileUrl;
+  if(withAction){
+  xmlhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+      fileUrl = this.responseText;
+      downloadZip(fileUrl);
+
+    }
+  };
+
+}
+  xmlhttp.open(methode, url);
+  xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xmlhttp.send();
+
+}
+
+
+async function downloadZip(url) {
+  try {
+      const photoObj = await xhrBinary(url);
+      const tempFolder = await fs.getFolder();
+      const tempFile = await tempFolder.createFile("tmp.zip", { overwrite: true });
+      await tempFile.write(photoObj, { format: uxp.storage.formats.binary });
+    
+  } catch (err) {
+      console.log("error")
+      console.log(err.message);
+  }
+}
+
+
+
+
+
+function xhrBinary(url) {
+  return new Promise((resolve, reject) => {
+      const req = new XMLHttpRequest();
+      req.onload = () => {
+          if (req.status === 200) {
+              try {
+                  const arr = new Uint8Array(req.response);
+                  resolve(arr);
+              } catch (err) {
+                  reject('Couldnt parse response. ${err.message}, ${req.response}');
+              }
+          } else {
+              reject('Request had an error: ${req.status}');
+          }
+      }
+      req.onerror = reject;
+      req.onabort = reject;
+      req.open('GET', url, true);
+      req.responseType = "arraybuffer";
+      req.send();
+  });
+}
 
  
 
