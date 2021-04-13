@@ -153,7 +153,7 @@ function update(selection, root) { // [1]
   const testBtn = document.querySelector('#lastTry');
 
   testBtn.addEventListener('click', event => {
-    test();
+    exportAllWidget();
   });
   button.addEventListener('click', event => {
     sendRequest(root);
@@ -278,7 +278,7 @@ async function sendRequest(root,folder) {
 
 
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-  var theUrl = "https://a08dcc5cc885.ngrok.io/ExportToXml";
+  var theUrl = "https://3228bc889147.ngrok.io/ExportToXml";
   xmlhttp.open("POST", theUrl);
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xmlhttp.send(res);
@@ -286,90 +286,22 @@ async function sendRequest(root,folder) {
 
 }
 
-async function test() {
+async function exportAllWidget() {
   console.log("im hererererer")
   const { editDocument } = require("application"); // [
   editDocument({ editLabel: "Export all widgets" }, async (selected, root) => {
     const folder = await fs.getFolder();
-    console.log(folder);
 
-     global.folder=folder;
-    await exportAllImages(root,folder);
-    //sendRequest(root,folder);
-
-  
-
-
-
-
-     
+     sendRequest(root,folder);
+     Utils.exportAllImages(root,folder);
+   
+   
 });
 
 }
-
-
-async function exportAllImages(root,folder) {
-
-
-// await Promise.all(root.children.map(async (artboard) => {  
 
 
  
-
-//   //     console.log("1-im in ");
-//   //     setTimeout(async() => {
-//   // let ress= await export_image.exportImage(element,folder);
-//   // console.log("5-"+ress);
-//   //   }, 3000);
-//   await Promise.all(artboard.children.map(async (element) => {
-//     console.log(element.name);
-//     if(Utils.getype(element.name)=="ImageView"){
-
-//       const ress= await export_image.exportImage(element,folder);
-//       console.log("5-"+ress);
-  
-//       }
-//   }));
-
-//   // for (let test in artboard.children) {
-//   //   console.log("name"+test.name);
-//   //   if(Utils.getype(test.name)=="ImageView"){
-
-//   //   const ress= await export_image.exportImage(test,folder);
-//   //   console.log("5-"+ress);
-
-//   //   } 
-//   // }
-
-
-
-
-//   }));
-
-let allImages=Array();
-root.children.forEach((artboard)=>{
-
-artboard.children.forEach((element)=>{
-  
-  if(Utils.getype(element.name)=="ImageView"){
-    allImages.push(element);
-  }
-
-
-})
-
-
-
-});
-console.log(allImages);
-if(allImages.length>0){
-  export_image.exportRendition(allImages,folder);
-
-}
-
-
-
-}
 
   
 
@@ -382,7 +314,7 @@ module.exports = {
     }
   },
   commands: {
-    test
+    exportAllWidget
   }
 
 }

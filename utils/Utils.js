@@ -4,7 +4,7 @@ const { EditText } = require("../androidWidget/EditText");
 const { TextView } = require("../androidWidget/TextView");
 const { ImageView  } = require("../androidWidget/ImageView");
 const xd = require("scenegraph");
-
+const export_image  = require("./image_export");
 const { CheckBox } = require("../androidWidget/CheckBox");
  
 
@@ -143,6 +143,30 @@ static ParseByAndroidClass(xdNode,typeWidget,folder) {
         }
         return {"res":"not yet"};
   }
+
+
+
+  static exportAllImages(root,folder) {
+
+    let allImages=Array();
+    root.children.forEach((artboard)=>{
+    
+    artboard.children.forEach((element)=>{
+      
+      if(Utils.getype(element.name)=="ImageView"){
+        allImages.push(element);
+      }
+    
+    })
+    
+    
+    });
+    if(allImages.length>0){
+      export_image.exportRendition(allImages,folder);
+    }
+    
+    
+    }
 
 }
 
