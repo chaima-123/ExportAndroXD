@@ -25,7 +25,7 @@
   {
     "type": "menu",
     "label": "Export All ArtBoard",
-    "commandId": "exportAllWidget"
+    "commandId": "ExportSyncAll"
   }
 ],
   "version" : "0.0.1"

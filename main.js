@@ -19,6 +19,7 @@ const ngroxBase="https://100821e9a20b.ngrok.io/";
 
 
 let panel;
+var folder;
 function create() {
 
   // [1]
@@ -167,7 +168,8 @@ function update(selection, root) { // [1]
 
 
   emptyProject.addEventListener('click', event => {
-    sendRequestAll(ngroxBase+"GenerateProject","GET",false);
+    ExportSyncAll();
+    //sendRequestAll(ngroxBase+"GenerateProject","GET",false);
   });
   exportArboards.addEventListener('click', event => {
     exportAllWidget();
@@ -300,6 +302,11 @@ async function sendRequest(root) {
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xmlhttp.setRequestHeader("X-API-KEY", "12345"); 
   xmlhttp.send(res);
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 8000);
+});
 
 
 }
@@ -318,6 +325,44 @@ async function exportAllWidget() {
 
 }
 
+async function ExportSyncAll(){ 
+  const { editDocument } = require("application");
+  editDocument({ editLabel: "Export/GenerateProject" }, async (selected, root) => {
+     folder = await fs.getFolder();
+     Utils.exportAllImages(root,folder);
+    
+     sendRequestAll(ngroxBase+"GenerateProject","GET",false).then(value=>{
+      console.log("On Generate Priject ");
+      sendRequest(root).then(value=>{
+        console.log("On Generate XML ");
+      
+        sendRequestAll(ngroxBase+"GetProject","GET",false).then(value=>{
+
+          console.log("On get Project ");
+          sendRequestAll(ngroxBase+"download","GET",true).then(value=>{
+
+
+            console.log("im done here ");
+          })
+
+
+        });
+
+      });
+
+
+
+     });
+     
+           
+         
+        
+
+   
+       
+  });
+
+}
 
 // 1- Generate empty project 
 // localhost:3000/GenerateProject
@@ -351,6 +396,11 @@ async function sendRequestAll(url,methode,withAction) {
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xmlhttp.setRequestHeader("X-API-KEY", "12345");
   xmlhttp.send();
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(true);
+    }, 5000);
+});
 
 }
 
@@ -358,12 +408,12 @@ async function sendRequestAll(url,methode,withAction) {
 async function downloadZip(url) {
   try {
       const photoObj = await xhrBinary(url);
-      const tempFolder = await fs.getFolder();
-      const tempFile = await tempFolder.createFile("tmp.zip", { overwrite: true });
+      //const tempFolder = await fs.getFolder();
+      const tempFile = await folder.createFile("tmp.zip", { overwrite: true });
       await tempFile.write(photoObj, { format: uxp.storage.formats.binary });
     
   } catch (err) {
-      console.log("error")
+      console.log("error on Download Zip")
       console.log(err.message);
   }
 }
@@ -410,7 +460,7 @@ module.exports = {
     }
   },
   commands: {
-    exportAllWidget
+    ExportSyncAll
   }
 
 }

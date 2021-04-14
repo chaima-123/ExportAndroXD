@@ -146,8 +146,8 @@ static ParseByAndroidClass(xdNode,typeWidget) {
 
 
 
-  static exportAllImages(root,folder) {
-
+  static async exportAllImages(root,folder) {
+    setTimeout(()=>{console.log("im waiting here")},5000)
     let allImages=Array();
     root.children.forEach((artboard)=>{
     
