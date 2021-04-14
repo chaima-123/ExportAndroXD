@@ -102,15 +102,11 @@ function create() {
 </form>
 <form  method="dialog" id="main">
 
-<button id="emptyProject" type="submit" uxp-variant="cta">emptyProject</button>
-<br>
+
 
 <button id="export" type="submit" uxp-variant="cta">Export Artboard</button>
 <br>
-<button id="saveProject" type="submit" uxp-variant="cta">saveProject</button>
-<br> 
 
-<button id="downloadProject" type="submit" uxp-variant="cta">downloadProject  </button>
 
 
 
@@ -161,25 +157,16 @@ function show(event) { // [1]
 }
 
 function update(selection, root) { // [1]
-  const emptyProject = document.querySelector('#emptyProject');
+
   const exportArboards= document.querySelector('#export');
-  const saveProject = document.querySelector('#saveProject');
-  const downloadProject = document.querySelector('#downloadProject');
 
 
-  emptyProject.addEventListener('click', event => {
+
+  exportArboards.addEventListener('click', event => {
     ExportSyncAll();
     //sendRequestAll(ngroxBase+"GenerateProject","GET",false);
   });
-  exportArboards.addEventListener('click', event => {
-    exportAllWidget();
-  });
-  saveProject.addEventListener('click', event => {
-    sendRequestAll(ngroxBase+"GetProject","GET",false);
-  });
-  downloadProject.addEventListener('click', event => {
-      sendRequestAll(ngroxBase+"download","GET",true);
-  });
+
 
 
 
