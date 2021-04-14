@@ -286,12 +286,12 @@ function parseGroup(group, level) {
 }
 
 
-async function sendRequest(root,folder) {
+async function sendRequest(root) {
   //   const folder = await fs.getFolder();
   //   console.log(folder);
 
   // global.folder=folder;
-  var res = RootNode.ExportAll(root,folder);
+  var res = RootNode.ExportAll(root);
 
 
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
@@ -310,7 +310,7 @@ async function exportAllWidget() {
   editDocument({ editLabel: "Export all widgets" }, async (selected, root) => {
     const folder = await fs.getFolder();
 
-     sendRequest(root,folder);
+     sendRequest(root);
      Utils.exportAllImages(root,folder);
    
    

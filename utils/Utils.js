@@ -45,7 +45,7 @@ static getId(fullNameNode){
 
 }
 
-static ParseByAndroidClass(xdNode,typeWidget,folder) {
+static ParseByAndroidClass(xdNode,typeWidget) {
     if(typeWidget=="Button"){
         return Button.parseButtonToJson(xdNode);
     }else if (typeWidget=="EditText"){
@@ -53,10 +53,10 @@ static ParseByAndroidClass(xdNode,typeWidget,folder) {
     }else if(typeWidget=="TextView"){ 
       return TextView.parseTextViewToJson(xdNode);
     }else if (typeWidget=="ImageView"){
-      return ImageView.parseImageViewToJson(xdNode,folder);
+      return ImageView.parseImageViewToJson(xdNode);
       
     }else if (xdNode.fill instanceof xd.ImageFill){
-      return ImageView.parseImageViewToJson(xdNode,folder);
+      return ImageView.parseImageViewToJson(xdNode);
       
     }else{
 
@@ -68,12 +68,12 @@ static ParseByAndroidClass(xdNode,typeWidget,folder) {
     }
   
 
-    static parseElement(xdNode,folder){
+    static parseElement(xdNode){
       let res=Array();
      let  typeWidget= this.getype(xdNode.name);
      console.log(xdNode.name+"  "+typeWidget);
       if(typeWidget!=""){
-        this.parseIfArray(this.ParseByAndroidClass(xdNode,typeWidget,folder),res);
+        this.parseIfArray(this.ParseByAndroidClass(xdNode,typeWidget),res);
         
       }else {
         this.parseIfArray(this.ParseByAdobeClass(xdNode),res);
