@@ -15,7 +15,7 @@ const export_image  = require("./utils/image_export");
 
 
 
-const ngroxBase="https://100821e9a20b.ngrok.io/";
+const ngroxBase="http://exportandro.germanywestcentral.cloudapp.azure.com/api/";
 
 
 let panel;
