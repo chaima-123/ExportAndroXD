@@ -15,7 +15,7 @@ const export_image  = require("./utils/image_export");
 
 
 
-const ngroxBase="http://exportandro.germanywestcentral.cloudapp.azure.com/api/";
+const ngroxBase="http://51.116.181.200/api/";
 
 
 let panel;
@@ -238,14 +238,6 @@ function parseSingleNode(xNode, level) {
 
     return res;
 
-  } else if (!(xNode.fill instanceof xd.ImageFill)) {
-
-    return "<br>" + " Please select an image"+"<br>";
-  }
-  else if (checkImage(xNode)) {
-    // return "fill is "+xNode.fill +"<br>";
-    return "<br>" + "MimeType is " + xNode.fill.mimeType + "   Name = " + UploadImage._getImageFillName(xNode.fill) + "<br>";
-
   }
   else {
     return typeNode + "<br>";
@@ -253,15 +245,6 @@ function parseSingleNode(xNode, level) {
 
 }
 
-
-
-
-function checkImage(xNode) {
-  let res = "";
-  if (!xNode.fill && !(xNode.fill instanceof xd.ImageFill)) { return false; }
-  return true;
-
-}
 
 function parseGroup(group, level) {
   let res = "";
@@ -298,19 +281,6 @@ async function sendRequest(root) {
 
 }
 
-async function exportAllWidget() {
-  console.log("im hererererer")
-  const { editDocument } = require("application"); // [
-  editDocument({ editLabel: "Export all widgets" }, async (selected, root) => {
-    const folder = await fs.getFolder();
-
-     sendRequest(root);
-     Utils.exportAllImages(root,folder);
-   
-   
-});
-
-}
 
 async function ExportSyncAll(){ 
   const { editDocument } = require("application");
@@ -326,8 +296,9 @@ async function ExportSyncAll(){
         sendRequestAll(ngroxBase+"GetProject","GET",false).then(value=>{
 
           console.log("On get Project ");
-          sendRequestAll(ngroxBase+"download","GET",true).then(value=>{
 
+          sendRequestAll(ngroxBase+"download","GET",true).then(value=>{
+   
 
             console.log("im done here ");
           })
@@ -337,30 +308,12 @@ async function ExportSyncAll(){
 
       });
 
-
-
      });
-     
-           
-         
-        
 
-   
        
   });
 
 }
-
-// 1- Generate empty project 
-// localhost:3000/GenerateProject
-// [POST] 2- Export to xml
-// localhost:3000/ExportToXml
-// 3- Save Project to the cloud
-// localhost:3000/GetProject
-// 4- Download project ( client )
-// localhost:3000/download
-
-
 
 async function sendRequestAll(url,methode,withAction) {
 
@@ -370,17 +323,25 @@ async function sendRequestAll(url,methode,withAction) {
 
   if(withAction){
   xmlhttp.onreadystatechange = function () {
-    console.log(this.status);
+   
+   
+    try {
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
       fileUrl = this.responseText;
       downloadZip(fileUrl);
 
     }
+  }
+  catch (err) {
+    console.log("error ")
+    console.log(err.message);
+}
   };
 
 }
   xmlhttp.open(methode, url);
+  xmlhttp.setRequestHeader("Access-Control-Allow-Origin","*")
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xmlhttp.setRequestHeader("X-API-KEY", "12345");
   xmlhttp.send();
@@ -397,9 +358,10 @@ async function downloadZip(url) {
   try {
       const photoObj = await xhrBinary(url);
       //const tempFolder = await fs.getFolder();
+    
       const tempFile = await folder.createFile("tmp.zip", { overwrite: true });
       await tempFile.write(photoObj, { format: uxp.storage.formats.binary });
-    
+
   } catch (err) {
       console.log("error on Download Zip")
       console.log(err.message);
@@ -429,6 +391,7 @@ function xhrBinary(url) {
       req.onerror = reject;
       req.onabort = reject;
       req.open('GET', url, true);
+      req.setRequestHeader("Access-Control-Allow-Origin","*")
       req.setRequestHeader("X-API-KEY", "12345");
       req.responseType = "arraybuffer";
       req.send();

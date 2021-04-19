@@ -58,7 +58,12 @@ static ParseByAndroidClass(xdNode,typeWidget) {
     }else if (xdNode.fill instanceof xd.ImageFill){
       return ImageView.parseImageViewToJson(xdNode);
       
-    }else{
+    }
+    else if (typeWidget=="CheckBox"){
+      return CheckBox.parseCheckBoxToJson(xdNode);
+      
+    }
+    else{
 
       return {"res":"Types widget invalide"};
             // let data={};
