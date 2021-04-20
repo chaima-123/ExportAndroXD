@@ -23,7 +23,6 @@ const AndroidTypes = {
 
 class Utils {
 
-
   static getype(fullNameNode) {
 
     var myType = fullNameNode.substring(
@@ -60,6 +59,10 @@ class Utils {
       return ImageView.parseImageViewToJson(xdNode);
 
     }
+    else if (typeWidget == "scroll") {
+      return ScrollableGroup.parseScrollableGroupToJson(xdNode);
+
+    }
     else if (typeWidget == "CheckBox") {
       return CheckBox.parseCheckBoxToJson(xdNode);
 
@@ -79,9 +82,13 @@ class Utils {
     let typeWidget = this.getype(xdNode.name);
     console.log(xdNode.name + "  " + typeWidget);
     if (typeWidget != "") {
+      console.log("hahahah android");
+
       this.parseIfArray(this.ParseByAndroidClass(xdNode, typeWidget), res);
 
     } else {
+
+      console.log("hahahah adobe classe");
       this.parseIfArray(this.ParseByAdobeClass(xdNode), res);
 
     }
@@ -111,6 +118,7 @@ class Utils {
 
       xdNode.children.forEach(element => {
         arr.push(this.parseElement(element));
+
         // arr.push( this.parseElement(element))
       });
       return arr;
