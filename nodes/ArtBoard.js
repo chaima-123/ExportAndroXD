@@ -38,8 +38,6 @@ static parseArtBoardToJson (artboard){
 	
 				})
 
-
-
 			}
 	
 		
