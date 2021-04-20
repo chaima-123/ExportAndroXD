@@ -5,12 +5,20 @@ const xd = require("scenegraph");
 class ArtBoard {
 
 
-static parseArtBoardToJson (artboard,folder){
+static parseArtBoardToJson (artboard){
 	
 	
 	let Jsonitem = {}
 	let jsonChildren = [];
 	Jsonitem["name"]= artboard.name;
+	if(artboard.height!=artboard.viewportHeight){
+		Jsonitem["isScrollable"]=true  ;
+		Jsonitem["scrollViewtHeight"]=artboard.viewportHeight;
+	}else{
+		Jsonitem["isScrollable"]=false  ;
+	}
+
+
 	if(artboard.fill instanceof xd.Color){
 		console.log(artboard.fill.value);
 		Jsonitem["background"]= artboard.fill.value
@@ -19,7 +27,7 @@ static parseArtBoardToJson (artboard,folder){
 		Jsonitem["background"]=4294967295;
 	}
 		artboard.children.forEach(element => {
-			let res= Utils.parseElement(element,folder);
+			let res= Utils.parseElement(element);
 			if(!(res instanceof Array)){
 				jsonChildren.push(res);
 
