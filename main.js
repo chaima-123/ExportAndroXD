@@ -15,7 +15,7 @@ const export_image  = require("./utils/image_export");
 
 
 
-const ngroxBase="http://51.116.181.200/api/";
+const ngroxBase="https://2534fbd40a51.ngrok.io/";
 
 
 let panel;
@@ -81,8 +81,9 @@ function create() {
          <option value = "CheckBox">CheckBox</option>
          <option value = "TextView">TextView</option>
          <option value = "ImageView">ImageView</option>
+         <option value = "ProgressBar">ProgressBbar</option>
+         <option value = "Switch">Switch</option>
 
-         
 
        </select>
  </fieldset>
@@ -106,11 +107,6 @@ function create() {
 
 <button id="export" type="submit" uxp-variant="cta">Export Artboard</button>
 <br>
-
-
-
-
-
 
 </form>
 <p id="warning"> Please select an Artboard to Export Or a Single element.</p>
@@ -264,8 +260,6 @@ async function sendRequest(root) {
 
   // global.folder=folder;
   var res = RootNode.ExportAll(root);
-
-
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
   var theUrl = ngroxBase+"ExportToXml";
   xmlhttp.open("POST", theUrl);
@@ -299,7 +293,6 @@ async function ExportSyncAll(){
 
           sendRequestAll(ngroxBase+"download","GET",true).then(value=>{
    
-
             console.log("im done here ");
           })
 
@@ -367,8 +360,6 @@ async function downloadZip(url) {
       console.log(err.message);
   }
 }
-
-
 
 
 

@@ -7,7 +7,10 @@ const xd = require("scenegraph");
 const export_image = require("./image_export");
 const { CheckBox } = require("../androidWidget/CheckBox");
 
+const { Switch } = require("../androidWidget/Switch");
+
 const { ScrollableGroup } = require("../nodes/ScrollableGroup");
+const { Line } = require("../nodes/Line");
 
 const { Text } = require("../nodes/Text");
 const { Group } = require("../nodes/Group");
@@ -59,12 +62,14 @@ class Utils {
       return ImageView.parseImageViewToJson(xdNode);
 
     }
-    else if (typeWidget == "scroll") {
-      return ScrollableGroup.parseScrollableGroupToJson(xdNode);
-
-    }
+   
     else if (typeWidget == "CheckBox") {
       return CheckBox.parseCheckBoxToJson(xdNode);
+
+    }
+
+    else if (typeWidget == "Switch") {
+      return Switch.parseSwitchToJson(xdNode);
 
     }
     else {
@@ -140,11 +145,16 @@ class Utils {
 
     }
 
+    if (xdNode instanceof xd.Line) {
+       return  Line.parseLineToJson(xdNode);
+
+    }
+
 
 
     if (xdNode instanceof xd.Path || xdNode instanceof xd.Polygon ||
       xdNode instanceof xd.Ellipse ||
-      xdNode instanceof xd.BooleanGroup || xdNode instanceof xd.Line) {
+      xdNode instanceof xd.BooleanGroup ) {
       return { "res": "not yet" };
     }
     if (xdNode instanceof xd.SymbolInstance) {

@@ -3,6 +3,9 @@ class Text {
 	static parseTextToJson(text){
 		let jsonObj={};
 
+		const widthArt = global.widthArt;
+
+
 		jsonObj["text"]=text.text;
 		jsonObj["fontFamily"]=text.fontFamily ;
 		jsonObj["fontStyle"]=text.fontStyle ;
@@ -15,7 +18,7 @@ class Text {
 		// jsonObj["text-y"]=text.translation.y;
 		jsonObj["x"]=text.boundsInParent.x ;
 		jsonObj["y"]=text.boundsInParent.y ;
-		
+		jsonObj["marginRight"]=widthArt-text.boundsInParent.x-text.globalBounds.width ;
 
 		// console.log("globalBounds",text.globalBounds);
 		// console.log("localBounds",text.localBounds );

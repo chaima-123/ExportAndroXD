@@ -13,6 +13,9 @@ static parseArtBoardToJson (artboard){
 	let Jsonitem = {}
 	let jsonChildren = [];
 	Jsonitem["name"]= artboard.name;
+	global.widthArt=artboard.width;
+	const test = global.widthArt;
+
 	if(artboard.height!=artboard.viewportHeight){
 		Jsonitem["isScrollable"]=true  ;
 		Jsonitem["scrollViewtHeight"]=artboard.viewportHeight;
