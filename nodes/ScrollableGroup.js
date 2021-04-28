@@ -7,8 +7,10 @@ class ScrollableGroup {
 
 		let jsonObj={};
         let jsonChildren = [];
-
-
+		jsonObj[".class"]="ScrollView";
+		jsonObj[".adobeClass"]="ScrollableGroup";
+		jsonObj["x"]=ScrollableGroup.boundsInParent.x ;
+		jsonObj["y"]=ScrollableGroup.boundsInParent.y ;
 		jsonObj["scrollingType"]=ScrollableGroup.scrollingType;
 		jsonObj["viewport"]=ScrollableGroup.viewport ;
 	
