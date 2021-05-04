@@ -41,9 +41,12 @@ class Group {
   if(Rectangles.length>0){
 
     jsonRectangle= Rectangle.parseRectangleToJson(Rectangles[0]);
-
+    jsonRectangle["x"]=button.boundsInParent.x;
+    jsonRectangle["y"]=button.globalBounds.y;
 
   }
+
+
 
   return {...jsonText,...jsonRectangle}
 

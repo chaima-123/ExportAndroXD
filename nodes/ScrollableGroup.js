@@ -11,11 +11,14 @@ class ScrollableGroup {
 		jsonObj[".adobeClass"]="ScrollableGroup";
 		jsonObj["x"]=ScrollableGroup.boundsInParent.x ;
 		jsonObj["y"]=ScrollableGroup.boundsInParent.y ;
+		jsonObj["width"]=ScrollableGroup.boundsInParent.width ;
+		jsonObj["height"]=ScrollableGroup.boundsInParent.height ;
 		jsonObj["scrollingType"]=ScrollableGroup.scrollingType;
 		jsonObj["viewport"]=ScrollableGroup.viewport ;
+		jsonObj["marginRight"]=widthArt-ScrollableGroup.boundsInParent.width-ScrollableGroup.boundsInParent.x;
 	
         ScrollableGroup.children.forEach(element => {
-
+ 
 			let res= Utils.parseElement(element);
 
 			if(!(res instanceof Array)){

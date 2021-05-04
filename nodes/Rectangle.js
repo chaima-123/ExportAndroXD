@@ -11,11 +11,14 @@ class Rectangle {
 		jsonObj["width"]=rectangle.width;
 		jsonObj["height"]=rectangle.height;
 		jsonObj["background"]=rectangle.fill.value ;
-		jsonObj["x"]=rectangle.translation.x;
-		jsonObj["y"]=rectangle.translation.y;
+		jsonObj["x"]=rectangle.boundsInParent.x;
+		jsonObj["y"]=rectangle.globalBounds.y;
+		
 		jsonObj["cornerRadius"]=rectangle.cornerRadii;
 		jsonObj["marginRight"]= widthArt-rectangle.width-rectangle.translation.x;
 
+
+	
 
 		return jsonObj;
 	   
