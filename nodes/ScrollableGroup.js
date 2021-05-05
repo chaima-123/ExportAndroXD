@@ -10,7 +10,7 @@ class ScrollableGroup {
 		jsonObj[".class"]="ScrollView";
 		jsonObj[".adobeClass"]="ScrollableGroup";
 		jsonObj["x"]=ScrollableGroup.boundsInParent.x ;
-		jsonObj["y"]=ScrollableGroup.boundsInParent.y ;
+		jsonObj["y"]=ScrollableGroup.globalBounds.y ;
 		jsonObj["width"]=ScrollableGroup.boundsInParent.width ;
 		jsonObj["height"]=ScrollableGroup.boundsInParent.height ;
 		jsonObj["scrollingType"]=ScrollableGroup.scrollingType;
@@ -36,6 +36,25 @@ class ScrollableGroup {
 		
 			
 	  });
+	 if(ScrollableGroup.scrollingType=="vertical"){
+		jsonChildren.forEach((newElement)=>{
+			newElement["y"]=newElement["y"]-ScrollableGroup.globalBounds.y;
+			newElement["marginRight"]=0;
+		});
+
+	 }else{
+		jsonChildren.forEach((newElement)=>{
+			newElement["y"]=newElement["y"]-ScrollableGroup.globalBounds.y;
+			newElement["x"]=newElement["x"]-12;
+			newElement["marginRight"]=undefined
+			newElement["marginBottom"]=0
+
+		});
+
+
+
+	 }
+
 
 	  jsonObj["children"]= jsonChildren;
     

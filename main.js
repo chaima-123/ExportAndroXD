@@ -14,8 +14,10 @@ const export_image  = require("./utils/image_export");
 
 
 
-
-const ngroxBase="https://2534fbd40a51.ngrok.io/";
+//const ngroxBase="http://51.116.181.200/api/";
+//const ngroxBase="http://20.52.48.122/api/";
+//const ngroxBase="https://2534fbd40a51.ngrok.io/";
+const ngroxBase="http://localhost:3000/";
 
 
 let panel;
@@ -111,6 +113,8 @@ function create() {
 </form>
 <p id="warning"> Please select an Artboard to Export Or a Single element.</p>
 <p id="instanceType">Init class name</p>
+
+<p id="position"> </p>
 `;
 
 
@@ -173,6 +177,8 @@ function update(selection, root) { // [1]
   const warning = document.querySelector("#warning");
   const buttonExport = document.querySelector("#export");
   const instanceType = document.querySelector("#instanceType"); // [4]
+  const position = document.querySelector("#position"); // [4]
+  
   const firstItem = selection.items[0];
   instanceType.innerHTML = "SomeThing Went Wrong  err ";
 
@@ -210,10 +216,40 @@ function update(selection, root) { // [1]
 
   }
 
+  if(selection.items.length==1){
+
+    position.innerHTML= displayPositionOfElement(selection.items[0]);
+
+  }
+
   instanceType.innerHTML = alltypes;
 
 
 }
+function displayPositionOfElement(element) {
+    // console.log("globalBounds",text.globalBounds);
+		// console.log("localBounds",text.localBounds );
+		// console.log("boundsInParent",text.boundsInParent);
+		// console.log("topLeftInParent",text.topLeftInParent);
+
+		// console.log("localCenterPoint",text.localCenterPoint);
+
+		// console.log("globalDrawBounds",text.globalDrawBounds);
+  let resPos="globalBounds X:"+element.globalBounds.x+" Y:"+element.globalBounds.y+"<br>"+
+  "localBounds X:"+element.localBounds.x+" Y:"+element.localBounds.y+"<br>"+
+  "boundsInParent X:"+element.boundsInParent.x+" Y:"+element.boundsInParent.y+"<br>"+
+  "topLeftInParent X:"+element.topLeftInParent.x+" Y:"+element.topLeftInParent.y+"<br>"+
+  "localCenterPoint X:"+element.localCenterPoint.x+" Y:"+element.localCenterPoint.y+"<br>"+
+  "globalDrawBounds X:"+element.globalDrawBounds.x+" Y:"+element.globalDrawBounds.y+"<br>"+
+  "Translation X:"+element.translation.x+" Y:"+element.translation.y+"<br>";
+
+  return resPos;
+
+
+  
+}
+
+
 function parseSelectedItems(selection) {
   let res = "";
   selection.forEach(element => {
