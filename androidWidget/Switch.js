@@ -8,7 +8,7 @@ const xd = require("scenegraph");
 class Switch {
 
     static parseSwitchToJson(Switch){
-
+        const widthArt = global.widthArt;
         var jsonSwitchView = {};
         var jsonGroup= {};
 
@@ -21,6 +21,7 @@ class Switch {
         jsonGroup=  Group.parseGroupFromButtonToJson(Switch);
         jsonGroup["width"]= Switch.globalBounds.width;
         jsonGroup["height"]= Switch.globalBounds.height;
+        jsonGroup["marginRight"]= widthArt-Switch.globalBounds.width-Switch.boundsInParent.x;
         jsonGroup["x"]= Switch.boundsInParent.x;
         jsonGroup["y"]= Switch.boundsInParent.y;
         jsonSwitchView = {...jsonSwitchView,...jsonGroup };

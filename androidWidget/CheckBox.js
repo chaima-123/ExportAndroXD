@@ -6,6 +6,7 @@ const xd = require("scenegraph");
 
 class CheckBox {
     static parseCheckBoxToJson(checkBox){
+        const widthArt = global.widthArt;
             var jsonCheckBox = {};
             var jsonGroup= {};
             var jsonRectangle= {};
@@ -17,10 +18,12 @@ class CheckBox {
             {  
             jsonGroup=  Group.parseGroupFromButtonToJson(checkBox);
 
-             jsonGroup["width"]= checkBox.globalBounds.width;
-             jsonGroup["height"]= checkBox.globalBounds.height;
+            jsonGroup["width"]= checkBox.globalBounds.width;
+            jsonGroup["height"]= checkBox.globalBounds.height;
             jsonGroup["x"]= checkBox.boundsInParent.x;
             jsonGroup["y"]= checkBox.boundsInParent.y;
+            jsonGroup["marginRight"]= widthArt-checkBox.globalBounds.width-checkBox.boundsInParent.x;
+
 
             console.log("coucoucoucou");
 
