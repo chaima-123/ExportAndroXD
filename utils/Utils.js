@@ -10,6 +10,8 @@ const { CheckBox } = require("../androidWidget/CheckBox");
 const { Switch } = require("../androidWidget/Switch");
 
 const { ScrollableGroup } = require("../nodes/ScrollableGroup");
+const { RepeatGrid } = require("../nodes/RepeatGrid");
+
 const { Line } = require("../nodes/Line");
 
 const { Text } = require("../nodes/Text");
@@ -92,8 +94,6 @@ class Utils {
       this.parseIfArray(this.ParseByAndroidClass(xdNode, typeWidget), res);
 
     } else {
-
-      console.log("hahahah adobe classe");
       this.parseIfArray(this.ParseByAdobeClass(xdNode), res);
 
     }
@@ -149,6 +149,13 @@ class Utils {
        return  Line.parseLineToJson(xdNode);
 
     }
+
+
+    if (xdNode instanceof xd.RepeatGrid) {
+      return  RepeatGrid.parseRepeatGridToJson(xdNode);
+
+   }
+
 
 
 
