@@ -16,10 +16,15 @@ class CheckBox {
             if(checkBox instanceof xd.Group)
             {  
             jsonGroup=  Group.parseGroupFromButtonToJson(checkBox);
+
+             jsonGroup["width"]= checkBox.globalBounds.width;
+             jsonGroup["height"]= checkBox.globalBounds.height;
             jsonGroup["x"]= checkBox.boundsInParent.x;
             jsonGroup["y"]= checkBox.boundsInParent.y;
 
             console.log("coucoucoucou");
+
+    
 
             console.log("globalBounds",checkBox.globalBounds);
 		console.log("localBounds",checkBox.localBounds );

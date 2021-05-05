@@ -19,6 +19,8 @@ class Switch {
         if(Switch instanceof xd.Group)
         {  
         jsonGroup=  Group.parseGroupFromButtonToJson(Switch);
+        jsonGroup["width"]= Switch.globalBounds.width;
+        jsonGroup["height"]= Switch.globalBounds.height;
         jsonGroup["x"]= Switch.boundsInParent.x;
         jsonGroup["y"]= Switch.boundsInParent.y;
         jsonSwitchView = {...jsonSwitchView,...jsonGroup };

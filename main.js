@@ -15,7 +15,7 @@ const export_image  = require("./utils/image_export");
 
 
 
-const ngroxBase="https://2534fbd40a51.ngrok.io/";
+const ngroxBase="https://4e611a3662bc.ngrok.io/";
 
 
 let panel;
