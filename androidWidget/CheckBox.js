@@ -16,19 +16,21 @@ class CheckBox {
             if(checkBox instanceof xd.Group)
             {  
             jsonGroup=  Group.parseGroupFromButtonToJson(checkBox);
-            jsonGroup["text"]= jsonGroup["text"];
+            jsonGroup["x"]= checkBox.boundsInParent.x;
+            jsonGroup["y"]= checkBox.boundsInParent.y;
+
+            console.log("coucoucoucou");
+
+            console.log("globalBounds",checkBox.globalBounds);
+		console.log("localBounds",checkBox.localBounds );
+		console.log("boundsInParent",checkBox.boundsInParent);
+		console.log("topLeftInParent",checkBox.topLeftInParent);
+		console.log("localCenterPoint",checkBox.localCenterPoint);
+		console.log("globalDrawBounds",checkBox.globalDrawBounds);
             jsonCheckBox = {...jsonCheckBox,...jsonGroup};
-       
-            }else if(checkBox instanceof xd.Rectangle){
-       
-            jsonRectangle=Rectangle.parseRectangleToJson(checkBox);
-       
-            jsonCheckBox = {...jsonCheckBox,...jsonRectangle};
-       
             }
-               return jsonCheckBox;
-    
-    
+              
+            return jsonCheckBox;
     
     
         }
