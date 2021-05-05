@@ -1,22 +1,36 @@
 const { Utils } = require("../utils/Utils");
 const { Text } = require("../nodes/Text");
+
+const { Group } = require("../nodes/Group");
+const xd = require("scenegraph"); 
+
+
 class Switch {
 
     static parseSwitchToJson(Switch){
-
+        const widthArt = global.widthArt;
         var jsonSwitchView = {};
-        var jsonText= {};
-        
+        var jsonGroup= {};
+
         jsonSwitchView[".class"]="Switch";
         jsonSwitchView[".adobeClass"]=Switch.constructor.name;
         jsonSwitchView[".id"]=Switch.name.substring( Switch.name.lastIndexOf("_") + 1, );
-       jsonSwitchView[".width"]="wrap_content";
-       jsonSwitchView[".height"]="wrap_content";
-      
-        
-        return jsonSwitchView ; 
+
+        if(Switch instanceof xd.Group)
+        {  
+        jsonGroup=  Group.parseGroupFromButtonToJson(Switch);
+        jsonGroup["width"]= Switch.globalBounds.width;
+        jsonGroup["height"]= Switch.globalBounds.height;
+        jsonGroup["marginRight"]= widthArt-Switch.globalBounds.width-Switch.boundsInParent.x;
+        jsonGroup["x"]= Switch.boundsInParent.x;
+        jsonGroup["y"]= Switch.boundsInParent.y;
+        jsonSwitchView = {...jsonSwitchView,...jsonGroup };
+    }
+    return jsonSwitchView ; 
 
     }
+
+
 
 }
 
