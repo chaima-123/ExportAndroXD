@@ -39,7 +39,9 @@ class ScrollableGroup {
 	 if(ScrollableGroup.scrollingType=="vertical"){
 		jsonChildren.forEach((newElement)=>{
 			newElement["y"]=newElement["y"]-ScrollableGroup.globalBounds.y;
-			newElement["marginRight"]=0;
+			if(newElement[".adobeClass"]!="ScrollableGroup"){
+			newElement["marginRight"]=undefined
+		}
 		});
 
 	 }else{

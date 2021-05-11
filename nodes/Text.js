@@ -16,8 +16,9 @@ class Text {
 		jsonObj["lineSpacing"]=text.fontFlineSpacingamily ;
 		// jsonObj["text-x"]=text.translation.x;
 		// jsonObj["text-y"]=text.translation.y;
-		jsonObj["x"]=text.boundsInParent.x ;
-		jsonObj["y"]=text.boundsInParent.y ;
+		jsonObj["x"]=text.boundsInParent.x;
+		jsonObj["y"]=text.globalBounds.y;
+	
 		jsonObj["marginRight"]=widthArt-text.boundsInParent.x-text.globalBounds.width ;
 
 		// console.log("globalBounds",text.globalBounds);
