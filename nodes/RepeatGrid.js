@@ -41,6 +41,15 @@ class RepeatGrid {
         
 	  });
 
+	  jsonChildren.forEach((newElement)=>{
+		newElement["x"]=newElement["x"]-RepeatGrid.boundsInParent.x;
+		newElement["y"]=newElement["y"]-RepeatGrid.globalBounds.y;
+		newElement["marginRight"]=newElement["marginRight"]-jsonObj["marginRight"]
+
+	});
+
+
+
 	  jsonObj["children"]= jsonChildren;
     
 		return jsonObj;
