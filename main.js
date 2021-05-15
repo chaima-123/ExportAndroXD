@@ -385,7 +385,7 @@ async function sendRequest(root) {
 async function ExportSyncAll(){ 
   const { editDocument } = require("application");
   editDocument({ editLabel: "Export/GenerateProject" }, async (selected, root) => {
-     folder = await fs.getFolder();
+     folder = await fs.localFileSystem.getFolder();
      Utils.exportAllImages(root,folder);
     
      sendRequestAll(ngroxBase+"GenerateProject","GET",false).then(value=>{
