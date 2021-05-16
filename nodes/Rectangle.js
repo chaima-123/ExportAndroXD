@@ -12,7 +12,7 @@ class Rectangle {
 		jsonObj["height"]=rectangle.height;
 		jsonObj["background"]=rectangle.fill.value ;
 		jsonObj["x"]=rectangle.boundsInParent.x;
-		jsonObj["y"]=rectangle.globalBounds.y;
+		jsonObj["y"]=rectangle.boundsInParent.y;
 		
 		jsonObj["cornerRadius"]=rectangle.cornerRadii;
 		jsonObj["marginRight"]= widthArt-rectangle.width-rectangle.translation.x;

@@ -17,7 +17,7 @@ class Text {
 		// jsonObj["text-x"]=text.translation.x;
 		// jsonObj["text-y"]=text.translation.y;
 		jsonObj["x"]=text.boundsInParent.x;
-		jsonObj["y"]=text.globalBounds.y;
+		jsonObj["y"]=text.boundsInParent.y;
 	
 		jsonObj["marginRight"]=widthArt-text.boundsInParent.x-text.globalBounds.width ;
 

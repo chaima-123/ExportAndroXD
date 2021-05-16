@@ -42,7 +42,7 @@ class Group {
 
     jsonRectangle= Rectangle.parseRectangleToJson(Rectangles[0]);
     jsonRectangle["x"]=button.boundsInParent.x;
-    jsonRectangle["y"]=button.globalBounds.y;
+    jsonRectangle["y"]=button.boundsInParent.y;
 
   }
 
@@ -51,12 +51,7 @@ class Group {
   return {...jsonText,...jsonRectangle}
 
 
-
-
-
-
   }
-
 
 
 
