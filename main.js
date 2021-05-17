@@ -10,7 +10,7 @@ const { Utils } = require("./utils/Utils")
 
 const { Group } = require("./nodes/Group");
 const { UploadImage } = require("./utils/UploadImage");
-const export_image  = require("./utils/image_export");
+const export_image = require("./utils/image_export");
 
 
 
@@ -18,10 +18,13 @@ const export_image  = require("./utils/image_export");
 //const ngroxBase="http://51.116.181.200/api/";
 //const ngroxBase="http://20.52.48.122/api/";
 //const ngroxBase="https://2534fbd40a51.ngrok.io/";
-const ngroxBase="http://localhost:3000/";
+const ngroxBase = "http://localhost:3000/";
 
 let renditionTimer;
 let panel;
+
+let androidSupportedType = ["Button", "EditText", "ImageView", "Switch", "TextView"];
+let AdobeSupportedType = ["Line", "RepeatGrid", "ScrollableGroup"];
 var folder;
 function create() {
 
@@ -184,8 +187,8 @@ function show(event) { // [1]
 }
 
 function update(selection, root) { // [1]
- 
-  const exportArboards= document.querySelector('#export');
+
+  const exportArboards = document.querySelector('#export');
 
 
 
@@ -205,36 +208,36 @@ function update(selection, root) { // [1]
   const buttonExport = document.querySelector("#export");
   const instanceType = document.querySelector("#instanceType"); // [4]
   const position = document.querySelector("#position"); // [4]
-  
+
   const firstItem = selection.items[0];
   instanceType.innerHTML = "SomeThing Went Wrong  err ";
 
   while (images.firstChild) {
     images.removeChild(images.firstChild);
-}
+  }
 
-if (renditionTimer) {
+  if (renditionTimer) {
     clearTimeout(renditionTimer);
     renditionTimer = null;
-}
-renditionTimer = setTimeout(
+  }
+  renditionTimer = setTimeout(
     async () => {
-        try {
-            if (selection.items.length) {
-                const renditionsFiles = await createRenditions();
-                renditionsFiles.forEach(async renditionFile => {
-                    const arrayBuffer = await renditionFile.read({ format: fs.formats.binary });
-                    let image = document.createElement("img");
-                    let base64 = base64ArrayBuffer(arrayBuffer);
-                    image.setAttribute("src", `data:image/png;base64,${base64}`);
-                    images.appendChild(image);
-                })
-            }
-        } catch (e) {
-            console.log(e)
+      try {
+        if (selection.items.length) {
+          const renditionsFiles = await createRenditions();
+          renditionsFiles.forEach(async renditionFile => {
+            const arrayBuffer = await renditionFile.read({ format: fs.formats.binary });
+            let image = document.createElement("img");
+            let base64 = base64ArrayBuffer(arrayBuffer);
+            image.setAttribute("src", `data:image/png;base64,${base64}`);
+            images.appendChild(image);
+          })
         }
+      } catch (e) {
+        console.log(e)
+      }
     }, 100
-);
+  );
 
 
 
@@ -272,9 +275,9 @@ renditionTimer = setTimeout(
 
   }
 
-  if(selection.items.length==1){
+  if (selection.items.length == 1) {
 
-    position.innerHTML= displayPositionOfElement(selection.items[0]);
+    position.innerHTML = displayPositionOfElement(selection.items[0]);
 
   }
 
@@ -284,26 +287,26 @@ renditionTimer = setTimeout(
 }
 
 function displayPositionOfElement(element) {
-    // console.log("globalBounds",text.globalBounds);
-		// console.log("localBounds",text.localBounds );
-		// console.log("boundsInParent",text.boundsInParent);
-		// console.log("topLeftInParent",text.topLeftInParent);
+  // console.log("globalBounds",text.globalBounds);
+  // console.log("localBounds",text.localBounds );
+  // console.log("boundsInParent",text.boundsInParent);
+  // console.log("topLeftInParent",text.topLeftInParent);
 
-		// console.log("localCenterPoint",text.localCenterPoint);
+  // console.log("localCenterPoint",text.localCenterPoint);
 
-		// console.log("globalDrawBounds",text.globalDrawBounds);
-  let resPos="globalBounds X:"+element.globalBounds.x+" Y:"+element.globalBounds.y+"<br>"+
-  "localBounds X:"+element.localBounds.x+" Y:"+element.localBounds.y+"<br>"+
-  "boundsInParent X:"+element.boundsInParent.x+" Y:"+element.boundsInParent.y+"<br>"+
-  "topLeftInParent X:"+element.topLeftInParent.x+" Y:"+element.topLeftInParent.y+"<br>"+
-  "localCenterPoint X:"+element.localCenterPoint.x+" Y:"+element.localCenterPoint.y+"<br>"+
-  "globalDrawBounds X:"+element.globalDrawBounds.x+" Y:"+element.globalDrawBounds.y+"<br>"+
-  "Translation X:"+element.translation.x+" Y:"+element.translation.y+"<br>";
+  // console.log("globalDrawBounds",text.globalDrawBounds);
+  let resPos = "globalBounds X:" + element.globalBounds.x + " Y:" + element.globalBounds.y + "<br>" +
+    "localBounds X:" + element.localBounds.x + " Y:" + element.localBounds.y + "<br>" +
+    "boundsInParent X:" + element.boundsInParent.x + " Y:" + element.boundsInParent.y + "<br>" +
+    "topLeftInParent X:" + element.topLeftInParent.x + " Y:" + element.topLeftInParent.y + "<br>" +
+    "localCenterPoint X:" + element.localCenterPoint.x + " Y:" + element.localCenterPoint.y + "<br>" +
+    "globalDrawBounds X:" + element.globalDrawBounds.x + " Y:" + element.globalDrawBounds.y + "<br>" +
+    "Translation X:" + element.translation.x + " Y:" + element.translation.y + "<br>";
 
   return resPos;
 
 
-  
+
 }
 
 
@@ -352,72 +355,125 @@ async function sendRequest(root) {
   // global.folder=folder;
   var res = RootNode.ExportAll(root);
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
-  var theUrl = ngroxBase+"ExportToXml";
+  var theUrl = ngroxBase + "ExportToXml";
   xmlhttp.open("POST", theUrl);
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  xmlhttp.setRequestHeader("X-API-KEY", "12345"); 
+  xmlhttp.setRequestHeader("X-API-KEY", "12345");
   xmlhttp.send(res);
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(true);
     }, 8000);
-});
+  });
 
 
 }
 
-function parseIfGroup(group){
+function parseIfGroup(group) {
 
-  if(group instanceof xd.Group ){
+
+  if (group instanceof xd.Group) {
 
     group.children.forEach(element => {
-      parseIfGroup(element);
+
+      valideSingleElement2(element);
+
     });
 
-  }else{
-
-      valideSingleElement(group)
 
   }
-  
 }
 
-function valideSingleElement(element){
+function valideSingleElement(element) {
 
-  let test =false ;
+  let test = false;
 
-  
-  if(Utils.getId(element.name)==""){
-    test=true;
-    console.log("Error |" +element.name);
+
+  if (Utils.getId(element.name) == "") {
+    console.log(Utils.getId(element.name));
+    test = true;
+    console.log("Error |" + element.name);
   }
-   if(Utils.getype(element.name)==""){
-    test=true;
-    console.log("Error |"+element.name );
+  if (Utils.getype(element.name) == "") {
+    console.log(Utils.getype(element.name));
+    test = true;
+    console.log("Error |" + element.name);
 
   }
-  if(test==false){
+  if (test == false) {
 
-  console.log("Succes |"+element.name );
+    console.log("Succes |" + element.name);
 
   }
   // if(true){
   //   //  lenaa naamlou fazet el ArrayliST 
- 
+
   // }
 
 
 
 
 }
-function validAll(root){
-  root.children.forEach(artboard=>{
 
-    artboard.children.forEach(element => {
-     
+function valideSingleElement2(element) {
+  let test = false;
+  let test2 = false;
+  let test3 = false;
+  const id=Utils.getId(element.name);
+
+  // console.log(Utils.getId("test").length==0);
+  if (androidSupportedType.includes(Utils.getype(element.name))) {
+    // console.log("Succes"+element.name);
+    test = true;
+
+  } if (id!=undefined) {
+
+    test2 = true;
+    // console.log("Succes"+element.name);
+
+  } if (AdobeSupportedType.includes(element.constructor.name)) {
+    test3 = true
+    console.log("Succes" + element.name);
+
+  }
+  if (test && test2 || test3) {
+
+    console.log("Succes" + element.name);
+
+  }
+
+  else {
+  //  console.log("ID:"+Utils.getId(element.name)+"  TYPE "+Utils.getype(element.name)+ " TEST NAME ="+test+ " TEST ID ="+test2+ " TEST ADOBE ="+test3)
+
+    if (element instanceof xd.Group&&!test&&!test2 ) {
+
       parseIfGroup(element);
 
+    }else  if(test&&!test2){
+      console.log("EROOR No ID  : " + element.name);
+    }
+    else if(!test&&test2){
+        console.log("EROOR No Type  : " + element.name);
+    
+      }  else {
+        console.log("EROOR No ID NO TYPE  " + element.name);
 
+      }
+
+
+
+  }
+
+
+
+
+}
+function validAll(root) {
+  root.children.forEach(artboard => {
+
+    artboard.children.forEach(element => {
+
+      valideSingleElement2(element);
 
 
     });
@@ -428,26 +484,26 @@ function validAll(root){
 
 }
 
-async function exportAllArtboardFromClick(){ 
+async function exportAllArtboardFromClick() {
 
 
 
   const { editDocument } = require("application");
   editDocument({ editLabel: "Export/GenerateProject" }, async (selected, root) => {
-     folder = await fs.localFileSystem.getFolder();
-     Utils.exportAllImages(root,folder);
-    
-     sendRequestAll(ngroxBase+"GenerateProject","GET",false).then(value=>{
+    folder = await fs.localFileSystem.getFolder();
+    Utils.exportAllImages(root, folder);
+
+    sendRequestAll(ngroxBase + "GenerateProject", "GET", false).then(value => {
       console.log("On Generate Priject ");
-      sendRequest(root).then(value=>{
+      sendRequest(root).then(value => {
         console.log("On Generate XML ");
-      
-        sendRequestAll(ngroxBase+"GetProject","GET",false).then(value=>{
+
+        sendRequestAll(ngroxBase + "GetProject", "GET", false).then(value => {
 
           console.log("On get Project ");
 
-          sendRequestAll(ngroxBase+"download","GET",true).then(value=>{
-   
+          sendRequestAll(ngroxBase + "download", "GET", true).then(value => {
+
             console.log("im done here ");
           })
 
@@ -456,104 +512,104 @@ async function exportAllArtboardFromClick(){
 
       });
 
-     });
+    });
 
-       
+
   });
 
 }
 
-async function exportAllArtboardFromCommandId(selection,root){ 
+async function exportAllArtboardFromCommandId(selection, root) {
 
-     folder = await fs.localFileSystem.getFolder();
-     Utils.exportAllImages(root,folder);
-     validAll(root);
-     sendRequestAll(ngroxBase+"GenerateProject","GET",false).then(value=>{
-      console.log("On Generate Priject ");
-      sendRequest(root).then(value=>{
-        console.log("On Generate XML ");
-      
-        sendRequestAll(ngroxBase+"GetProject","GET",false).then(value=>{
-
-          console.log("On get Project ");
-
-          sendRequestAll(ngroxBase+"download","GET",true).then(value=>{
-   
-            console.log("im done here ");
-          })
-
-
-        });
-
-      });
-
-     });
-
-       
-
-
-}
-async function exportSelectedArtboardFromCommandId(selection,root){ 
- 
-  var selectionObj = {};
-  selectionObj["children"]=selection.items;
-  console.log("hello",selectionObj);
   folder = await fs.localFileSystem.getFolder();
-  Utils.exportAllImages(selectionObj,folder);
- 
-  sendRequestAll(ngroxBase+"GenerateProject","GET",false).then(value=>{
-   console.log("On Generate Priject ");
-   sendRequest(selectionObj).then(value=>{
-     console.log("On Generate XML ");
-   
-     sendRequestAll(ngroxBase+"GetProject","GET",false).then(value=>{
+  Utils.exportAllImages(root, folder);
+  validAll(root);
+  // //  sendRequestAll(ngroxBase+"GenerateProject","GET",false).then(value=>{
+  // //   console.log("On Generate Priject ");
+  // //   sendRequest(root).then(value=>{
+  // //     console.log("On Generate XML ");
 
-       console.log("On get Project ");
+  // //     sendRequestAll(ngroxBase+"GetProject","GET",false).then(value=>{
 
-       sendRequestAll(ngroxBase+"download","GET",true).then(value=>{
+  // //       console.log("On get Project ");
 
-         console.log("im done here ");
-       })
+  // //       sendRequestAll(ngroxBase+"download","GET",true).then(value=>{
+
+  // //         console.log("im done here ");
+  // //       })
 
 
-     });
+  // //     });
 
-   });
+  // //   });
+
+  //  });
+
+
+
+
+}
+async function exportSelectedArtboardFromCommandId(selection, root) {
+
+  var selectionObj = {};
+  selectionObj["children"] = selection.items;
+  console.log("hello", selectionObj);
+  folder = await fs.localFileSystem.getFolder();
+  Utils.exportAllImages(selectionObj, folder);
+
+  sendRequestAll(ngroxBase + "GenerateProject", "GET", false).then(value => {
+    console.log("On Generate Priject ");
+    sendRequest(selectionObj).then(value => {
+      console.log("On Generate XML ");
+
+      sendRequestAll(ngroxBase + "GetProject", "GET", false).then(value => {
+
+        console.log("On get Project ");
+
+        sendRequestAll(ngroxBase + "download", "GET", true).then(value => {
+
+          console.log("im done here ");
+        })
+
+
+      });
+
+    });
 
   });
 
-    
+
 
 
 }
 
-async function sendRequestAll(url,methode,withAction) {
+async function sendRequestAll(url, methode, withAction) {
 
   var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance 
   var fileUrl;
-  
 
-  if(withAction){
-  xmlhttp.onreadystatechange = function () {
-   
-   
-    try {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
-      fileUrl = this.responseText;
-      downloadZip(fileUrl);
 
-    }
+  if (withAction) {
+    xmlhttp.onreadystatechange = function () {
+
+
+      try {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText);
+          fileUrl = this.responseText;
+          downloadZip(fileUrl);
+
+        }
+      }
+      catch (err) {
+        console.log("error ")
+        console.log(err.message);
+      }
+    };
+
   }
-  catch (err) {
-    console.log("error ")
-    console.log(err.message);
-}
-  };
-
-}
   xmlhttp.open(methode, url);
-  xmlhttp.setRequestHeader("Access-Control-Allow-Origin","*")
+  xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*")
   xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xmlhttp.setRequestHeader("X-API-KEY", "12345");
   xmlhttp.send();
@@ -561,120 +617,120 @@ async function sendRequestAll(url,methode,withAction) {
     setTimeout(() => {
       resolve(true);
     }, 5000);
-});
+  });
 
 }
 
 async function downloadZip(url) {
   try {
-      const photoObj = await xhrBinary(url);
-      //const tempFolder = await fs.getFolder();
-    
-      const tempFile = await folder.createFile("tmp.zip", { overwrite: true });
-      await tempFile.write(photoObj, { format: uxp.storage.formats.binary });
+    const photoObj = await xhrBinary(url);
+    //const tempFolder = await fs.getFolder();
+
+    const tempFile = await folder.createFile("tmp.zip", { overwrite: true });
+    await tempFile.write(photoObj, { format: uxp.storage.formats.binary });
 
   } catch (err) {
-      console.log("error on Download Zip")
-      console.log(err.message);
+    console.log("error on Download Zip")
+    console.log(err.message);
   }
 }
 
 function xhrBinary(url) {
   return new Promise((resolve, reject) => {
-      const req = new XMLHttpRequest();
-   
-      req.onload = () => {
-          if (req.status === 200) {
-              try {
-                  const arr = new Uint8Array(req.response);
-                  resolve(arr);
-              } catch (err) {
-                  reject('Couldnt parse response. ${err.message}, ${req.response}');
-              }
-          } else {
-              reject('Request had an error: ${req.status}');
-          }
+    const req = new XMLHttpRequest();
+
+    req.onload = () => {
+      if (req.status === 200) {
+        try {
+          const arr = new Uint8Array(req.response);
+          resolve(arr);
+        } catch (err) {
+          reject('Couldnt parse response. ${err.message}, ${req.response}');
+        }
+      } else {
+        reject('Request had an error: ${req.status}');
       }
-      req.onerror = reject;
-      req.onabort = reject;
-      req.open('GET', url, true);
-      req.setRequestHeader("Access-Control-Allow-Origin","*")
-      req.setRequestHeader("X-API-KEY", "12345");
-      req.responseType = "arraybuffer";
-      req.send();
+    }
+    req.onerror = reject;
+    req.onabort = reject;
+    req.open('GET', url, true);
+    req.setRequestHeader("Access-Control-Allow-Origin", "*")
+    req.setRequestHeader("X-API-KEY", "12345");
+    req.responseType = "arraybuffer";
+    req.send();
   });
 }
 
 async function createRenditions() {
-    const folder = await fs.localFileSystem.getTemporaryFolder();
-    const arr = await selection.items.map(async item => {
-        const file = await folder.createFile(`${item.guid}.png`, { overwrite: true });
-        let obj = {};
-        obj.node = item;
-        obj.outputFile = file;
-        obj.type = "png";
-        obj.scale = 2;
-        return obj
-    })
-    const renditions = await Promise.all(arr);
-    const renditionResults = await application.createRenditions(renditions);
-    const renditionsFiles = renditionResults.map(a => a.outputFile);
-    return renditionsFiles;
+  const folder = await fs.localFileSystem.getTemporaryFolder();
+  const arr = await selection.items.map(async item => {
+    const file = await folder.createFile(`${item.guid}.png`, { overwrite: true });
+    let obj = {};
+    obj.node = item;
+    obj.outputFile = file;
+    obj.type = "png";
+    obj.scale = 2;
+    return obj
+  })
+  const renditions = await Promise.all(arr);
+  const renditionResults = await application.createRenditions(renditions);
+  const renditionsFiles = renditionResults.map(a => a.outputFile);
+  return renditionsFiles;
 }
 
 function base64ArrayBuffer(arrayBuffer) {
-    let base64 = ''
-    const encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+  let base64 = ''
+  const encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
 
-    const bytes = new Uint8Array(arrayBuffer)
-    const byteLength = bytes.byteLength
-    const byteRemainder = byteLength % 3
-    const mainLength = byteLength - byteRemainder
+  const bytes = new Uint8Array(arrayBuffer)
+  const byteLength = bytes.byteLength
+  const byteRemainder = byteLength % 3
+  const mainLength = byteLength - byteRemainder
 
-    let a, b, c, d
-    let chunk
+  let a, b, c, d
+  let chunk
 
-    // Main loop deals with bytes in chunks of 3
-    for (var i = 0; i < mainLength; i = i + 3) {
-        // Combine the three bytes into a single integer
-        chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2]
+  // Main loop deals with bytes in chunks of 3
+  for (var i = 0; i < mainLength; i = i + 3) {
+    // Combine the three bytes into a single integer
+    chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2]
 
-        // Use bitmasks to extract 6-bit segments from the triplet
-        a = (chunk & 16515072) >> 18 // 16515072 = (2^6 - 1) << 18
-        b = (chunk & 258048) >> 12 // 258048   = (2^6 - 1) << 12
-        c = (chunk & 4032) >> 6 // 4032     = (2^6 - 1) << 6
-        d = chunk & 63               // 63       = 2^6 - 1
+    // Use bitmasks to extract 6-bit segments from the triplet
+    a = (chunk & 16515072) >> 18 // 16515072 = (2^6 - 1) << 18
+    b = (chunk & 258048) >> 12 // 258048   = (2^6 - 1) << 12
+    c = (chunk & 4032) >> 6 // 4032     = (2^6 - 1) << 6
+    d = chunk & 63               // 63       = 2^6 - 1
 
-        // Convert the raw binary segments to the appropriate ASCII encoding
-        base64 += encodings[a] + encodings[b] + encodings[c] + encodings[d]
-    }
+    // Convert the raw binary segments to the appropriate ASCII encoding
+    base64 += encodings[a] + encodings[b] + encodings[c] + encodings[d]
+  }
 
-    // Deal with the remaining bytes and padding
-    if (byteRemainder == 1) {
-        chunk = bytes[mainLength]
+  // Deal with the remaining bytes and padding
+  if (byteRemainder == 1) {
+    chunk = bytes[mainLength]
 
-        a = (chunk & 252) >> 2 // 252 = (2^6 - 1) << 2
+    a = (chunk & 252) >> 2 // 252 = (2^6 - 1) << 2
 
-        // Set the 4 least significant bits to zero
-        b = (chunk & 3) << 4 // 3   = 2^2 - 1
+    // Set the 4 least significant bits to zero
+    b = (chunk & 3) << 4 // 3   = 2^2 - 1
 
-        base64 += encodings[a] + encodings[b] + '=='
-    } else if (byteRemainder == 2) {
-        chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1]
+    base64 += encodings[a] + encodings[b] + '=='
+  } else if (byteRemainder == 2) {
+    chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1]
 
-        a = (chunk & 64512) >> 10 // 64512 = (2^6 - 1) << 10
-        b = (chunk & 1008) >> 4 // 1008  = (2^6 - 1) << 4
+    a = (chunk & 64512) >> 10 // 64512 = (2^6 - 1) << 10
+    b = (chunk & 1008) >> 4 // 1008  = (2^6 - 1) << 4
 
-        // Set the 2 least significant bits to zero
-        c = (chunk & 15) << 2 // 15    = 2^4 - 1
+    // Set the 2 least significant bits to zero
+    c = (chunk & 15) << 2 // 15    = 2^4 - 1
 
-        base64 += encodings[a] + encodings[b] + encodings[c] + '='
-    }
+    base64 += encodings[a] + encodings[b] + encodings[c] + '='
+  }
 
-    return base64
+  return base64
 }
 
-  
+
 
 
 module.exports = {
@@ -685,8 +741,8 @@ module.exports = {
     }
   },
   commands: {
-    exportAllArtboard:exportAllArtboardFromCommandId,
-    exportSelectedArtboard:exportSelectedArtboardFromCommandId,
+    exportAllArtboard: exportAllArtboardFromCommandId,
+    exportSelectedArtboard: exportSelectedArtboardFromCommandId,
 
   }
 
