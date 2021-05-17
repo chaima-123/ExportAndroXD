@@ -17,15 +17,19 @@
   "uiEntryPoints" : [ 
       {
     "type" : "panel",
-
     "label": "UI Panel",
     "panelId": "enlargeRectangle"
 
   } , 
   {
     "type": "menu",
-    "label": "Export All ArtBoard",
-    "commandId": "ExportSyncAll"
+    "label": "Export All ArtBoards",
+    "commandId": "exportAllArtboard"
+  },
+  {
+    "type": "menu",
+    "label": "Export Selected ArtBoards",
+    "commandId": "exportSelectedArtboard"
   }
 ],
   "version" : "0.0.1"

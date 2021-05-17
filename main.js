@@ -179,7 +179,6 @@ function setElementType() { // [2]
 }
 
 
-
 function show(event) { // [1]
   if (!panel) event.node.appendChild(create()); // [2]
 }
@@ -191,7 +190,7 @@ function update(selection, root) { // [1]
 
 
   exportArboards.addEventListener('click', event => {
-    ExportSyncAll();
+    exportAllArtboardFromClick();
     //sendRequestAll(ngroxBase+"GenerateProject","GET",false);
   });
 
@@ -239,19 +238,6 @@ renditionTimer = setTimeout(
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   let alltypes = "";
 
 
@@ -296,6 +282,7 @@ renditionTimer = setTimeout(
 
 
 }
+
 function displayPositionOfElement(element) {
     // console.log("globalBounds",text.globalBounds);
 		// console.log("localBounds",text.localBounds );
@@ -347,7 +334,6 @@ function parseSingleNode(xNode, level) {
 
 }
 
-
 function parseGroup(group, level) {
   let res = "";
   group.children.forEach(element => {
@@ -358,7 +344,6 @@ function parseGroup(group, level) {
   return res;
 
 }
-
 
 async function sendRequest(root) {
   //   const folder = await fs.getFolder();
@@ -381,8 +366,72 @@ async function sendRequest(root) {
 
 }
 
+function parseIfGroup(group){
 
-async function ExportSyncAll(){ 
+  if(group instanceof xd.Group ){
+
+    group.children.forEach(element => {
+      parseIfGroup(element);
+    });
+
+  }else{
+
+      valideSingleElement(group)
+
+  }
+  
+}
+
+function valideSingleElement(element){
+
+  let test =false ;
+
+  
+  if(Utils.getId(element.name)==""){
+    test=true;
+    console.log("Error |" +element.name);
+  }
+   if(Utils.getype(element.name)==""){
+    test=true;
+    console.log("Error |"+element.name );
+
+  }
+  if(test==false){
+
+  console.log("Succes |"+element.name );
+
+  }
+  // if(true){
+  //   //  lenaa naamlou fazet el ArrayliST 
+ 
+  // }
+
+
+
+
+}
+function validAll(root){
+  root.children.forEach(artboard=>{
+
+    artboard.children.forEach(element => {
+     
+      parseIfGroup(element);
+
+
+
+
+    });
+
+  });
+
+
+
+}
+
+async function exportAllArtboardFromClick(){ 
+
+
+
   const { editDocument } = require("application");
   editDocument({ editLabel: "Export/GenerateProject" }, async (selected, root) => {
      folder = await fs.localFileSystem.getFolder();
@@ -411,6 +460,70 @@ async function ExportSyncAll(){
 
        
   });
+
+}
+
+async function exportAllArtboardFromCommandId(selection,root){ 
+
+     folder = await fs.localFileSystem.getFolder();
+     Utils.exportAllImages(root,folder);
+     validAll(root);
+     sendRequestAll(ngroxBase+"GenerateProject","GET",false).then(value=>{
+      console.log("On Generate Priject ");
+      sendRequest(root).then(value=>{
+        console.log("On Generate XML ");
+      
+        sendRequestAll(ngroxBase+"GetProject","GET",false).then(value=>{
+
+          console.log("On get Project ");
+
+          sendRequestAll(ngroxBase+"download","GET",true).then(value=>{
+   
+            console.log("im done here ");
+          })
+
+
+        });
+
+      });
+
+     });
+
+       
+
+
+}
+async function exportSelectedArtboardFromCommandId(selection,root){ 
+ 
+  var selectionObj = {};
+  selectionObj["children"]=selection.items;
+  console.log("hello",selectionObj);
+  folder = await fs.localFileSystem.getFolder();
+  Utils.exportAllImages(selectionObj,folder);
+ 
+  sendRequestAll(ngroxBase+"GenerateProject","GET",false).then(value=>{
+   console.log("On Generate Priject ");
+   sendRequest(selectionObj).then(value=>{
+     console.log("On Generate XML ");
+   
+     sendRequestAll(ngroxBase+"GetProject","GET",false).then(value=>{
+
+       console.log("On get Project ");
+
+       sendRequestAll(ngroxBase+"download","GET",true).then(value=>{
+
+         console.log("im done here ");
+       })
+
+
+     });
+
+   });
+
+  });
+
+    
+
 
 }
 
@@ -452,7 +565,6 @@ async function sendRequestAll(url,methode,withAction) {
 
 }
 
-
 async function downloadZip(url) {
   try {
       const photoObj = await xhrBinary(url);
@@ -466,8 +578,6 @@ async function downloadZip(url) {
       console.log(err.message);
   }
 }
-
-
 
 function xhrBinary(url) {
   return new Promise((resolve, reject) => {
@@ -495,7 +605,6 @@ function xhrBinary(url) {
   });
 }
 
- 
 async function createRenditions() {
     const folder = await fs.localFileSystem.getTemporaryFolder();
     const arr = await selection.items.map(async item => {
@@ -576,7 +685,9 @@ module.exports = {
     }
   },
   commands: {
-    ExportSyncAll
+    exportAllArtboard:exportAllArtboardFromCommandId,
+    exportSelectedArtboard:exportSelectedArtboardFromCommandId,
+
   }
 
 }

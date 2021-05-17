@@ -17,6 +17,7 @@ class RepeatGrid {
 		jsonObj["paddingX"]=RepeatGrid.paddingX  ;
         jsonObj["paddingY"]=RepeatGrid.paddingY  ;
         jsonObj["cellSize"]=RepeatGrid.cellSize  ;
+		jsonObj["numRows"]=RepeatGrid.numRows  ;
 
 		jsonObj["marginRight"]=widthArt-RepeatGrid.boundsInParent.width-RepeatGrid.boundsInParent.x;
 

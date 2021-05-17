@@ -75,7 +75,7 @@ class Utils {
 
     }
     else {
-
+      
       return { "res": "Types widget invalide" };
       // let data={};
       //     data["NOTYPE"]="NOTYPE";
@@ -89,7 +89,6 @@ class Utils {
     let typeWidget = this.getype(xdNode.name);
     console.log(xdNode.name + "  " + typeWidget);
     if (typeWidget != "") {
-      console.log("hahahah android");
 
       this.parseIfArray(this.ParseByAndroidClass(xdNode, typeWidget), res);
 
