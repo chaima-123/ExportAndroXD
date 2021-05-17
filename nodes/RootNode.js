@@ -12,9 +12,6 @@ static ExportAll(root){
         var item = {};
         item = ArtBoard.parseArtBoardToJson(element);
 
-           // item={"test":"test"};
-        // item ["title"] = id;
-        // item ["email"] = email;
         JsonArtBoards.push(item)
        
     });
@@ -27,19 +24,6 @@ static ExportAll(root){
     console.log("--------");
 
 
-   
-
-//     var all = JSON.parse(res);
-//         all.ArtBoard.forEach(artboard=>{
-//          artboard.children.forEach(element=>{
-//         console.log("helo0",element[".class"]);
-        
-//     })
-
-
-// })
-    //     all.ArtBoard.children.forEach(element=>{
-    //         console.log("helo0",element);
     // });
    
 
