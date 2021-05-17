@@ -31,12 +31,6 @@ function create() {
   // [1]
   const html = `
 <style>
-.containerAll{
-
-height:80%;
-
-}
-
     .break {
         flex-wrap: wrap;
     }
@@ -79,9 +73,6 @@ height:80%;
         display: none;
     }
     .parent {
-      overflow:auto;
-      height:30%;
-      
       margin:auto;
     }
 
@@ -103,48 +94,6 @@ height:80%;
       margin-bottom: 10px;
  
   }
-  button.fixedF {
-    position: fixed;
-    left:1px;
-    width:90%;
-   
-    bottom: 1px;
-
-  } 
-
-  button.fixedS {
-    position: fixed;
-    left:1px;
-    width:90%;
-   
-    bottom: 50px;
-
-  } 
-
-  .box{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: start;
-
-    label.element {
-
-      margin-left:10px;
-
-    }
-
-    fieldset.list{
-      margin-left:10px;
-
-
-    }
-
-
-
-  }
-
-
-
 </style>
 
 <form method="dialog" id="main">
@@ -194,10 +143,9 @@ height:80%;
 
 </form>
 <p id="warning"> Please select an Artboard to Export Or a Single element.</p>
+<p id="instanceType">Init class name</p>
 
-<button uxp-variant="cta" class="fixedF ">Export All Artboards</button>
-<button uxp-variant="cta" class="fixedS ">Export All Artboards</button>
-
+<p id="position"> </p>
 `;
 
 
@@ -258,11 +206,11 @@ function update(selection, root) { // [1]
   let images = document.querySelector("#images");
   const warning = document.querySelector("#warning");
   const buttonExport = document.querySelector("#export");
+  const instanceType = document.querySelector("#instanceType"); // [4]
+  const position = document.querySelector("#position"); // [4]
 
-
-
-
-
+  const firstItem = selection.items[0];
+  instanceType.innerHTML = "SomeThing Went Wrong  err ";
 
   while (images.firstChild) {
     images.removeChild(images.firstChild);
@@ -293,18 +241,18 @@ function update(selection, root) { // [1]
 
 
 
-
+  let alltypes = "";
 
 
   if (selection.items.length > 1) {
     warning.className = "show";
     form.className = "hide";
     buttonExport.className = "hide";
-   
+    alltypes = parseSelectedItems(selection.items);
 
 
   } else if (selection.items[0] instanceof xd.Artboard) {
-  
+    alltypes = parseSelectedItems(selection.items[0].children);
 
 
 
@@ -316,6 +264,7 @@ function update(selection, root) { // [1]
     form.className = "show";
     buttonExport.className = "hide";
 
+    alltypes = parseSelectedItems(selection.items);
 
 
   } else {
@@ -326,9 +275,13 @@ function update(selection, root) { // [1]
 
   }
 
+  if (selection.items.length == 1) {
 
+    position.innerHTML = displayPositionOfElement(selection.items[0]);
 
+  }
 
+  instanceType.innerHTML = alltypes;
 
 
 }
@@ -431,7 +384,36 @@ function parseIfGroup(group) {
   }
 }
 
+function valideSingleElement(element) {
 
+  let test = false;
+
+
+  if (Utils.getId(element.name) == "") {
+    console.log(Utils.getId(element.name));
+    test = true;
+    console.log("Error |" + element.name);
+  }
+  if (Utils.getype(element.name) == "") {
+    console.log(Utils.getype(element.name));
+    test = true;
+    console.log("Error |" + element.name);
+
+  }
+  if (test == false) {
+
+    console.log("Succes |" + element.name);
+
+  }
+  // if(true){
+  //   //  lenaa naamlou fazet el ArrayliST 
+
+  // }
+
+
+
+
+}
 
 function valideSingleElement2(element) {
   let test = false;
@@ -464,7 +446,7 @@ function valideSingleElement2(element) {
   //  console.log("ID:"+Utils.getId(element.name)+"  TYPE "+Utils.getype(element.name)+ " TEST NAME ="+test+ " TEST ID ="+test2+ " TEST ADOBE ="+test3)
 
     if (element instanceof xd.Group&&!test&&!test2 ) {
-      //ADD SCROLL && RECYLER TOO HERE 
+
       parseIfGroup(element);
 
     }else  if(test&&!test2){
