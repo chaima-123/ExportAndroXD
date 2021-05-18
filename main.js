@@ -40,25 +40,7 @@ height:80%;
     .break {
         flex-wrap: wrap;
     }
-    label.row > span {
-        color: #8E8E8E;
-        width: 70px;
-        text-align: left;
-        font-size: 10px;
-    }
-    label.row input {
-        flex: 1 1 auto;
-        width:50%;
-    }
-
-
-    label.row > fieldset {
-      width:50%;
-      padding: 12px 20px;
-      margin: 10px 0;
-      box-sizing: border-box;      
- 
-  }
+  
     
     input[type=text] {
       width: 100%;
@@ -122,26 +104,40 @@ height:80%;
   } 
 
   .box{
+    margin-top:15px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-start;
     align-items: start;
-
+  }
+  
     label.element {
 
-      margin-left:10px;
+      margin-left:20px;
+      margin-top:40px;
+
+    }
+    label.element2 {
+
+      margin-left:20px;
+      margin-top:25px;
 
     }
 
     fieldset.list{
-      margin-left:10px;
+      margin-left:20px;
+      width:90%;
 
+    }
+    input.list{
+      margin-left:100x;
+      width:90%;
 
     }
 
 
 
-  }
+ 
 
 
 
@@ -154,12 +150,12 @@ height:80%;
 </div>
 </div>
 
-<div class="row break">
-<label class="row">
-    <span>↕︎</span>
-    <label for="ElementType">Element Type:</label>
-    <fieldset>
-       <select id = "myList">
+<div class="box">
+
+   
+    <label class="element" for="ElementType">Element Type:</label>
+    <fieldset class="list">
+       <select id = "myList" style="width:100%;">
          <option value = "EditText">EditText</option>
          <option value = "Button">Button</option>
          <option value = "CheckBox">CheckBox</option>
@@ -171,18 +167,16 @@ height:80%;
 
        </select>
  </fieldset>
-</label> 
+
 </div>
-    <div class="row break">
-        <label class="row">
-            <span>↕︎</span>
-            <label for="idTxt">Element id :</label>
-            <input type="text" uxp-quiet="true" id="idTxt"  placeholder="Write the id here" required>
-        </label>      
+    <div  class="box">    
+            <label class="element2" for="idTxt">Element id :</label>
+            <input class="list"   style="width:100%;     margin-left:40px; " type="text" uxp-quiet="true" id="idTxt"  placeholder="Write the id here" required>
+ 
     </div>
 
 
-    <footer><button id="ok" type="submit" uxp-variant="cta">Apply</button></footer>
+    <footer><button id="ok" style="width:30%;"  type="submit" uxp-variant="cta">Apply</button></footer>
   
 </form>
 <form  method="dialog" id="main">
@@ -195,8 +189,8 @@ height:80%;
 </form>
 <p id="warning"> Please select an Artboard to Export Or a Single element.</p>
 
-<button uxp-variant="cta" class="fixedF ">Export All Artboards</button>
-<button uxp-variant="cta" class="fixedS ">Export All Artboards</button>
+<button id="exportAll" uxp-variant="cta" class="fixedF ">Export All Artboards</button>
+<button class="fixedS ">Export Selected Artboards</button>
 
 `;
 
@@ -248,6 +242,15 @@ function update(selection, root) { // [1]
     exportAllArtboardFromClick();
     //sendRequestAll(ngroxBase+"GenerateProject","GET",false);
   });
+
+  // const exportAllArboards = document.querySelector('#exportAll');
+
+
+
+  // exportAllArboards.addEventListener('click', event => {
+  //   exportAllArtboardFromClick();
+  //   //sendRequestAll(ngroxBase+"GenerateProject","GET",false);
+  // });
 
 
 
@@ -541,27 +544,27 @@ async function exportAllArtboardFromCommandId(selection, root) {
 
   folder = await fs.localFileSystem.getFolder();
   Utils.exportAllImages(root, folder);
-  validAll(root);
-  // //  sendRequestAll(ngroxBase+"GenerateProject","GET",false).then(value=>{
-  // //   console.log("On Generate Priject ");
-  // //   sendRequest(root).then(value=>{
-  // //     console.log("On Generate XML ");
+  // validAll(root);
+   sendRequestAll(ngroxBase+"GenerateProject","GET",false).then(value=>{
+    console.log("On Generate Priject ");
+    sendRequest(root).then(value=>{
+      console.log("On Generate XML ");
 
-  // //     sendRequestAll(ngroxBase+"GetProject","GET",false).then(value=>{
+      sendRequestAll(ngroxBase+"GetProject","GET",false).then(value=>{
 
-  // //       console.log("On get Project ");
+        console.log("On get Project ");
 
-  // //       sendRequestAll(ngroxBase+"download","GET",true).then(value=>{
+        sendRequestAll(ngroxBase+"download","GET",true).then(value=>{
 
-  // //         console.log("im done here ");
-  // //       })
+          console.log("im done here ");
+        })
 
 
-  // //     });
+      });
 
-  // //   });
+    });
 
-  //  });
+   });
 
 
 
