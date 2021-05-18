@@ -40,14 +40,23 @@ class Utils {
   }
 
   static getId(fullNameNode) {
+    // console.log(fullNameNode +" ||||||||||||||||||||||||||||||||||||||| "+  fullNameNode.lastIndexOf("_"))
+    let firstIndex=fullNameNode.indexOf("_");
+    let lastIndex=fullNameNode.lastIndexOf("_");
 
+   
     var myId = fullNameNode.substring(
-      fullNameNode.lastIndexOf("_") + 1,
-
+      lastIndex + 1,
     );
+    // console.log("FulName :"+fullNameNode+" ############### "+myId +" " + myId.length);
 
+     
+    if (firstIndex==-1|| (firstIndex==lastIndex)||fullNameNode==myId ||myId.length==0){
+      return undefined;
+    }else{
+  
     return myId;
-
+  } 
   }
 
   static ParseByAndroidClass(xdNode, typeWidget) {
@@ -89,7 +98,6 @@ class Utils {
     let typeWidget = this.getype(xdNode.name);
     console.log(xdNode.name + "  " + typeWidget);
     if (typeWidget != "") {
-      console.log("hahahah android");
 
       this.parseIfArray(this.ParseByAndroidClass(xdNode, typeWidget), res);
 
