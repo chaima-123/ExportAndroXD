@@ -25,16 +25,14 @@ class CheckBox {
             jsonGroup["marginRight"]= widthArt-checkBox.globalBounds.width-checkBox.boundsInParent.x;
 
 
-            console.log("coucoucoucou");
-
     
 
-            console.log("globalBounds",checkBox.globalBounds);
-		console.log("localBounds",checkBox.localBounds );
-		console.log("boundsInParent",checkBox.boundsInParent);
-		console.log("topLeftInParent",checkBox.topLeftInParent);
-		console.log("localCenterPoint",checkBox.localCenterPoint);
-		console.log("globalDrawBounds",checkBox.globalDrawBounds);
+        //     console.log("globalBounds",checkBox.globalBounds);
+		// console.log("localBounds",checkBox.localBounds );
+		// console.log("boundsInParent",checkBox.boundsInParent);
+		// console.log("topLeftInParent",checkBox.topLeftInParent);
+		// console.log("localCenterPoint",checkBox.localCenterPoint);
+		// console.log("globalDrawBounds",checkBox.globalDrawBounds);
             jsonCheckBox = {...jsonCheckBox,...jsonGroup};
             }
               

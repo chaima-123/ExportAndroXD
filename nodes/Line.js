@@ -16,13 +16,7 @@ class Line {
         jsonObj["marginRight"]= widthArt-Line.boundsInParent.width-Line.boundsInParent.x;
 
 
-        console.log("globalBounds",Line.globalBounds);
-		console.log("localBounds",Line.localBounds );
-		console.log("boundsInParent",Line.boundsInParent);
-		console.log("topLeftInParent",Line.topLeftInParent);
-		console.log("localCenterPoint",Line.localCenterPoint);
-		console.log("globalDrawBounds",Line.globalDrawBounds);
-        
+
 		return jsonObj;
 	   
    }
