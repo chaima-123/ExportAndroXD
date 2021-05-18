@@ -8,6 +8,7 @@ const xd = require("scenegraph");
 class ImageView {
 
     static parseImageViewToJson(imageView) {
+        
         var jsonImageView = {};
         var jsonObj = {};
         var jsonRectangle = {};
