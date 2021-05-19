@@ -6,6 +6,10 @@ class RepeatGrid {
 		const { Utils } = require("../utils/Utils");
         let test =true;
 
+		const widthArt = global.widthArt;
+		const heightArt = global.heightArt;
+
+
 		let jsonObj={};
         let jsonChildren = [];
 		jsonObj[".class"]="RecyclerViewer";
