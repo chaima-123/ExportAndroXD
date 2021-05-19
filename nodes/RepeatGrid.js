@@ -20,7 +20,7 @@ class RepeatGrid {
 		jsonObj["numRows"]=RepeatGrid.numRows  ;
 
 		jsonObj["marginRight"]=widthArt-RepeatGrid.boundsInParent.width-RepeatGrid.boundsInParent.x;
-		jsonObj["marginBottom"]=widthArt-RepeatGrid.boundsInParent.height-RepeatGrid.boundsInParent.y;
+		jsonObj["marginBottom"]=heightArt-RepeatGrid.boundsInParent.height-RepeatGrid.boundsInParent.y;
 
 
         console.log(RepeatGrid.numRows);
