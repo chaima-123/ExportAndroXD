@@ -190,7 +190,7 @@ height:80%;
 <p id="warning"> Please select an Artboard to Export Or a Single element.</p>
 
 <button id="exportAll" uxp-variant="cta" class="fixedF ">Export All Artboards</button>
-<button class="fixedS ">Export Selected Artboards</button>
+<button id="exportSelected" class="fixedS ">Export Selected Artboards</button>
 
 `;
 
@@ -243,15 +243,26 @@ function update(selection, root) { // [1]
     //sendRequestAll(ngroxBase+"GenerateProject","GET",false);
   });
 
-  // const exportAllArboards = document.querySelector('#exportAll');
+  const exportAllArboards = document.querySelector('#exportAll');
 
 
 
-  // exportAllArboards.addEventListener('click', event => {
-  //   exportAllArtboardFromClick();
-  //   //sendRequestAll(ngroxBase+"GenerateProject","GET",false);
-  // });
+  exportAllArboards.addEventListener('click', event => {
+    exportAllArtboardFromClick();
+    //sendRequestAll(ngroxBase+"GenerateProject","GET",false);
+  });
 
+
+
+  const exportAllSelected = document.querySelector('#exportSelected');
+
+
+
+  exportAllSelected.addEventListener('click', event => {
+    console.log("hei")
+    exportSelectedArtboardFromClick();
+    //sendRequestAll(ngroxBase+"GenerateProject","GET",false);
+  });
 
 
 
@@ -540,6 +551,49 @@ async function exportAllArtboardFromClick() {
 
 }
 
+async function exportSelectedArtboardFromClick() {
+
+
+
+  const { editDocument } = require("application");
+  editDocument({ editLabel: "Export/GenerateProject" }, async (selected, root) => {
+
+    folder = await fs.localFileSystem.getFolder();
+
+    
+    var selectionObj = {};
+    selectionObj["children"] = selected.items;
+    console.log(selectionObj);
+    Utils.exportAllImages(selectionObj, folder);
+
+
+    sendRequestAll(ngroxBase + "GenerateProject", "GET", false).then(value => {
+      console.log("On Generate Priject ");
+      sendRequest(selectionObj).then(value => {
+        console.log("On Generate XML ");
+
+        sendRequestAll(ngroxBase + "GetProject", "GET", false).then(value => {
+
+          console.log("On get Project ");
+
+          sendRequestAll(ngroxBase + "download", "GET", true).then(value => {
+
+            console.log("im done here ");
+          })
+
+
+        });
+
+      });
+
+    });
+
+
+  });
+
+}
+
+
 async function exportAllArtboardFromCommandId(selection, root) {
 
   folder = await fs.localFileSystem.getFolder();
@@ -570,6 +624,8 @@ async function exportAllArtboardFromCommandId(selection, root) {
 
 
 }
+
+
 async function exportSelectedArtboardFromCommandId(selection, root) {
 
   var selectionObj = {};
