@@ -6,11 +6,11 @@
   },
   "id" : "eae73435",
   "icons" : [ {
-    "path" : "images/logo.png",
+    "path" : "images/logo24.png",
     "width" : 24,
     "height" : 24
   }, {
-    "path" : "images/logo.png",
+    "path" : "images/logo48.png",
     "width" : 48,
     "height" : 48
   } ],
