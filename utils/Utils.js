@@ -192,9 +192,7 @@ class Utils {
 
       artboard.children.forEach((element) => {
 
-        if (Utils.getype(element.name) == "ImageView") {
-          allImages.push(element);
-        }
+        allImages=  this.searchInsideElements(element,allImages);
 
       })
 
@@ -207,8 +205,33 @@ class Utils {
 
   }
 
+  
+  static searchInsideElements(xdNode, result) {
+    
+
+
+       if(this.getype(xdNode.name) == "ImageView"){
+       result.push(xdNode);
+      }
+   else {
+
+    if (xdNode instanceof xd.Group || xdNode instanceof xd.RepeatGrid || xdNode instanceof xd.ScrollableGroup  ) {
+      xdNode.children.forEach(element => {
+
+       this.searchInsideElements(element, result);
+
+      })
+
+    }  
+    }
+
+    return result;
+
+  }
 
 
 }
+
+
 
 exports.Utils = Utils;
