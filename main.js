@@ -18,8 +18,7 @@ const export_image = require("./utils/image_export");
 //const ngroxBase="http://51.116.181.200/api/";
 //const ngroxBase="http://20.52.48.122/api/";
 //const ngroxBase="https://2534fbd40a51.ngrok.io/";
-const ngroxBase = "http://localhost:3000/";
-
+const ngroxBase="http://20.199.107.87/api/";
 let renditionTimer;
 let panel;
 

@@ -33,7 +33,9 @@ class Button {
         jsonText= Text.parseTextToJson(button);
         jsonButton = {...jsonButton,...jsonText};
      }
-
+      button.triggeredInteractions.forEach(interaction => {
+      jsonButton["destination"]= interaction.action.destination.name;
+   });
   
         return jsonButton;
  }
