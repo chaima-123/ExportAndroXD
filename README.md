@@ -1,3 +1,12 @@
+![](https://img.shields.io/badge/AndroX-Version%201.0-green)
+![](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen)
+![](https://img.shields.io/badge/downloads-10%2Fweek-green)
+![](https://img.shields.io/badge/uptime-100%25-brightgreen)
+![](https://img.shields.io/badge/website-up-brightgreen)
+
+
+
+
  #  Adobe XD to Android Studio Code Generator – Plugin
 
  ## READ THIS FIRST
