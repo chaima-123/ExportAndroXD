@@ -12,7 +12,7 @@ Before you get started, please read through the rest of this document, especiall
 - In the Adobe XD menubar, go to Plugins > Discover Plugins, then search for and install the "Android" plugin. It will now show up in your plugins sidebar in the bottom left of XD. If you don't see the plugin listed, make sure you have the most recent version of Adobe XD installed, and try again.
 
 - You can also get the .zip of the plugin from our website, then go to Adobe XD > Plugins > development > Show Develop Folder and put the plugin project there. After that you just need to reload the by plugin Adobe XD > Plugins > development > Reload plugins.
-By these simple clicks Androx will be ready on your computer!
+By these simple clicks Androx will be ready to use on your computer!
  
 
 
