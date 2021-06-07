@@ -1,5 +1,4 @@
 
-
  #  Adobe XD to Android Studio Code Generator – Plugin
 
  ## READ THIS FIRST
@@ -11,7 +10,12 @@ Before you get started, please read through the rest of this document, especiall
 
  ## INSTALLATION  & SETUP
 
-In the Adobe XD menubar, go to Plugins > Discover Plugins, then search for and install the "Android" plugin. It will now show up in your plugins sidebar in the bottom left of XD. If you don't see the plugin listed, make sure you have the most recent version of Adobe XD installed, and try again.
+- In the Adobe XD menubar, go to Plugins > Discover Plugins, then search for and install the "Android" plugin. It will now show up in your plugins sidebar in the bottom left of XD. If you don't see the plugin listed, make sure you have the most recent version of Adobe XD installed, and try again.
+
+- You can also get the .zip of the plugin from our website, then go to Adobe XD > Plugins > development > Show Develop Folder and put the plugin project there. After that you just need to reload the by plugin Adobe XD > Plugins > development > Reload plugins.
+By these simple clicks Androx will be ready on your computer!
+ 
+
 
 ## ABOUT THIS PLUGIN
 
@@ -24,7 +28,7 @@ To make this plugin works correctly, there are primary ways that you need to fol
 
 ## **Artboard**
 
-You need to select the whole artboard and then you click on the button “export artboard” to export the XML file.
+You need to select the whole artboard and then you click on the button “export all artboard” to get the XML files or you can also export only the selected artboards and click on button “export selected artboards” .
 
 ## **ID**
 
@@ -45,6 +49,11 @@ A button can be with text or without, so when you create a rectangle with a text
 
 An edit text can be also with hint or without, so when you create a rectangle with a text it is necessary to group them and select the EditText type from the panel
 
+## **RECYCLER VIEWER**
+
+In this version, the recycler contents can be only an image view and a text view ,to get a correct list you just need to group these two components and define them as a repeat Grid. 
+Our plugin will automatically generate the recycler viewer in Android Studio with the necessary java classes (adapters, activity..) while you can test directly in your simulator.
+
 ## **NAMES OF ARTBOARD**
 
 Every artboard will be converted to an xml file in android studio, for that you must attach the extension .xml to name of the artboard.
@@ -58,13 +67,11 @@ In order to optimize export,     images are not exported with widgets. Only imag
 
 -	Only solid color backgrounds are supported for artboard.
 
--	List views, recycler Viewer, grid view are not supported in this version and will be aded for the next versions.
-
 -	Only horizontal or Vertical Scroll View is accepted because the Horizontal/Vertical widget is not supported in android studio.
 
 -	Opacity is always considered as 100.
 
--	Gradient backgrounds on artboards
+-	Gradient backgrounds on artboards.
 
 
 
