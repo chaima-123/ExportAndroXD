@@ -20,6 +20,7 @@ By these simple clicks Androx will be ready to use on your computer!
 
 This plugin will help you to simplify the workflow of the design-to-development by allowing developers to design android application in XD and converting them to XML code of Android Studio with a simple click of a button.
 
+
 # **USING THIS PLUGIN**
 
 To make this plugin works correctly, there are primary ways that you need to follow: 
@@ -28,6 +29,10 @@ To make this plugin works correctly, there are primary ways that you need to fol
 ## **Artboard**
 
 You need to select the whole artboard and then you click on the button “export all artboard” to get the XML files or you can also export only the selected artboards and click on button “export selected artboards” .
+
+## **NAMES OF ARTBOARD**
+
+Every artboard will be converted to an xml file in android studio, for that you must attach the extension .xml to name of the artboard.
 
 ## **ID**
 
@@ -52,9 +57,6 @@ An edit text can be also with hint or without, so when you create a rectangle wi
 In this version, the recycler contents can be only an image view and a text view ,to get a correct list you just need to group these two components and define them as a repeat Grid. 
 Our plugin will automatically generate the recycler viewer in Android Studio with the necessary java classes (adapters, activity..) while you can test directly in your simulator.
 
-## **NAMES OF ARTBOARD**
-
-Every artboard will be converted to an xml file in android studio, for that you must attach the extension .xml to name of the artboard.
 
 ## **EXPORT IMAGES**
 
