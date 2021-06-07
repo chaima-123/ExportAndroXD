@@ -1,4 +1,3 @@
-
  #  Adobe XD to Android Studio Code Generator – Plugin
 
  ## READ THIS FIRST
@@ -33,7 +32,6 @@ You need to select the whole artboard and then you click on the button “export
 ## **ID**
 
 In android Studio, every component should have an id, for that we provided for you a simple panel where you will indicate for every component its id.
-
 Remember to not provide the same id for different component, other ways the xml file will contain errors.
 
 ## **TYPES**
