@@ -58,6 +58,8 @@ Other ways the plugin will not work correctly.
 
 A button can be with text or without, so when you create a rectangle with a text it is necessary to group them.
 
+![demoBtn](/uploads/aae83fddee4272dcf214ab657168f76b/demoBtn.gif)
+
 ## **EDIT TEXT**
 
 An edit text can be also with hint or without, so when you create a rectangle with a text it is necessary to group them and select the EditText type from the panel
