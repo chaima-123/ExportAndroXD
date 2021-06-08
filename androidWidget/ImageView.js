@@ -16,7 +16,6 @@ class ImageView {
         jsonImageView[".adobeClass"] = imageView.constructor.name;
         jsonImageView[".id"] = imageView.name.substring(imageView.name.lastIndexOf("_") + 1,);
 
-         console.log(imageView);
  
          let test = false ;
         if (imageView instanceof xd.Group) {

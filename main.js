@@ -629,7 +629,6 @@ async function exportSelectedArtboardFromCommandId(selection, root) {
 
   var selectionObj = {};
   selectionObj["children"] = selection.items;
-  console.log("hello", selectionObj);
   folder = await fs.localFileSystem.getFolder();
   Utils.exportAllImages(selectionObj, folder);
 
