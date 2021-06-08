@@ -38,7 +38,7 @@ class ScrollableGroup {
 	  });
 	 if(ScrollableGroup.scrollingType=="vertical"){
 		jsonChildren.forEach((newElement)=>{
-			newElement["y"]=newElement["y"]-ScrollableGroup.globalBounds.y;
+			//newElement["y"]=newElement["y"]-ScrollableGroup.globalBounds.y;
 			if(newElement[".adobeClass"]!="ScrollableGroup"){
 			newElement["marginRight"]=undefined
 		}
@@ -46,7 +46,7 @@ class ScrollableGroup {
 
 	 }else{
 		jsonChildren.forEach((newElement)=>{
-			newElement["y"]=newElement["y"]-ScrollableGroup.globalBounds.y;
+			//newElement["y"]=newElement["y"]-ScrollableGroup.globalBounds.y;
 			newElement["x"]=newElement["x"]-12;
 			newElement["marginRight"]=undefined
 			newElement["marginBottom"]=0
